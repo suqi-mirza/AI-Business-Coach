@@ -211,14 +211,17 @@
   .screen{display:none}
   .screen.active{display:block}
   .navlink{color:#9DA0AE;border:1px solid transparent}
-  .navlink:hover{color:#fff;background:rgba(255,255,255,.03)}
-  .navlink.active{color:#fff;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+  .navlink:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .navlink.active{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1)}
   .step-dot{width:24px;height:24px;border-radius:9999px;display:grid;place-items:center;font-size:.7rem;font-weight:600}
   .kbd{font-family:'Inter';font-size:10px;padding:2px 6px;border:1px solid rgba(255,255,255,.12);border-bottom-width:2px;border-radius:6px;color:#9DA0AE;background:rgba(255,255,255,.02)}
   .icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .icon-sm{width:14px;height:14px}
   .marquee{mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
   .ring-soft{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+  /* right-side drawer slide */
+  .entry-drawer{transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  #newEntryModal:not(.hidden) .entry-drawer{transform:translateX(0)}
 
   /* ================================================================
      RESPONSIVE — global mobile/tablet polish
@@ -1396,7 +1399,21 @@
             <div class="text-[12px] text-white/40">Monday, April 8</div>
             <h1 class="text-3xl tracking-tightest font-medium mt-1">Good morning, Saqlain.</h1>
           </div>
-          <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New entry</button>
+          <button onclick="openModal('newEntryModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New entry</button>
+        </div>
+
+        <!-- My entries -->
+        <div id="entriesSection" class="hidden mb-5">
+          <div class="panel rounded-xl">
+            <div class="flex items-center justify-between p-5 border-b border-line">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-white/40">Workspace</div>
+                <div class="font-medium mt-0.5">My entries <span id="entriesCount" class="text-white/40 text-[12px] ml-1"></span></div>
+              </div>
+              <button onclick="openModal('newEntryModal')" class="chip">+ Add another</button>
+            </div>
+            <div id="entriesList" class="divide-hair"></div>
+          </div>
         </div>
 
         <!-- Score Cards -->
@@ -2372,6 +2389,66 @@
   </div>
 </div>
 
+<!-- ============ DRAWER: NEW DASHBOARD ENTRY ============ -->
+<div id="newEntryModal" class="modal hidden fixed inset-0 z-50">
+  <div class="absolute inset-0 bg-ink-950/60 backdrop-blur-sm"></div>
+  <div onclick="event.stopPropagation()" class="entry-drawer absolute top-0 right-0 h-full w-[460px] max-w-full bg-ink-900 border-l border-line shadow-2xl flex flex-col">
+    <div class="flex items-start justify-between p-6 border-b border-line">
+      <div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">New entry</div>
+        <h3 class="text-lg font-medium tracking-tight mt-1">Log a new entry</h3>
+        <p class="text-[12px] text-white/50 mt-1">Track a metric, milestone, or insight on your dashboard.</p>
+      </div>
+      <button onclick="closeModal('newEntryModal')" aria-label="Close" class="text-white/40 hover:text-white text-2xl leading-none">×</button>
+    </div>
+
+    <form id="newEntryForm" class="flex-1 overflow-y-auto scrollbar p-6 space-y-4" onsubmit="return saveEntry(event)" novalidate>
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Title <span class="text-accent">*</span></label>
+        <input id="entryTitle" required maxlength="80" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="e.g. Hit 1,000 paying users"/>
+        <div data-error="title" class="text-[11px] text-accent mt-1.5 hidden"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Type</label>
+          <select id="entryType" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+            <option class="bg-ink-900" value="metric">Metric</option>
+            <option class="bg-ink-900" value="milestone">Milestone</option>
+            <option class="bg-ink-900" value="insight">Insight</option>
+            <option class="bg-ink-900" value="task">Task</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Value <span class="text-white/25 normal-case">(optional)</span></label>
+          <input id="entryValue" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="$12,400 or 38%"/>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Notes <span class="text-white/25 normal-case">(optional)</span></label>
+        <textarea id="entryNotes" rows="3" maxlength="500" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none" placeholder="Add context, links, or next steps…"></textarea>
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Priority</label>
+        <div class="flex gap-2" id="entryPriorityGroup">
+          <button type="button" data-priority="low" class="entry-priority chip flex-1 justify-center">Low</button>
+          <button type="button" data-priority="medium" class="entry-priority chip flex-1 justify-center bg-white/8 text-white border-white/20">Medium</button>
+          <button type="button" data-priority="high" class="entry-priority chip flex-1 justify-center">High</button>
+        </div>
+      </div>
+
+      <div data-error="form" class="text-[12px] text-accent hidden"></div>
+    </form>
+
+    <div class="p-6 border-t border-line flex justify-end gap-2">
+      <button type="button" onclick="closeModal('newEntryModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
+      <button type="submit" form="newEntryForm" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Save entry →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ MODAL: ADD COMPETITOR ============ -->
 <div id="addCompetitorModal" class="modal hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-center p-6">
   <div onclick="event.stopPropagation()" class="w-[480px] max-w-full panel rounded-xl p-6 shadow-2xl">
@@ -2962,6 +3039,132 @@
     });
   }
   document.addEventListener('DOMContentLoaded', injectPublicFooters);
+
+  // ====================================================================
+  // === DASHBOARD ENTRIES (create / list / delete with localStorage) ===
+  // ====================================================================
+  const ENTRIES_KEY = 'coachly-entries';
+  let entryPriority = 'medium';
+
+  function loadEntries(){
+    try { return JSON.parse(localStorage.getItem(ENTRIES_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function saveEntriesStore(list){
+    try { localStorage.setItem(ENTRIES_KEY, JSON.stringify(list)); } catch {}
+  }
+
+  function entryTypeMeta(type){
+    const map = {
+      metric:    { label:'Metric',    icon:'<path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/>' },
+      milestone: { label:'Milestone', icon:'<path d="M5 21V5a2 2 0 0 1 2-2h10l-2 4 2 4H7"/>' },
+      insight:   { label:'Insight',   icon:'<path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2z"/><path d="M10 22h4"/>' },
+      task:      { label:'Task',      icon:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 12l3 3 5-6"/>' },
+    };
+    return map[type] || map.metric;
+  }
+  function priorityChipClass(p){
+    if(p === 'high')   return 'border-accent/40 text-accent';
+    if(p === 'medium') return 'border-white/20 text-white/80';
+    return 'border-white/10 text-white/50';
+  }
+  function escapeHtml2(s){ return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function relTime(ts){
+    const m = Math.floor((Date.now()-ts)/60000);
+    if(m < 1) return 'just now';
+    if(m < 60) return m+'m ago';
+    const h = Math.floor(m/60);
+    if(h < 24) return h+'h ago';
+    const d = Math.floor(h/24);
+    return d+'d ago';
+  }
+
+  function renderEntries(){
+    const list = loadEntries();
+    const section = document.getElementById('entriesSection');
+    const listEl = document.getElementById('entriesList');
+    const countEl = document.getElementById('entriesCount');
+    if(!section || !listEl) return;
+    if(list.length === 0){ section.classList.add('hidden'); return; }
+    section.classList.remove('hidden');
+    countEl.textContent = '· ' + list.length;
+    listEl.innerHTML = list.map(e => {
+      const meta = entryTypeMeta(e.type);
+      return `
+        <div class="p-5 flex gap-4 items-start">
+          <div class="w-9 h-9 rounded-md bg-accent/15 text-accent grid place-items-center shrink-0">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">${meta.icon}</svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="font-medium text-[14px]">${escapeHtml2(e.title)}</div>
+              ${e.value ? `<span class="chip border-white/15 text-white/70">${escapeHtml2(e.value)}</span>` : ''}
+              <span class="chip ${priorityChipClass(e.priority)}">${e.priority}</span>
+            </div>
+            ${e.notes ? `<p class="text-[13px] text-white/55 mt-1.5 leading-relaxed">${escapeHtml2(e.notes)}</p>` : ''}
+            <div class="text-[11px] text-white/30 mt-2">${meta.label} · ${relTime(e.createdAt)}</div>
+          </div>
+          <button onclick="deleteEntry('${e.id}')" aria-label="Delete entry" class="text-white/40 hover:text-accent text-sm px-2 py-1 rounded hover:bg-white/5">×</button>
+        </div>`;
+    }).join('');
+  }
+
+  function setError2(form, field, msg){
+    const el = form.querySelector(`[data-error="${field}"]`);
+    if(!el) return;
+    if(msg){ el.textContent = msg; el.classList.remove('hidden'); }
+    else { el.textContent = ''; el.classList.add('hidden'); }
+  }
+
+  function saveEntry(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    setError2(form,'title',''); setError2(form,'form','');
+    const title = document.getElementById('entryTitle').value.trim();
+    if(!title){ setError2(form,'title','Title is required'); return false; }
+
+    const entry = {
+      id: 'e_' + Math.random().toString(36).slice(2, 10),
+      title,
+      type: document.getElementById('entryType').value,
+      value: document.getElementById('entryValue').value.trim(),
+      notes: document.getElementById('entryNotes').value.trim(),
+      priority: entryPriority,
+      createdAt: Date.now(),
+    };
+    const list = loadEntries();
+    list.unshift(entry);
+    saveEntriesStore(list);
+    renderEntries();
+    closeModal('newEntryModal');
+    form.reset();
+    entryPriority = 'medium';
+    syncPriorityButtons();
+    return false;
+  }
+
+  function deleteEntry(id){
+    const list = loadEntries().filter(e => e.id !== id);
+    saveEntriesStore(list);
+    renderEntries();
+  }
+
+  function syncPriorityButtons(){
+    document.querySelectorAll('.entry-priority').forEach(btn=>{
+      const active = btn.dataset.priority === entryPriority;
+      btn.classList.toggle('bg-white/8', active);
+      btn.classList.toggle('text-white', active);
+      btn.classList.toggle('border-white/20', active);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll('.entry-priority').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ entryPriority = btn.dataset.priority; syncPriorityButtons(); });
+    });
+    syncPriorityButtons();
+    renderEntries();
+  });
 
   function generateCoach(){
     const overlay = document.getElementById('loading');
