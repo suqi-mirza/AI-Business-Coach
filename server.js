@@ -75,11 +75,7 @@ function validateEmail(email) {
   return null;
 }
 function validatePassword(pw) {
-  if (typeof pw !== "string") return "Password is required";
-  if (pw.length < 8) return "Password must be at least 8 characters";
-  if (pw.length > 128) return "Password is too long";
-  if (!/[a-zA-Z]/.test(pw)) return "Password must contain a letter";
-  if (!/[0-9]/.test(pw)) return "Password must contain a number";
+  if (typeof pw !== "string" || pw.length === 0) return "Password is required";
   return null;
 }
 function normalizeEmail(email) { return String(email || "").trim().toLowerCase(); }
