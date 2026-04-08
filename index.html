@@ -78,6 +78,110 @@
   .underline-accent{background-image:linear-gradient(#D97757,#D97757);background-size:0% 1.5px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .8s cubic-bezier(.2,.7,.2,1)}
   .in .underline-accent, .underline-accent.in{background-size:100% 1.5px}
   #publicNav.scrolled{background:rgba(8,9,11,.85);border-bottom-color:rgba(255,255,255,.08)}
+
+  /* ============================================================
+     LIGHT MODE
+     ============================================================ */
+  body.light{background:#FAFAF7;color:#1A1A1F}
+  body.light ::selection{background:#D97757;color:#fff}
+
+  /* base surfaces */
+  body.light .bg-ink-950{background-color:#FAFAF7 !important}
+  body.light .bg-ink-900{background-color:#F5F5F2 !important}
+  body.light .bg-ink-850,body.light .bg-ink-800,body.light .bg-ink-700{background-color:#EFEFEA !important}
+
+  /* panels */
+  body.light .panel{background:#FFFFFF;border-color:rgba(0,0,0,.08)}
+  body.light .panel-2{background:#F7F6F2;border-color:rgba(0,0,0,.07)}
+  body.light .hairline,body.light .border-line{border-color:rgba(0,0,0,.08) !important}
+  body.light .divide-hair > * + *{border-top-color:rgba(0,0,0,.07)}
+  body.light .ring-soft{box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+
+  /* text — white opacities → black opacities */
+  body.light .text-white{color:#1A1A1F !important}
+  body.light .text-white\/90{color:rgba(20,20,25,.9)}
+  body.light .text-white\/80{color:rgba(20,20,25,.82)}
+  body.light .text-white\/75{color:rgba(20,20,25,.78)}
+  body.light .text-white\/70{color:rgba(20,20,25,.72)}
+  body.light .text-white\/65{color:rgba(20,20,25,.68)}
+  body.light .text-white\/60{color:rgba(20,20,25,.62)}
+  body.light .text-white\/55{color:rgba(20,20,25,.58)}
+  body.light .text-white\/50{color:rgba(20,20,25,.55)}
+  body.light .text-white\/45{color:rgba(20,20,25,.5)}
+  body.light .text-white\/40{color:rgba(20,20,25,.48)}
+  body.light .text-white\/35{color:rgba(20,20,25,.45)}
+  body.light .text-white\/30{color:rgba(20,20,25,.42)}
+  body.light .text-white\/25{color:rgba(20,20,25,.35)}
+  body.light .text-white\/20{color:rgba(20,20,25,.3)}
+
+  /* white→dark for solid bg uses (logo squares, primary chip) */
+  body.light .bg-white{background-color:#1A1A1F !important}
+  body.light .text-ink-950{color:#FAFAF7 !important}
+
+  /* white-opacity bgs (chart bars, dividers) → dark opacities */
+  body.light .bg-white\/5{background-color:rgba(0,0,0,.045)}
+  body.light .bg-white\/8{background-color:rgba(0,0,0,.06)}
+  body.light .bg-white\/10{background-color:rgba(0,0,0,.08)}
+  body.light .bg-white\/15{background-color:rgba(0,0,0,.12)}
+  body.light .bg-white\/20{background-color:rgba(0,0,0,.16)}
+  body.light .bg-white\/25{background-color:rgba(0,0,0,.2)}
+  body.light .bg-white\/30{background-color:rgba(0,0,0,.26)}
+  body.light .bg-white\/35{background-color:rgba(0,0,0,.3)}
+  body.light .bg-white\/40{background-color:rgba(0,0,0,.34)}
+  body.light .bg-white\/45{background-color:rgba(0,0,0,.4)}
+  body.light .bg-white\/50{background-color:rgba(0,0,0,.45)}
+  body.light .bg-white\/55{background-color:rgba(0,0,0,.5)}
+  body.light .bg-white\/60{background-color:rgba(0,0,0,.55)}
+  body.light .bg-white\/65{background-color:rgba(0,0,0,.6)}
+  body.light .bg-white\/70{background-color:rgba(0,0,0,.65)}
+  body.light .bg-white\/85{background-color:rgba(0,0,0,.8)}
+
+  /* borders */
+  body.light .border-white{border-color:#1A1A1F}
+  body.light .border-white\/40{border-color:rgba(0,0,0,.45)}
+
+  /* grid bg */
+  body.light .grid-bg{
+    background-image:
+      linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+  }
+  body.light .hero-glow{background:radial-gradient(600px 320px at 50% 0%,rgba(217,119,87,.16),transparent 70%)}
+
+  /* buttons / chip */
+  body.light .btn-ghost{border-color:rgba(0,0,0,.12);color:#1A1A1F}
+  body.light .btn-ghost:hover{background:rgba(0,0,0,.04)}
+  body.light .chip{border-color:rgba(0,0,0,.1);background:rgba(0,0,0,.025);color:rgba(0,0,0,.62)}
+
+  /* nav links */
+  body.light .navlink{color:rgba(20,20,25,.6)}
+  body.light .navlink:hover{color:#1A1A1F;background:rgba(0,0,0,.045)}
+  body.light .navlink.active{color:#1A1A1F;background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.08)}
+
+  /* sticky public nav */
+  body.light #publicNav{background:rgba(250,250,247,.72)}
+  body.light #publicNav.scrolled{background:rgba(250,250,247,.92);border-bottom-color:rgba(0,0,0,.08)}
+
+  /* keyboard hint */
+  body.light .kbd{border-color:rgba(0,0,0,.12);color:rgba(0,0,0,.5);background:rgba(0,0,0,.025)}
+
+  /* form fields */
+  body.light input,body.light select,body.light textarea{color:#1A1A1F}
+  body.light input::placeholder{color:rgba(0,0,0,.35)}
+  body.light .bg-white\/\[0\.02\]{background-color:#FFFFFF !important;border-color:rgba(0,0,0,.1) !important}
+  body.light input:focus,body.light select:focus{border-color:rgba(0,0,0,.4) !important}
+
+  /* loading overlay */
+  body.light #loading{background:rgba(250,250,247,.95)}
+
+  /* chat bubble (user) */
+  body.light .bg-white.text-ink-950{background:#1A1A1F !important;color:#FAFAF7 !important}
+
+  /* logo icon (dark stroke on white square) – flip in light mode */
+  body.light .w-7.h-7.bg-white svg path,body.light .w-9.h-9.bg-white svg path{stroke:#FAFAF7 !important}
+
+  /* score progress filled bg-white → use accent for visibility */
+  body.light .grow-bar.bg-white{background-color:#D97757 !important}
   .serif{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.02em}
   .hairline{border:1px solid rgba(255,255,255,.08)}
   .panel{background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.07)}
@@ -129,14 +233,18 @@
       <span class="font-semibold tracking-tight">Coachly</span>
     </a>
     <nav class="hidden md:flex items-center gap-9 text-[13px] text-white/60">
-      <a class="hover:text-white">Product</a>
-      <a class="hover:text-white">Solutions</a>
-      <a class="hover:text-white">Pricing</a>
-      <a class="hover:text-white">Customers</a>
-      <a class="hover:text-white">Changelog</a>
+      <a onclick="show('product')" class="hover:text-white cursor-pointer">Product</a>
+      <a onclick="show('solutions')" class="hover:text-white cursor-pointer">Solutions</a>
+      <a onclick="show('pricing')" class="hover:text-white cursor-pointer">Pricing</a>
+      <a onclick="show('customers')" class="hover:text-white cursor-pointer">Customers</a>
+      <a onclick="show('changelog')" class="hover:text-white cursor-pointer">Changelog</a>
     </nav>
     <div class="flex items-center gap-2">
-      <button onclick="show('signup')" class="text-[13px] text-white/70 hover:text-white px-3 py-1.5">Sign in</button>
+      <button onclick="toggleTheme()" aria-label="Toggle theme" class="w-8 h-8 rounded-md btn-ghost grid place-items-center">
+        <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon icon-sm theme-icon-light hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button onclick="show('signin')" class="text-[13px] text-white/70 hover:text-white px-3 py-1.5">Sign in</button>
       <button onclick="show('signup')" class="text-[13px] font-medium px-3.5 py-1.5 rounded-md btn-primary">Get started</button>
     </div>
   </div>
@@ -160,7 +268,7 @@
         </p>
         <div class="mt-9 flex flex-wrap justify-center gap-2.5">
           <button onclick="show('signup')" class="px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Start free →</button>
-          <button class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">Book a demo</button>
+          <button onclick="show('demo')" class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">Book a demo</button>
         </div>
         <div class="mt-10 flex items-center justify-center gap-4 text-xs text-white/40">
           <span>Free for 14 days</span><span class="text-white/20">·</span><span>No credit card</span><span class="text-white/20">·</span><span>Cancel anytime</span>
@@ -370,9 +478,462 @@
         <div class="w-5 h-5 rounded bg-white/10"></div>
         © 2026 Coachly Labs
       </div>
-      <div class="flex gap-7"><a class="hover:text-white">Privacy</a><a class="hover:text-white">Terms</a><a class="hover:text-white">Twitter</a><a class="hover:text-white">Contact</a></div>
+      <div class="flex gap-7">
+        <a onclick="show('privacy')" class="hover:text-white cursor-pointer">Privacy</a>
+        <a onclick="show('terms')" class="hover:text-white cursor-pointer">Terms</a>
+        <a onclick="show('contact')" class="hover:text-white cursor-pointer">Contact</a>
+      </div>
     </div>
   </footer>
+</section>
+
+<!-- ============ PUBLIC: PRODUCT ============ -->
+<section id="product" class="screen">
+  <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+    <div class="max-w-3xl" data-stagger>
+      <div class="chip mb-6"><span class="text-accent">●</span> Product</div>
+      <h1 class="text-5xl md:text-6xl tracking-tightest font-medium leading-[1]">
+        The full <span class="serif italic text-accent">operating system</span><br/>for your business.
+      </h1>
+      <p class="mt-6 text-lg text-white/55 max-w-xl leading-relaxed">Six modules. One brain. Built so you spend less time deciding and more time shipping.</p>
+    </div>
+
+    <div class="mt-20 grid md:grid-cols-2 gap-px bg-white/5 rounded-xl overflow-hidden" data-stagger data-reveal>
+      <div class="bg-ink-950 p-8">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></div>
+        <h3 class="mt-5 text-xl font-medium tracking-tight">AI Business Coach</h3>
+        <p class="text-sm text-white/55 mt-2 leading-relaxed">A 24/7 strategist that knows your numbers, your market, and your blockers. Ask anything — get specific, opinionated answers in seconds.</p>
+        <ul class="mt-5 space-y-2 text-[13px] text-white/65">
+          <li class="flex gap-2"><span class="text-accent">→</span> Trained on 1000+ startup playbooks</li>
+          <li class="flex gap-2"><span class="text-accent">→</span> Remembers your context across sessions</li>
+          <li class="flex gap-2"><span class="text-accent">→</span> Pulls from your live metrics</li>
+        </ul>
+      </div>
+      <div class="bg-ink-950 p-8">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <h3 class="mt-5 text-xl font-medium tracking-tight">30-Day Strategy</h3>
+        <p class="text-sm text-white/55 mt-2 leading-relaxed">A custom playbook generated from your stage, market, and goals. Week-by-week, with checkboxes and accountability.</p>
+        <ul class="mt-5 space-y-2 text-[13px] text-white/65">
+          <li class="flex gap-2"><span class="text-accent">→</span> Auto-regenerates as you progress</li>
+          <li class="flex gap-2"><span class="text-accent">→</span> Actionable tasks, not vague advice</li>
+          <li class="flex gap-2"><span class="text-accent">→</span> Export to Notion, Linear, Asana</li>
+        </ul>
+      </div>
+      <div class="bg-ink-950 p-8">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg></div>
+        <h3 class="mt-5 text-xl font-medium tracking-tight">Health Score</h3>
+        <p class="text-sm text-white/55 mt-2 leading-relaxed">14 metrics, one number. See exactly where your business is strong, where it's leaking, and what to fix first.</p>
+      </div>
+      <div class="bg-ink-950 p-8">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg></div>
+        <h3 class="mt-5 text-xl font-medium tracking-tight">Analytics & Reports</h3>
+        <p class="text-sm text-white/55 mt-2 leading-relaxed">Live dashboards plus one-click investor reports. Tell the story your numbers are actually telling.</p>
+      </div>
+      <div class="bg-ink-950 p-8">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <h3 class="mt-5 text-xl font-medium tracking-tight">AI Agents</h3>
+        <p class="text-sm text-white/55 mt-2 leading-relaxed">Hand off recurring tasks — competitor watch, content briefs, weekly digests — to specialized agents.</p>
+      </div>
+      <div class="bg-ink-950 p-8">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3 class="mt-5 text-xl font-medium tracking-tight">Monday Briefings</h3>
+        <p class="text-sm text-white/55 mt-2 leading-relaxed">Wake up to your week's priorities, risks, and opportunities — written like a chief of staff would.</p>
+      </div>
+    </div>
+
+    <div class="mt-24 panel rounded-2xl p-12 md:p-16 text-center relative overflow-hidden" data-reveal="scale">
+      <div class="absolute -inset-20 bg-accent/10 blur-3xl rounded-full pointer-events-none"></div>
+      <div class="relative">
+        <h2 class="text-4xl md:text-5xl tracking-tightest font-medium">See the product in <span class="serif italic text-accent">action</span>.</h2>
+        <div class="mt-8 flex justify-center gap-2.5">
+          <button onclick="show('signup')" class="px-5 py-2.5 rounded-md btn-primary text-[13px] font-medium">Try it free →</button>
+          <button onclick="show('pricing')" class="px-5 py-2.5 rounded-md btn-ghost text-[13px] font-medium">See pricing</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: SOLUTIONS ============ -->
+<section id="solutions" class="screen">
+  <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+    <div class="max-w-3xl" data-stagger>
+      <div class="chip mb-6"><span class="text-accent">●</span> Solutions</div>
+      <h1 class="text-5xl md:text-6xl tracking-tightest font-medium leading-[1]">
+        Built for <span class="serif italic text-accent">how you work.</span>
+      </h1>
+      <p class="mt-6 text-lg text-white/55 max-w-xl leading-relaxed">From solo founders to seed-stage teams, Coachly adapts to your stage and goals.</p>
+    </div>
+
+    <div class="mt-20 grid md:grid-cols-3 gap-5" data-stagger data-reveal>
+      <div class="panel rounded-xl p-7">
+        <div class="text-[11px] uppercase tracking-wider text-white/40">For</div>
+        <h3 class="mt-1 text-2xl font-medium tracking-tight">Solo founders</h3>
+        <p class="text-sm text-white/55 mt-3 leading-relaxed">You're a team of one wearing every hat. Coachly is the co-founder you don't have.</p>
+        <ul class="mt-5 space-y-2.5 text-[13px] text-white/70">
+          <li class="flex gap-2"><span class="text-accent">✓</span> Daily focus prompts</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Idea validation in minutes</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> First-100-users playbook</li>
+        </ul>
+        <button onclick="show('signup')" class="mt-7 w-full py-2.5 rounded-md btn-ghost text-[13px] font-medium">Start free →</button>
+      </div>
+      <div class="panel rounded-xl p-7 ring-1 ring-accent/40">
+        <div class="text-[11px] uppercase tracking-wider text-accent">Most popular</div>
+        <h3 class="mt-1 text-2xl font-medium tracking-tight">Early-stage startups</h3>
+        <p class="text-sm text-white/55 mt-3 leading-relaxed">You've got a product, some traction, and zero clarity. Coachly turns chaos into a 30-day plan.</p>
+        <ul class="mt-5 space-y-2.5 text-[13px] text-white/70">
+          <li class="flex gap-2"><span class="text-accent">✓</span> Health score + gap analysis</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Weekly growth playbooks</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Competitor intelligence</li>
+        </ul>
+        <button onclick="show('signup')" class="mt-7 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Try Pro →</button>
+      </div>
+      <div class="panel rounded-xl p-7">
+        <div class="text-[11px] uppercase tracking-wider text-white/40">For</div>
+        <h3 class="mt-1 text-2xl font-medium tracking-tight">Seed-stage teams</h3>
+        <p class="text-sm text-white/55 mt-3 leading-relaxed">You raised. Now what? Coachly aligns your team around metrics that matter.</p>
+        <ul class="mt-5 space-y-2.5 text-[13px] text-white/70">
+          <li class="flex gap-2"><span class="text-accent">✓</span> Investor-ready reports</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Team workspace</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Custom AI agents</li>
+        </ul>
+        <button onclick="show('contact')" class="mt-7 w-full py-2.5 rounded-md btn-ghost text-[13px] font-medium">Talk to sales →</button>
+      </div>
+    </div>
+
+    <div class="mt-24" data-reveal>
+      <div class="text-center text-[11px] uppercase tracking-[0.2em] text-white/30 mb-10">By industry</div>
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-xl overflow-hidden">
+        <div class="bg-ink-950 p-6"><h4 class="font-medium">SaaS</h4><p class="text-[13px] text-white/50 mt-1.5">MRR, churn, activation, LTV.</p></div>
+        <div class="bg-ink-950 p-6"><h4 class="font-medium">E-commerce</h4><p class="text-[13px] text-white/50 mt-1.5">CAC, AOV, repeat rate, margin.</p></div>
+        <div class="bg-ink-950 p-6"><h4 class="font-medium">Marketplaces</h4><p class="text-[13px] text-white/50 mt-1.5">Liquidity, take rate, cohort GMV.</p></div>
+        <div class="bg-ink-950 p-6"><h4 class="font-medium">Agencies</h4><p class="text-[13px] text-white/50 mt-1.5">Utilization, retainers, pipeline.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: PRICING ============ -->
+<section id="pricing" class="screen">
+  <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+    <div class="max-w-3xl mx-auto text-center" data-stagger>
+      <div class="chip mb-6 mx-auto"><span class="text-accent">●</span> Pricing</div>
+      <h1 class="text-5xl md:text-6xl tracking-tightest font-medium leading-[1]">
+        Simple. <span class="serif italic text-accent">Transparent.</span>
+      </h1>
+      <p class="mt-6 text-lg text-white/55 max-w-xl mx-auto leading-relaxed">Start free. Upgrade when your business does.</p>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-3 gap-5" data-stagger data-reveal>
+      <div class="panel rounded-xl p-8 flex flex-col">
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Free</div>
+        <div class="mt-3 flex items-baseline gap-1"><span class="text-5xl font-medium tracking-tightest">$0</span><span class="text-white/40 text-sm">/mo</span></div>
+        <p class="text-[13px] text-white/55 mt-3">For solo founders just starting out.</p>
+        <ul class="mt-7 space-y-2.5 text-[13px] text-white/70 flex-1">
+          <li class="flex gap-2"><span class="text-accent">✓</span> AI Coach (50 messages/mo)</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> 1 active strategy</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Health score</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Weekly briefing</li>
+        </ul>
+        <button onclick="show('signup')" class="mt-8 w-full py-2.5 rounded-md btn-ghost text-[13px] font-medium">Get started →</button>
+      </div>
+      <div class="panel rounded-xl p-8 flex flex-col ring-1 ring-accent/50 relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 chip border-accent/50 text-accent bg-ink-950">Most popular</div>
+        <div class="text-[11px] uppercase tracking-wider text-accent">Pro</div>
+        <div class="mt-3 flex items-baseline gap-1"><span class="text-5xl font-medium tracking-tightest">$29</span><span class="text-white/40 text-sm">/mo</span></div>
+        <p class="text-[13px] text-white/55 mt-3">Everything serious founders need.</p>
+        <ul class="mt-7 space-y-2.5 text-[13px] text-white/70 flex-1">
+          <li class="flex gap-2"><span class="text-accent">✓</span> Unlimited AI Coach</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Unlimited strategies</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Competitor tracking (10)</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Investor-ready reports</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Integrations (Stripe, GA, etc.)</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Email + chat support</li>
+        </ul>
+        <button onclick="show('signup')" class="mt-8 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Start free trial →</button>
+      </div>
+      <div class="panel rounded-xl p-8 flex flex-col">
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Team</div>
+        <div class="mt-3 flex items-baseline gap-1"><span class="text-5xl font-medium tracking-tightest">$99</span><span class="text-white/40 text-sm">/mo</span></div>
+        <p class="text-[13px] text-white/55 mt-3">For seed-stage teams scaling fast.</p>
+        <ul class="mt-7 space-y-2.5 text-[13px] text-white/70 flex-1">
+          <li class="flex gap-2"><span class="text-accent">✓</span> Everything in Pro</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Up to 10 seats</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Custom AI agents</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> SSO + audit logs</li>
+          <li class="flex gap-2"><span class="text-accent">✓</span> Priority support</li>
+        </ul>
+        <button onclick="show('contact')" class="mt-8 w-full py-2.5 rounded-md btn-ghost text-[13px] font-medium">Contact sales →</button>
+      </div>
+    </div>
+
+    <div class="mt-24 max-w-3xl mx-auto" data-reveal>
+      <h3 class="text-2xl tracking-tightest font-medium text-center">Frequently asked</h3>
+      <div class="mt-8 divide-y divide-white/8 panel rounded-xl">
+        <details class="group p-5"><summary class="flex justify-between items-center cursor-pointer text-[14px] font-medium">Is there really a free plan?<span class="text-white/40 group-open:rotate-45 transition">+</span></summary><p class="text-[13px] text-white/55 mt-3 leading-relaxed">Yes — free forever, no credit card. You get 50 AI messages per month and one active strategy.</p></details>
+        <details class="group p-5"><summary class="flex justify-between items-center cursor-pointer text-[14px] font-medium">Can I cancel anytime?<span class="text-white/40 group-open:rotate-45 transition">+</span></summary><p class="text-[13px] text-white/55 mt-3 leading-relaxed">Anytime, one click. You'll keep access until the end of the billing cycle.</p></details>
+        <details class="group p-5"><summary class="flex justify-between items-center cursor-pointer text-[14px] font-medium">Which AI model do you use?<span class="text-white/40 group-open:rotate-45 transition">+</span></summary><p class="text-[13px] text-white/55 mt-3 leading-relaxed">Coachly is built on Claude — Anthropic's most capable model — fine-tuned with thousands of startup playbooks and operator interviews.</p></details>
+        <details class="group p-5"><summary class="flex justify-between items-center cursor-pointer text-[14px] font-medium">Is my data private?<span class="text-white/40 group-open:rotate-45 transition">+</span></summary><p class="text-[13px] text-white/55 mt-3 leading-relaxed">Always. Your business data is encrypted at rest, never used for training, and never shared.</p></details>
+        <details class="group p-5"><summary class="flex justify-between items-center cursor-pointer text-[14px] font-medium">Do you offer discounts for students or non-profits?<span class="text-white/40 group-open:rotate-45 transition">+</span></summary><p class="text-[13px] text-white/55 mt-3 leading-relaxed">Yes — 50% off Pro for verified students and non-profits. Email us from your org address.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: CUSTOMERS ============ -->
+<section id="customers" class="screen">
+  <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+    <div class="max-w-3xl" data-stagger>
+      <div class="chip mb-6"><span class="text-accent">●</span> Customers</div>
+      <h1 class="text-5xl md:text-6xl tracking-tightest font-medium leading-[1]">
+        Founders who <span class="serif italic text-accent">ship faster</span><br/>with Coachly.
+      </h1>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-5" data-stagger data-reveal>
+      <div class="panel rounded-xl p-6 text-center"><div class="text-4xl tracking-tightest font-medium num">3.2k</div><div class="text-[11px] uppercase tracking-wider text-white/40 mt-2">Founders</div></div>
+      <div class="panel rounded-xl p-6 text-center"><div class="text-4xl tracking-tightest font-medium num">$48M</div><div class="text-[11px] uppercase tracking-wider text-white/40 mt-2">Revenue grown</div></div>
+      <div class="panel rounded-xl p-6 text-center"><div class="text-4xl tracking-tightest font-medium num">12k+</div><div class="text-[11px] uppercase tracking-wider text-white/40 mt-2">Strategies shipped</div></div>
+      <div class="panel rounded-xl p-6 text-center"><div class="text-4xl tracking-tightest font-medium num">4.9</div><div class="text-[11px] uppercase tracking-wider text-white/40 mt-2">Avg rating</div></div>
+    </div>
+
+    <div class="mt-20 grid md:grid-cols-3 gap-5" data-stagger data-reveal>
+      <div class="panel rounded-xl p-7">
+        <p class="text-[14px] leading-relaxed text-white/80">"Coachly told us to raise prices the day before our board meeting. ARR jumped 22% the next month."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+          <div><div class="text-sm font-medium">Mira Chen</div><div class="text-xs text-white/40">Founder, Vertex</div></div>
+        </div>
+      </div>
+      <div class="panel rounded-xl p-7">
+        <p class="text-[14px] leading-relaxed text-white/80">"It's like having a Stripe operator on call. The 30-day plan got us our first 200 customers in 6 weeks."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+          <div><div class="text-sm font-medium">Daniel Reyes</div><div class="text-xs text-white/40">CEO, Northwind</div></div>
+        </div>
+      </div>
+      <div class="panel rounded-xl p-7">
+        <p class="text-[14px] leading-relaxed text-white/80">"I cancelled my $400/mo coach. Coachly gives me sharper advice in 10 seconds."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+          <div><div class="text-sm font-medium">Aisha Okoro</div><div class="text-xs text-white/40">Founder, Hexlab</div></div>
+        </div>
+      </div>
+      <div class="panel rounded-xl p-7">
+        <p class="text-[14px] leading-relaxed text-white/80">"The Monday briefings saved my week. I stopped reacting and started shipping."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+          <div><div class="text-sm font-medium">Leo Tanaka</div><div class="text-xs text-white/40">Founder, Orbital</div></div>
+        </div>
+      </div>
+      <div class="panel rounded-xl p-7">
+        <p class="text-[14px] leading-relaxed text-white/80">"We closed our seed round with the investor report Coachly generated. Took 3 minutes."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+          <div><div class="text-sm font-medium">Priya Shah</div><div class="text-xs text-white/40">CEO, Lumen</div></div>
+        </div>
+      </div>
+      <div class="panel rounded-xl p-7">
+        <p class="text-[14px] leading-relaxed text-white/80">"Honestly the best $29 I spend every month. It's a co-founder for the price of lunch."</p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+          <div><div class="text-sm font-medium">Marcus Webb</div><div class="text-xs text-white/40">Solo founder, Cobalt</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-24" data-reveal>
+      <div class="text-center text-[11px] uppercase tracking-[0.2em] text-white/30 mb-8">Loved by founders at</div>
+      <div class="marquee overflow-hidden">
+        <div class="marquee-track text-white/40 text-sm font-medium tracking-tight whitespace-nowrap">
+          <span>Vertex</span><span>Northwind</span><span>Orbital</span><span>Hexlab</span><span>Starforge</span><span>Lumen</span><span>Cobalt</span><span>Helio</span>
+          <span>Vertex</span><span>Northwind</span><span>Orbital</span><span>Hexlab</span><span>Starforge</span><span>Lumen</span><span>Cobalt</span><span>Helio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: CHANGELOG ============ -->
+<section id="changelog" class="screen">
+  <div class="max-w-3xl mx-auto px-6 pt-24 pb-20">
+    <div data-stagger>
+      <div class="chip mb-6"><span class="text-accent">●</span> Changelog</div>
+      <h1 class="text-5xl md:text-6xl tracking-tightest font-medium leading-[1]">
+        What's <span class="serif italic text-accent">new.</span>
+      </h1>
+      <p class="mt-6 text-lg text-white/55 max-w-xl leading-relaxed">Every update, every week. We ship like founders.</p>
+    </div>
+
+    <div class="mt-16 space-y-12" data-reveal>
+      <article class="relative pl-8 border-l border-white/10">
+        <div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-accent accent-glow"></div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Apr 8, 2026 · v2.4</div>
+        <h3 class="text-2xl tracking-tightest font-medium mt-1">AI Agents are here</h3>
+        <p class="text-[14px] text-white/60 mt-3 leading-relaxed">Hand off recurring work to specialized agents — competitor watch, content briefs, weekly digests. They run on a schedule and ping you with results.</p>
+        <ul class="mt-4 space-y-1.5 text-[13px] text-white/55">
+          <li>• 6 prebuilt agent templates</li>
+          <li>• Custom triggers + schedules</li>
+          <li>• Slack / email delivery</li>
+        </ul>
+      </article>
+      <article class="relative pl-8 border-l border-white/10">
+        <div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-white/30"></div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Mar 24, 2026 · v2.3</div>
+        <h3 class="text-2xl tracking-tightest font-medium mt-1">Light mode + theme system</h3>
+        <p class="text-[14px] text-white/60 mt-3 leading-relaxed">A polished light mode for late-morning founders. Toggle from anywhere with ⌘J.</p>
+      </article>
+      <article class="relative pl-8 border-l border-white/10">
+        <div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-white/30"></div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Mar 10, 2026 · v2.2</div>
+        <h3 class="text-2xl tracking-tightest font-medium mt-1">Command palette + keyboard shortcuts</h3>
+        <p class="text-[14px] text-white/60 mt-3 leading-relaxed">Hit ⌘K to jump anywhere. ⌘N for a new chat. ⌘J to toggle theme. Built for founders who live on their keyboard.</p>
+      </article>
+      <article class="relative pl-8 border-l border-white/10">
+        <div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-white/30"></div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Feb 20, 2026 · v2.1</div>
+        <h3 class="text-2xl tracking-tightest font-medium mt-1">Competitor intelligence</h3>
+        <p class="text-[14px] text-white/60 mt-3 leading-relaxed">Track up to 10 competitors. Get notified when they ship, raise, or change pricing.</p>
+      </article>
+      <article class="relative pl-8 border-l border-white/10">
+        <div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-white/30"></div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">Feb 1, 2026 · v2.0</div>
+        <h3 class="text-2xl tracking-tightest font-medium mt-1">Coachly 2.0 — rebuilt on Claude</h3>
+        <p class="text-[14px] text-white/60 mt-3 leading-relaxed">A complete rewrite. New brain, sharper recommendations, 10× faster responses, and a redesigned dashboard.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: CONTACT ============ -->
+<section id="contact" class="screen">
+  <div class="max-w-5xl mx-auto px-6 pt-24 pb-20">
+    <div class="grid md:grid-cols-2 gap-16">
+      <div data-stagger>
+        <div class="chip mb-6"><span class="text-accent">●</span> Contact</div>
+        <h1 class="text-5xl tracking-tightest font-medium leading-[1]">
+          Let's <span class="serif italic text-accent">talk.</span>
+        </h1>
+        <p class="mt-6 text-white/55 leading-relaxed">Questions about pricing, partnerships, or just want to say hi? Drop us a line — we read everything.</p>
+        <div class="mt-10 space-y-5 text-[13px]">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Email</div>
+            <div class="mt-1 text-white/85">hi@coachly.ai</div>
+          </div>
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Sales</div>
+            <div class="mt-1 text-white/85">sales@coachly.ai</div>
+          </div>
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Office</div>
+            <div class="mt-1 text-white/85">San Francisco, CA</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel rounded-xl p-7" data-reveal="right">
+        <h3 class="text-lg font-medium tracking-tight">Send a message</h3>
+        <p class="text-[12px] text-white/50 mt-1">We reply within 1 business day.</p>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Sent ✓';" class="mt-6 space-y-4">
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Name</label>
+            <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Jane Founder"/>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
+            <input type="email" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="you@startup.com"/>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Topic</label>
+            <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+              <option class="bg-ink-900">General question</option>
+              <option class="bg-ink-900">Sales / pricing</option>
+              <option class="bg-ink-900">Partnership</option>
+              <option class="bg-ink-900">Press</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Message</label>
+            <textarea rows="4" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Tell us what's on your mind…"></textarea>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: PRIVACY ============ -->
+<section id="privacy" class="screen">
+  <div class="max-w-3xl mx-auto px-6 pt-24 pb-20">
+    <div class="chip mb-6"><span class="text-accent">●</span> Legal</div>
+    <h1 class="text-5xl tracking-tightest font-medium leading-[1]">Privacy <span class="serif italic text-accent">Policy</span></h1>
+    <p class="text-white/40 text-[13px] mt-4">Last updated April 8, 2026</p>
+    <div class="mt-12 space-y-10 text-[14px] text-white/65 leading-relaxed">
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">1. What we collect</h2>
+        <p>We collect only what we need to make Coachly useful: your account info (email, name), the business context you give us (company, stage, goals), and the conversations and metrics you choose to share.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">2. How we use it</h2>
+        <p>To run the product. That means generating recommendations, tracking your health score, and remembering context across sessions. We do not sell your data and we do not use your business content to train AI models.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">3. Where it lives</h2>
+        <p>All data is encrypted at rest (AES-256) and in transit (TLS 1.3). Production data sits in SOC-2 compliant infrastructure in the US and EU.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">4. Your rights</h2>
+        <p>Export everything, delete everything, anytime. Email <span class="text-accent">privacy@coachly.ai</span> and we'll handle it within 7 days.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">5. Cookies</h2>
+        <p>Strictly necessary cookies only. No third-party tracking, no ad pixels, no behavioral profiling.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">6. Changes</h2>
+        <p>If we ever update this policy, we'll email you before it takes effect. No surprises.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: TERMS ============ -->
+<section id="terms" class="screen">
+  <div class="max-w-3xl mx-auto px-6 pt-24 pb-20">
+    <div class="chip mb-6"><span class="text-accent">●</span> Legal</div>
+    <h1 class="text-5xl tracking-tightest font-medium leading-[1]">Terms of <span class="serif italic text-accent">Service</span></h1>
+    <p class="text-white/40 text-[13px] mt-4">Last updated April 8, 2026</p>
+    <div class="mt-12 space-y-10 text-[14px] text-white/65 leading-relaxed">
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">1. The deal</h2>
+        <p>By using Coachly, you agree to these terms. If you don't agree, don't use Coachly. Pretty simple.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">2. Your account</h2>
+        <p>You're responsible for keeping your login safe and for everything that happens under your account. Don't share it.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">3. AI advice ≠ professional advice</h2>
+        <p>Coachly is a tool to help you think and act. It's not legal, financial, tax, or medical advice. Always sanity-check important decisions with a real human professional.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">4. Acceptable use</h2>
+        <p>Don't use Coachly to do anything illegal, hateful, or harmful. Don't try to break it. Don't reverse-engineer it. Don't resell it without our written ok.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">5. Billing</h2>
+        <p>Paid plans are billed monthly or annually. Cancel anytime — you'll keep access until the end of the period. No refunds for partial months.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">6. Liability</h2>
+        <p>We work hard to make Coachly reliable, but it's provided "as is." Our maximum liability is whatever you've paid us in the last 12 months.</p>
+      </section>
+      <section>
+        <h2 class="text-xl font-medium tracking-tight text-white mb-3">7. Termination</h2>
+        <p>You can leave anytime. We can suspend accounts that violate these terms. We'll always give you a chance to export your data first.</p>
+      </section>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 2. SIGNUP ============ -->
@@ -382,8 +943,8 @@
       <h2 class="text-3xl tracking-tightest font-medium">Welcome to Coachly</h2>
       <p class="text-white/50 text-sm mt-2">Create your account in under a minute.</p>
     </div>
-    <div class="panel rounded-xl p-7">
-      <button class="w-full panel-2 rounded-md py-2.5 flex items-center justify-center gap-2.5 text-[13px] font-medium hover:bg-white/[0.05]">
+    <form id="signupForm" class="panel rounded-xl p-7" onsubmit="return authSignup(event)" novalidate>
+      <button type="button" class="w-full panel-2 rounded-md py-2.5 flex items-center justify-center gap-2.5 text-[13px] font-medium hover:bg-white/[0.05]">
         <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5 17.4 35.5 12 30.1 12 23.5S17.4 11.5 24 11.5c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.9 5.5 29.2 3.5 24 3.5 12.9 3.5 4 12.4 4 23.5S12.9 43.5 24 43.5 44 34.6 44 23.5c0-1-.1-2-.4-3z" opacity=".9"/></svg>
         Continue with Google
       </button>
@@ -391,12 +952,122 @@
         <div class="flex-1 h-px bg-white/8"></div>or<div class="flex-1 h-px bg-white/8"></div>
       </div>
       <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
-      <input type="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <input id="signupEmail" name="email" type="email" autocomplete="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <div data-error="email" class="text-[11px] text-accent mt-1.5 hidden"></div>
       <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5 mt-4">Password</label>
-      <input type="password" placeholder="••••••••" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
-      <button onclick="show('onboarding1')" class="mt-6 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Continue →</button>
+      <input id="signupPassword" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <div data-error="password" class="text-[11px] text-accent mt-1.5 hidden"></div>
+      <div data-error="form" class="text-[12px] text-accent mt-3 hidden"></div>
+      <button type="submit" class="mt-6 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium disabled:opacity-60">Create account →</button>
+    </form>
+    <p class="text-[11px] text-white/30 mt-5 text-center">Already have an account? <a onclick="show('signin')" class="text-white/70 hover:text-white cursor-pointer underline">Sign in</a></p>
+    <p class="text-[11px] text-white/30 mt-2 text-center">By continuing, you agree to our <a onclick="show('terms')" class="hover:text-white cursor-pointer">Terms</a> & <a onclick="show('privacy')" class="hover:text-white cursor-pointer">Privacy</a>.</p>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: SIGN IN ============ -->
+<section id="signin" class="screen min-h-[80vh]">
+  <div class="max-w-md mx-auto px-6 pt-20 pb-20">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl tracking-tightest font-medium">Welcome back</h2>
+      <p class="text-white/50 text-sm mt-2">Sign in to your Coachly workspace.</p>
     </div>
-    <p class="text-[11px] text-white/30 mt-5 text-center">By continuing, you agree to our Terms & Privacy.</p>
+    <form id="signinForm" class="panel rounded-xl p-7" onsubmit="return authSignin(event)" novalidate>
+      <button type="button" class="w-full panel-2 rounded-md py-2.5 flex items-center justify-center gap-2.5 text-[13px] font-medium hover:bg-white/[0.05]">
+        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5 17.4 35.5 12 30.1 12 23.5S17.4 11.5 24 11.5c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.9 5.5 29.2 3.5 24 3.5 12.9 3.5 4 12.4 4 23.5S12.9 43.5 24 43.5 44 34.6 44 23.5c0-1-.1-2-.4-3z" opacity=".9"/></svg>
+        Continue with Google
+      </button>
+      <div class="my-5 flex items-center gap-3 text-[11px] text-white/30 uppercase tracking-wider">
+        <div class="flex-1 h-px bg-white/8"></div>or<div class="flex-1 h-px bg-white/8"></div>
+      </div>
+      <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
+      <input id="signinEmail" name="email" type="email" autocomplete="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <div data-error="email" class="text-[11px] text-accent mt-1.5 hidden"></div>
+      <div class="flex items-center justify-between mt-4 mb-1.5">
+        <label class="block text-[11px] uppercase tracking-wider text-white/40">Password</label>
+        <a onclick="show('forgot')" class="text-[11px] text-white/50 hover:text-white cursor-pointer">Forgot?</a>
+      </div>
+      <input id="signinPassword" name="password" type="password" autocomplete="current-password" placeholder="••••••••" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <div data-error="password" class="text-[11px] text-accent mt-1.5 hidden"></div>
+      <div data-error="form" class="text-[12px] text-accent mt-3 hidden"></div>
+      <button type="submit" class="mt-6 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium disabled:opacity-60">Sign in →</button>
+    </form>
+    <p class="text-[11px] text-white/30 mt-5 text-center">New to Coachly? <a onclick="show('signup')" class="text-white/70 hover:text-white cursor-pointer underline">Create an account</a></p>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: FORGOT PASSWORD ============ -->
+<section id="forgot" class="screen min-h-[80vh]">
+  <div class="max-w-md mx-auto px-6 pt-20 pb-20">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl tracking-tightest font-medium">Reset your password</h2>
+      <p class="text-white/50 text-sm mt-2">We'll email you a magic reset link.</p>
+    </div>
+    <form id="forgotForm" class="panel rounded-xl p-7" onsubmit="return authForgot(event)" novalidate>
+      <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
+      <input id="forgotEmail" name="email" type="email" autocomplete="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <div data-error="email" class="text-[11px] text-accent mt-1.5 hidden"></div>
+      <div data-error="form" class="text-[12px] text-accent mt-3 hidden"></div>
+      <div data-success="form" class="text-[12px] text-emerald-400 mt-3 hidden"></div>
+      <button type="submit" class="mt-6 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium disabled:opacity-60">Send reset link →</button>
+    </form>
+    <p class="text-[11px] text-white/30 mt-5 text-center"><a onclick="show('signin')" class="text-white/70 hover:text-white cursor-pointer underline">← Back to sign in</a></p>
+  </div>
+</section>
+
+<!-- ============ PUBLIC: BOOK A DEMO ============ -->
+<section id="demo" class="screen">
+  <div class="max-w-5xl mx-auto px-6 pt-24 pb-20">
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+      <div data-stagger>
+        <div class="chip mb-6"><span class="text-accent">●</span> Demo</div>
+        <h1 class="text-5xl tracking-tightest font-medium leading-[1]">
+          See Coachly in <span class="serif italic text-accent">30 minutes.</span>
+        </h1>
+        <p class="mt-6 text-white/55 leading-relaxed">A live walkthrough with our team. We'll set up your workspace, generate your first strategy, and answer everything.</p>
+        <ul class="mt-8 space-y-3 text-[14px] text-white/70">
+          <li class="flex gap-3"><span class="text-accent">✓</span> Personalized to your business</li>
+          <li class="flex gap-3"><span class="text-accent">✓</span> Live AI strategy generation</li>
+          <li class="flex gap-3"><span class="text-accent">✓</span> Pricing & rollout questions</li>
+          <li class="flex gap-3"><span class="text-accent">✓</span> No sales pressure, ever</li>
+        </ul>
+      </div>
+      <div class="panel rounded-xl p-7" data-reveal="right">
+        <h3 class="text-lg font-medium tracking-tight">Book your slot</h3>
+        <p class="text-[12px] text-white/50 mt-1">We'll confirm by email within an hour.</p>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Booked ✓ — see you then';" class="mt-6 space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Name</label>
+              <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Jane"/>
+            </div>
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Company</label>
+              <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Acme"/>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Work email</label>
+            <input type="email" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="you@startup.com"/>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Team size</label>
+            <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+              <option class="bg-ink-900">Just me</option><option class="bg-ink-900">2–5</option><option class="bg-ink-900">6–20</option><option class="bg-ink-900">20+</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Preferred time</label>
+            <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+              <option class="bg-ink-900">Mornings (9–12 PT)</option>
+              <option class="bg-ink-900">Afternoons (12–5 PT)</option>
+              <option class="bg-ink-900">Evenings (5–8 PT)</option>
+            </select>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Request demo →</button>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -523,33 +1194,55 @@
 
       <div class="text-[10px] uppercase tracking-[0.15em] text-white/30 px-3 mb-2">Workspace</div>
       <nav class="flex flex-col gap-0.5 text-[13px]">
-        <a onclick="show('dashboard')" class="navlink active flex items-center gap-2.5 px-3 py-2 rounded-md">
+        <a onclick="show('dashboard')" data-screen="dashboard" class="navlink active flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          Overview
+          Dashboard
         </a>
-        <a onclick="show('chat')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+        <a onclick="show('chat')" data-screen="chat" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
           AI Coach
         </a>
-        <a onclick="show('strategy')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+        <a onclick="show('agents')" data-screen="agents" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          AI Agents
+          <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-accent/15 text-accent">5</span>
+        </a>
+        <a onclick="show('strategy')" data-screen="strategy" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
           Strategy
         </a>
-        <a onclick="show('report')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+        <a onclick="show('analytics')" data-screen="analytics" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+          Analytics
+        </a>
+        <a onclick="show('competitors')" data-screen="competitors" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          Competitors
+        </a>
+        <a onclick="show('report')" data-screen="report" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
           Reports
         </a>
-        <a onclick="show('empty')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-          Projects
+        <a onclick="show('integrations')" data-screen="integrations" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+          Integrations
+        </a>
+        <a onclick="show('team')" data-screen="team" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M1 21a8 8 0 0 1 16 0M17 11a4 4 0 1 0 0-8M23 21a8 8 0 0 0-6-7.7"/></svg>
+          Team
         </a>
       </nav>
 
       <div class="text-[10px] uppercase tracking-[0.15em] text-white/30 px-3 mt-7 mb-2">Account</div>
       <nav class="flex flex-col gap-0.5 text-[13px]">
-        <a class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+        <a onclick="show('settings')" data-screen="settings" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5"/></svg>
           Settings
+        </a>
+        <a onclick="show('notifications')" data-screen="notifications" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          Notifications
+          <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-accent text-ink-950 font-semibold">3</span>
         </a>
         <a class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
@@ -589,6 +1282,10 @@
             <input class="bg-transparent outline-none text-[13px] flex-1 placeholder:text-white/30" placeholder="Search..."/>
             <kbd class="kbd">⌘K</kbd>
           </div>
+          <button onclick="toggleTheme()" aria-label="Toggle theme" class="w-8 h-8 rounded-md panel grid place-items-center">
+            <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <svg class="icon icon-sm theme-icon-light hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
           <button class="w-8 h-8 rounded-md panel grid place-items-center">
             <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
           </button>
@@ -711,41 +1408,22 @@
             <button class="chip">+ New chat</button>
           </div>
 
-          <div class="flex-1 overflow-y-auto scrollbar p-6 space-y-6">
-            <div class="flex gap-3 max-w-2xl">
-              <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
-              <div>
-                <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3 text-[13px] leading-relaxed">Hi Saqlain — I've reviewed Acme Inc. Your retention is strong, but your top-of-funnel is leaking. Want me to draft a 7-day fix?</div>
-                <div class="text-[10px] text-white/30 mt-1.5">Coachly · 9:42 AM</div>
-              </div>
-            </div>
-            <div class="flex gap-3 max-w-2xl ml-auto justify-end">
-              <div>
-                <div class="bg-white text-ink-950 rounded-lg rounded-tr-sm px-4 py-3 text-[13px] font-medium leading-relaxed">Yes please. Also — should I raise prices?</div>
-                <div class="text-[10px] text-white/30 mt-1.5 text-right">You · 9:42 AM</div>
-              </div>
-              <div class="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-[11px] font-semibold shrink-0">S</div>
-            </div>
-            <div class="flex gap-3 max-w-2xl">
-              <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
-              <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3"><div class="typing"><span></span><span></span><span></span></div></div>
-            </div>
+          <div id="chatLog" class="flex-1 overflow-y-auto scrollbar p-6 space-y-6"></div>
+
+          <div id="chatPrompts" class="px-5 pb-3 flex flex-wrap gap-2">
+            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">How do I grow my startup?</button>
+            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">How do I get my first 100 users?</button>
+            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">Help me set pricing</button>
+            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">Draft a 30-day marketing plan</button>
           </div>
 
-          <div class="px-5 pb-3 flex flex-wrap gap-2">
-            <button class="chip hover:bg-white/5">How to grow my startup</button>
-            <button class="chip hover:bg-white/5">Get first 100 users</button>
-            <button class="chip hover:bg-white/5">Pricing strategy</button>
-            <button class="chip hover:bg-white/5">Marketing plan</button>
-          </div>
-
-          <div class="p-3 border-t border-line">
+          <form id="chatForm" class="p-3 border-t border-line" onsubmit="return chatSend(event)">
             <div class="panel-2 rounded-md flex items-center gap-2 p-2">
-              <button class="px-2 text-white/40 text-lg leading-none">+</button>
-              <input class="flex-1 bg-transparent outline-none text-[13px] px-1 py-1.5 placeholder:text-white/30" placeholder="Ask your AI Business Coach..."/>
-              <button class="px-3 py-1.5 rounded-md btn-primary text-[12px] font-medium">Send →</button>
+              <button type="button" class="px-2 text-white/40 text-lg leading-none">+</button>
+              <input id="chatInput" autocomplete="off" class="flex-1 bg-transparent outline-none text-[13px] px-1 py-1.5 placeholder:text-white/30" placeholder="Ask your AI Business Coach..."/>
+              <button id="chatSendBtn" type="submit" class="px-3 py-1.5 rounded-md btn-primary text-[12px] font-medium">Send →</button>
             </div>
-          </div>
+          </form>
         </div>
       </section>
 
@@ -923,11 +1601,708 @@
           </div>
           <h2 class="text-2xl tracking-tightest font-medium mt-6">Nothing here yet</h2>
           <p class="text-white/50 text-sm mt-2 max-w-xs mx-auto">Generate your first strategy and Coachly will surface weekly insights here.</p>
-          <button onclick="show('strategy')" class="mt-7 px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Generate strategy →</button>
+          <div class="mt-7 flex justify-center gap-2">
+            <button onclick="show('strategy')" class="px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Generate AI insights →</button>
+            <button class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">Add data</button>
+            <button class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">Learn more</button>
+          </div>
         </div>
       </section>
 
+      <!-- ============ AI AGENTS ============ -->
+      <section id="agents" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Agents</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Your AI workforce</h2>
+          </div>
+          <div class="flex gap-2">
+            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Marketplace</button>
+            <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New agent</button>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger data-reveal>
+          <!-- agent card template repeated -->
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/></svg>
+                </div>
+                <div>
+                  <div class="font-medium text-[14px]">CEO Agent</div>
+                  <div class="text-[11px] text-white/40">Strategic operator</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">High-level strategy, OKRs, and board-grade decision support.</p>
+            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
+              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
+              <span class="chip">142 runs</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></svg>
+                </div>
+                <div>
+                  <div class="font-medium text-[14px]">Marketing Agent</div>
+                  <div class="text-[11px] text-white/40">Growth & campaigns</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Drafts campaigns, copy, SEO clusters and channel strategies.</p>
+            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
+              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
+              <span class="chip">316 runs</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                </div>
+                <div>
+                  <div class="font-medium text-[14px]">Product Agent</div>
+                  <div class="text-[11px] text-white/40">Discovery & specs</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">User research, PRDs, prioritization frameworks, ICE scoring.</p>
+            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
+              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
+              <span class="chip">89 runs</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M5 9h11a3 3 0 1 1 0 6H8a3 3 0 1 0 0 6h11"/></svg>
+                </div>
+                <div>
+                  <div class="font-medium text-[14px]">Finance Agent</div>
+                  <div class="text-[11px] text-white/40">Cash & runway</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Burn analysis, financial models, fundraising-ready forecasts.</p>
+            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
+              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span> Idle</span>
+              <span class="chip">22 runs</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+                </div>
+                <div>
+                  <div class="font-medium text-[14px]">Sales Agent</div>
+                  <div class="text-[11px] text-white/40">Pipeline & close</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Outbound playbooks, objection handling, deal-stage coaching.</p>
+            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
+              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
+              <span class="chip">204 runs</span>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+            </div>
+          </div>
+
+          <!-- Add new card -->
+          <button class="rounded-xl border border-dashed border-white/12 p-5 grid place-items-center min-h-[200px] hover:border-accent hover:bg-white/[0.02] transition group">
+            <div class="text-center">
+              <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center mx-auto group-hover:bg-accent/15 group-hover:text-accent transition text-white/50">+</div>
+              <div class="text-[13px] mt-3 font-medium">Create custom agent</div>
+              <div class="text-[11px] text-white/40 mt-1">Train one on your data</div>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ ANALYTICS ============ -->
+      <section id="analytics" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Analytics</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Insights</h2>
+          </div>
+          <div class="flex flex-wrap gap-2 items-center">
+            <button class="chip">Last 30 days <span class="text-white/30 ml-1">▾</span></button>
+            <button class="chip">All metrics <span class="text-white/30 ml-1">▾</span></button>
+            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Export</button>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-9 h-9 rounded-md panel grid place-items-center text-white/60">⋯</button>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-px bg-white/5 rounded-xl overflow-hidden mb-5">
+          <div class="bg-ink-950 p-5">
+            <div class="text-[11px] uppercase tracking-wider text-white/40">MRR</div>
+            <div class="text-3xl font-medium num mt-2 tracking-tightest">$48.2k</div>
+            <div class="text-[11px] text-accent mt-1">+8.4% MoM</div>
+          </div>
+          <div class="bg-ink-950 p-5">
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Active users</div>
+            <div class="text-3xl font-medium num mt-2 tracking-tightest">12,431</div>
+            <div class="text-[11px] text-accent mt-1">+12.1%</div>
+          </div>
+          <div class="bg-ink-950 p-5">
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Churn</div>
+            <div class="text-3xl font-medium num mt-2 tracking-tightest">1.8%</div>
+            <div class="text-[11px] text-white/40 mt-1">stable</div>
+          </div>
+          <div class="bg-ink-950 p-5">
+            <div class="text-[11px] uppercase tracking-wider text-white/40">CAC payback</div>
+            <div class="text-3xl font-medium num mt-2 tracking-tightest">4.2<span class="text-base text-white/30"> mo</span></div>
+            <div class="text-[11px] text-accent mt-1">−0.6 mo</div>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-5">
+          <div class="lg:col-span-2 panel rounded-xl">
+            <div class="flex items-center justify-between p-5 border-b border-line">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-white/40">Trend</div>
+                <div class="font-medium mt-0.5">Revenue over time</div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <div class="p-6">
+              <svg viewBox="0 0 600 200" class="w-full h-48">
+                <defs>
+                  <linearGradient id="grad1" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#D97757" stop-opacity=".35"/>
+                    <stop offset="100%" stop-color="#D97757" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 160 L60 140 L120 150 L180 110 L240 120 L300 80 L360 90 L420 60 L480 70 L540 30 L600 40 L600 200 L0 200 Z" fill="url(#grad1)"/>
+                <path d="M0 160 L60 140 L120 150 L180 110 L240 120 L300 80 L360 90 L420 60 L480 70 L540 30 L600 40" stroke="#D97757" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+          </div>
+          <div class="panel rounded-xl">
+            <div class="flex items-center justify-between p-5 border-b border-line">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-white/40">Breakdown</div>
+                <div class="font-medium mt-0.5">By channel</div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <div class="p-5 space-y-3 text-[13px]">
+              <div>
+                <div class="flex justify-between text-white/60 mb-1.5"><span>Organic</span><span class="num">42%</span></div>
+                <div class="h-1.5 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-accent" style="width:42%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-white/60 mb-1.5"><span>Referral</span><span class="num">28%</span></div>
+                <div class="h-1.5 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-accent/75" style="width:28%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-white/60 mb-1.5"><span>Paid</span><span class="num">19%</span></div>
+                <div class="h-1.5 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-accent/55" style="width:19%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-white/60 mb-1.5"><span>Direct</span><span class="num">11%</span></div>
+                <div class="h-1.5 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-accent/35" style="width:11%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ COMPETITORS ============ -->
+      <section id="competitors" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Competitive intel</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Competitors</h2>
+          </div>
+          <button onclick="openModal('addCompetitorModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ Add competitor</button>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">N</div>
+                <div>
+                  <div class="font-medium text-[14px]">Notion AI</div>
+                  <div class="text-[11px] text-white/40">notion.so</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Threat</div><div class="text-accent text-sm font-medium mt-0.5">High</div></div>
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Pricing</div><div class="text-sm font-medium mt-0.5 num">$10</div></div>
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Traffic</div><div class="text-sm font-medium mt-0.5">2.1M</div></div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">View analysis</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Re-analyze</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">L</div>
+                <div>
+                  <div class="font-medium text-[14px]">Linear</div>
+                  <div class="text-[11px] text-white/40">linear.app</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Threat</div><div class="text-white/70 text-sm font-medium mt-0.5">Med</div></div>
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Pricing</div><div class="text-sm font-medium mt-0.5 num">$8</div></div>
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Traffic</div><div class="text-sm font-medium mt-0.5">840k</div></div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">View analysis</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Re-analyze</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">P</div>
+                <div>
+                  <div class="font-medium text-[14px]">Pitch</div>
+                  <div class="text-[11px] text-white/40">pitch.com</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Threat</div><div class="text-white/70 text-sm font-medium mt-0.5">Low</div></div>
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Pricing</div><div class="text-sm font-medium mt-0.5 num">$25</div></div>
+              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Traffic</div><div class="text-sm font-medium mt-0.5">410k</div></div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">View analysis</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Re-analyze</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ INTEGRATIONS ============ -->
+      <section id="integrations" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Connect your stack</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Integrations</h2>
+          </div>
+          <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Browse all</button>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 text-accent grid place-items-center text-[15px] font-bold">S</div>
+                <div>
+                  <div class="font-medium text-[14px]">Stripe</div>
+                  <div class="text-[11px] text-accent flex items-center gap-1 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Connected</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Pulls live MRR, churn, and revenue cohorts every 5 minutes.</p>
+            <div class="mt-4 flex gap-2">
+              <button class="flex-1 px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium text-white/50">Disconnect</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-bold">G</div>
+                <div>
+                  <div class="font-medium text-[14px]">Google Analytics</div>
+                  <div class="text-[11px] text-white/40 mt-0.5">Not connected</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Traffic, conversion paths, and funnel events for your site.</p>
+            <div class="mt-4">
+              <button class="w-full px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Connect</button>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl p-5">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-bold">Sh</div>
+                <div>
+                  <div class="font-medium text-[14px]">Shopify</div>
+                  <div class="text-[11px] text-white/40 mt-0.5">Not connected</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+            </div>
+            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Orders, AOV, and product performance synced in real time.</p>
+            <div class="mt-4">
+              <button class="w-full px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Connect</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ TEAM ============ -->
+      <section id="team" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Workspace</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Team</h2>
+          </div>
+          <div class="flex gap-2">
+            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Manage permissions</button>
+            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Create role</button>
+            <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ Invite member</button>
+          </div>
+        </div>
+
+        <div class="panel rounded-xl overflow-hidden">
+          <div class="grid grid-cols-12 px-5 py-3 border-b border-line text-[11px] uppercase tracking-wider text-white/40">
+            <div class="col-span-5">Member</div>
+            <div class="col-span-3">Role</div>
+            <div class="col-span-3">Last active</div>
+            <div class="col-span-1 text-right"></div>
+          </div>
+          <div class="divide-hair">
+            <div class="grid grid-cols-12 items-center px-5 py-4">
+              <div class="col-span-5 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-accent/20 grid place-items-center text-[12px] font-semibold">S</div>
+                <div>
+                  <div class="text-[13px] font-medium">Saqlain Khan</div>
+                  <div class="text-[11px] text-white/40">saqlain@acme.co</div>
+                </div>
+              </div>
+              <div class="col-span-3"><span class="chip">Owner ▾</span></div>
+              <div class="col-span-3 text-[12px] text-white/50">Just now</div>
+              <div class="col-span-1 text-right">
+                <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 inline-grid place-items-center text-white/40">⋯</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 items-center px-5 py-4">
+              <div class="col-span-5 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-[12px] font-semibold">M</div>
+                <div>
+                  <div class="text-[13px] font-medium">Mira Chen</div>
+                  <div class="text-[11px] text-white/40">mira@acme.co</div>
+                </div>
+              </div>
+              <div class="col-span-3"><span class="chip">Admin ▾</span></div>
+              <div class="col-span-3 text-[12px] text-white/50">2h ago</div>
+              <div class="col-span-1 text-right">
+                <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 inline-grid place-items-center text-white/40">⋯</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 items-center px-5 py-4">
+              <div class="col-span-5 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-[12px] font-semibold">J</div>
+                <div>
+                  <div class="text-[13px] font-medium">Jordan Reyes</div>
+                  <div class="text-[11px] text-white/40">jordan@acme.co</div>
+                </div>
+              </div>
+              <div class="col-span-3"><span class="chip">Editor ▾</span></div>
+              <div class="col-span-3 text-[12px] text-white/50">Yesterday</div>
+              <div class="col-span-1 text-right">
+                <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 inline-grid place-items-center text-white/40">⋯</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 items-center px-5 py-4">
+              <div class="col-span-5 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-[12px] font-semibold">A</div>
+                <div>
+                  <div class="text-[13px] font-medium">Aisha Patel</div>
+                  <div class="text-[11px] text-white/40">aisha@acme.co</div>
+                </div>
+              </div>
+              <div class="col-span-3"><span class="chip">Viewer ▾</span></div>
+              <div class="col-span-3 text-[12px] text-white/50">3 days ago</div>
+              <div class="col-span-1 text-right">
+                <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 inline-grid place-items-center text-white/40">⋯</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SETTINGS ============ -->
+      <section id="settings" class="screen px-6 md:px-10 py-10">
+        <div class="mb-8">
+          <div class="text-[11px] uppercase tracking-wider text-white/40">Account</div>
+          <h2 class="text-3xl tracking-tightest font-medium mt-1">Settings</h2>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-6">
+          <aside class="md:col-span-3">
+            <nav class="text-[13px] flex md:flex-col gap-1">
+              <a class="navlink active px-3 py-2 rounded-md">Profile</a>
+              <a class="navlink px-3 py-2 rounded-md">Business</a>
+              <a class="navlink px-3 py-2 rounded-md">AI behavior</a>
+              <a class="navlink px-3 py-2 rounded-md">Notifications</a>
+              <a class="navlink px-3 py-2 rounded-md">Billing</a>
+            </nav>
+          </aside>
+          <div class="md:col-span-9 space-y-5">
+            <div class="panel rounded-xl p-6">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Profile</div>
+              <h3 class="font-medium mt-1">Personal information</h3>
+              <div class="grid md:grid-cols-2 gap-4 mt-5">
+                <div>
+                  <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Full name</label>
+                  <input value="Saqlain Khan" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30"/>
+                </div>
+                <div>
+                  <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
+                  <input value="saqlain@acme.co" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel rounded-xl p-6">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">AI behavior</div>
+              <h3 class="font-medium mt-1">Tune your coach</h3>
+              <div class="grid md:grid-cols-2 gap-4 mt-5">
+                <div>
+                  <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">AI tone</label>
+                  <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+                    <option class="bg-ink-900">Professional</option>
+                    <option class="bg-ink-900">Friendly</option>
+                    <option class="bg-ink-900">Aggressive growth</option>
+                    <option class="bg-ink-900">Startup mentor</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Response length</label>
+                  <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+                    <option class="bg-ink-900">Concise</option>
+                    <option class="bg-ink-900">Balanced</option>
+                    <option class="bg-ink-900">Detailed</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 mt-6">
+                <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Reset</button>
+                <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Save</button>
+              </div>
+            </div>
+
+            <div class="panel rounded-xl p-6">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Billing</div>
+              <h3 class="font-medium mt-1">Plan</h3>
+              <div class="mt-4 flex items-center justify-between panel-2 rounded-lg p-4">
+                <div>
+                  <div class="text-[14px] font-medium">Free trial · 12 days left</div>
+                  <div class="text-[12px] text-white/50 mt-0.5">Upgrade to unlock all agents and unlimited strategies.</div>
+                </div>
+                <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Upgrade to Pro</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ NOTIFICATIONS ============ -->
+      <section id="notifications" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Inbox</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Notifications</h2>
+          </div>
+          <div class="flex gap-2">
+            <button class="chip">All ▾</button>
+            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Mark all read</button>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-9 h-9 rounded-md panel grid place-items-center text-white/60">⋯</button>
+          </div>
+        </div>
+
+        <div class="panel rounded-xl divide-hair">
+          <div class="p-5 flex gap-4 items-start">
+            <div class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0 accent-glow"></div>
+            <div class="flex-1">
+              <div class="text-[13px]"><span class="font-medium">CEO Agent</span> finished your weekly review</div>
+              <div class="text-[11px] text-white/40 mt-0.5">2 minutes ago · Click to read</div>
+            </div>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+          </div>
+          <div class="p-5 flex gap-4 items-start">
+            <div class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0 accent-glow"></div>
+            <div class="flex-1">
+              <div class="text-[13px]"><span class="font-medium">Stripe</span> connected successfully</div>
+              <div class="text-[11px] text-white/40 mt-0.5">14 minutes ago</div>
+            </div>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+          </div>
+          <div class="p-5 flex gap-4 items-start">
+            <div class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0 accent-glow"></div>
+            <div class="flex-1">
+              <div class="text-[13px]">New competitor detected: <span class="font-medium">Pitch</span></div>
+              <div class="text-[11px] text-white/40 mt-0.5">1 hour ago</div>
+            </div>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+          </div>
+          <div class="p-5 flex gap-4 items-start opacity-60">
+            <div class="w-2 h-2 rounded-full bg-white/20 mt-2 shrink-0"></div>
+            <div class="flex-1">
+              <div class="text-[13px]">Strategy <span class="font-medium">"30-Day Growth Plan"</span> generated</div>
+              <div class="text-[11px] text-white/40 mt-0.5">Yesterday</div>
+            </div>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+          </div>
+          <div class="p-5 flex gap-4 items-start opacity-60">
+            <div class="w-2 h-2 rounded-full bg-white/20 mt-2 shrink-0"></div>
+            <div class="flex-1">
+              <div class="text-[13px]">Mira Chen joined your workspace</div>
+              <div class="text-[11px] text-white/40 mt-0.5">2 days ago</div>
+            </div>
+            <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mobile bottom nav -->
+      <nav class="md:hidden fixed bottom-0 inset-x-0 z-30 panel border-t border-line flex justify-around py-2">
+        <a onclick="show('dashboard')" class="flex flex-col items-center gap-1 text-[10px] text-white/60 px-2 py-1"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Home</a>
+        <a onclick="show('chat')" class="flex flex-col items-center gap-1 text-[10px] text-white/60 px-2 py-1"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>AI</a>
+        <a onclick="show('strategy')" class="flex flex-col items-center gap-1 text-[10px] text-white/60 px-2 py-1"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>Strategy</a>
+        <a onclick="show('report')" class="flex flex-col items-center gap-1 text-[10px] text-white/60 px-2 py-1"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>Reports</a>
+        <a onclick="show('settings')" class="flex flex-col items-center gap-1 text-[10px] text-white/60 px-2 py-1"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Menu</a>
+      </nav>
+
     </main>
+  </div>
+</div>
+
+<!-- ============ GLOBAL 3-DOT MENU (single instance, repositioned) ============ -->
+<div id="globalMenu" class="hidden fixed z-50 panel rounded-lg shadow-2xl py-1.5 text-[13px] min-w-[180px]">
+  <button class="w-full text-left px-3 py-2 hover:bg-white/5 flex items-center gap-2.5">
+    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg> Edit
+  </button>
+  <button class="w-full text-left px-3 py-2 hover:bg-white/5 flex items-center gap-2.5">
+    <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Duplicate
+  </button>
+  <button class="w-full text-left px-3 py-2 hover:bg-white/5 flex items-center gap-2.5">
+    <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="4"/><path d="M5 7v13h14V7M10 11h4"/></svg> Archive
+  </button>
+  <button class="w-full text-left px-3 py-2 hover:bg-white/5 flex items-center gap-2.5">
+    <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Share
+  </button>
+  <div class="h-px bg-white/8 my-1"></div>
+  <button onclick="openModal('confirmDeleteModal')" class="w-full text-left px-3 py-2 hover:bg-white/5 flex items-center gap-2.5 text-accent">
+    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg> Delete
+  </button>
+</div>
+
+<!-- ============ COMMAND PALETTE ============ -->
+<div id="cmdk" class="hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-start pt-[12vh]">
+  <div onclick="event.stopPropagation()" class="w-[560px] max-w-[92vw] panel rounded-xl shadow-2xl overflow-hidden">
+    <div class="flex items-center gap-3 p-4 border-b border-line">
+      <svg class="icon icon-sm text-white/40" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="cmdkInput" placeholder="Search chats, strategies, reports, competitors…" class="flex-1 bg-transparent outline-none text-[14px] placeholder:text-white/30"/>
+      <kbd class="kbd">esc</kbd>
+    </div>
+    <div class="max-h-[50vh] overflow-y-auto scrollbar p-2">
+      <div class="text-[10px] uppercase tracking-wider text-white/40 px-3 pt-2 pb-1">Pages</div>
+      <button onclick="closeCmdk();show('dashboard')" class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center gap-2.5"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Dashboard</button>
+      <button onclick="closeCmdk();show('chat')" class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center gap-2.5"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg> AI Coach</button>
+      <button onclick="closeCmdk();show('agents')" class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center gap-2.5"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg> AI Agents</button>
+      <button onclick="closeCmdk();show('strategy')" class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center gap-2.5"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg> Strategy</button>
+      <button onclick="closeCmdk();show('analytics')" class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center gap-2.5"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/></svg> Analytics</button>
+      <div class="text-[10px] uppercase tracking-wider text-white/40 px-3 pt-3 pb-1">Actions</div>
+      <button class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center justify-between"><span>Start new chat</span><kbd class="kbd">⌘ N</kbd></button>
+      <button class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center justify-between"><span>Generate strategy</span><kbd class="kbd">⌘ G</kbd></button>
+      <button onclick="toggleTheme();closeCmdk()" class="w-full text-left px-3 py-2 rounded-md hover:bg-white/5 text-[13px] flex items-center justify-between"><span>Toggle theme</span><kbd class="kbd">⌘ J</kbd></button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: CONFIRM DELETE ============ -->
+<div id="confirmDeleteModal" class="modal hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-center p-6">
+  <div onclick="event.stopPropagation()" class="w-[440px] max-w-full panel rounded-xl p-6 shadow-2xl">
+    <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    </div>
+    <h3 class="text-lg font-medium tracking-tight mt-4">Delete this item?</h3>
+    <p class="text-[13px] text-white/55 mt-1.5 leading-relaxed">This action cannot be undone. The item and any related history will be permanently removed.</p>
+    <div class="flex justify-end gap-2 mt-6">
+      <button onclick="closeModal('confirmDeleteModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
+      <button onclick="closeModal('confirmDeleteModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ADD COMPETITOR ============ -->
+<div id="addCompetitorModal" class="modal hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-center p-6">
+  <div onclick="event.stopPropagation()" class="w-[480px] max-w-full panel rounded-xl p-6 shadow-2xl">
+    <div class="text-[11px] uppercase tracking-wider text-white/40">New entry</div>
+    <h3 class="text-lg font-medium tracking-tight mt-1">Add a competitor</h3>
+    <div class="space-y-4 mt-5">
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Competitor URL</label>
+        <input placeholder="https://" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30"/>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Name</label>
+          <input placeholder="Acme Co" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30"/>
+        </div>
+        <div>
+          <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Industry</label>
+          <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+            <option class="bg-ink-900">SaaS</option><option class="bg-ink-900">E-commerce</option><option class="bg-ink-900">Fintech</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end gap-2 mt-6">
+      <button onclick="closeModal('addCompetitorModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
+      <button onclick="closeModal('addCompetitorModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Analyze →</button>
+    </div>
   </div>
 </div>
 
@@ -950,23 +2325,22 @@
 </div>
 
 <script>
+  const APP_SCREENS = ['dashboard','chat','agents','strategy','analytics','competitors','report','integrations','team','settings','notifications','empty'];
+
   function show(id){
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     const el = document.getElementById(id);
     if(el) el.classList.add('active');
 
-    const inApp = ['dashboard','chat','strategy','report','empty'].includes(id);
+    const inApp = APP_SCREENS.includes(id);
     document.getElementById('appShell').classList.toggle('hidden', !inApp);
     document.getElementById('publicNav').classList.toggle('hidden', inApp);
 
-    document.querySelectorAll('.navlink').forEach(a=>a.classList.remove('active'));
-    const map = {dashboard:0, chat:1, strategy:2, report:3, empty:4};
-    if(id in map){
-      const links = document.querySelectorAll('aside nav:first-of-type .navlink');
-      if(links[map[id]]) links[map[id]].classList.add('active');
-    }
+    document.querySelectorAll('aside .navlink').forEach(a=>a.classList.remove('active'));
+    const link = document.querySelector(`aside .navlink[data-screen="${id}"]`);
+    if(link) link.classList.add('active');
+
     window.scrollTo({top:0,behavior:'instant'});
-    // re-trigger reveals/counters in newly visible screen
     requestAnimationFrame(()=>{ rescan(); });
   }
 
@@ -1014,6 +2388,246 @@
   });
 
   document.addEventListener('DOMContentLoaded', rescan);
+
+  // === Theme toggle ===
+  function applyTheme(t){
+    document.body.classList.toggle('light', t === 'light');
+    document.querySelectorAll('.theme-icon-dark').forEach(el=>el.classList.toggle('hidden', t === 'light'));
+    document.querySelectorAll('.theme-icon-light').forEach(el=>el.classList.toggle('hidden', t !== 'light'));
+    try{ localStorage.setItem('coachly-theme', t); }catch(e){}
+  }
+  function toggleTheme(){
+    const next = document.body.classList.contains('light') ? 'dark' : 'light';
+    applyTheme(next);
+  }
+  (function initTheme(){
+    let saved = 'dark';
+    try{ saved = localStorage.getItem('coachly-theme') || 'dark'; }catch(e){}
+    applyTheme(saved);
+  })();
+
+  // === Global 3-dot menu ===
+  function toggleMenu(trigger){
+    const menu = document.getElementById('globalMenu');
+    if(!menu.classList.contains('hidden') && menu._trigger === trigger){
+      menu.classList.add('hidden');
+      menu._trigger = null;
+      return;
+    }
+    const r = trigger.getBoundingClientRect();
+    menu.classList.remove('hidden');
+    menu._trigger = trigger;
+    // position: prefer right-aligned beneath trigger, flip if overflow
+    const mw = 200, mh = 240;
+    let left = r.right - mw;
+    let top = r.bottom + 6;
+    if(left < 8) left = 8;
+    if(top + mh > window.innerHeight - 8) top = r.top - mh - 6;
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
+  }
+  document.addEventListener('click', (e)=>{
+    const menu = document.getElementById('globalMenu');
+    if(!menu.contains(e.target) && !e.target.closest('.menu-trigger')) menu.classList.add('hidden');
+  });
+
+  // === Modals ===
+  function openModal(id){ document.getElementById(id).classList.remove('hidden'); }
+  function closeModal(id){ document.getElementById(id).classList.add('hidden'); }
+  document.querySelectorAll('.modal').forEach(m=>{
+    m.addEventListener('click', (e)=>{ if(e.target === m) m.classList.add('hidden'); });
+  });
+
+  // === Command palette ===
+  function openCmdk(){ document.getElementById('cmdk').classList.remove('hidden'); setTimeout(()=>document.getElementById('cmdkInput').focus(),20); }
+  function closeCmdk(){ document.getElementById('cmdk').classList.add('hidden'); }
+  document.getElementById('cmdk').addEventListener('click',(e)=>{ if(e.target.id==='cmdk') closeCmdk(); });
+
+  // === Keyboard shortcuts ===
+  document.addEventListener('keydown', (e)=>{
+    const mod = e.metaKey || e.ctrlKey;
+    if(mod && e.key.toLowerCase() === 'k'){ e.preventDefault(); openCmdk(); }
+    if(mod && e.key.toLowerCase() === 'n'){ e.preventDefault(); show('chat'); }
+    if(mod && e.key.toLowerCase() === 'j'){ e.preventDefault(); toggleTheme(); }
+    if(e.key === 'Escape'){
+      closeCmdk();
+      document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));
+      document.getElementById('globalMenu').classList.add('hidden');
+    }
+  });
+
+  // make ⌘K input in topbar open palette
+  document.querySelectorAll('input[placeholder="Search..."]').forEach(i=>{
+    i.addEventListener('focus', (e)=>{ e.target.blur(); openCmdk(); });
+  });
+
+  // === AI Coach chat ===
+  const chatState = {
+    history: [],   // [{role:'user'|'assistant', content:string}]
+    streaming: false,
+  };
+
+  function chatTime(){
+    return new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+  }
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function renderMarkdown(s){
+    // tiny markdown: **bold**, *italic*, `code`, line breaks, bullet lists
+    let html = escapeHtml(s);
+    html = html.replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-white/10 text-[12px]">$1</code>');
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/(^|\s)\*([^*\n]+)\*/g, '$1<em>$2</em>');
+    // bullet lines
+    html = html.replace(/(?:^|\n)([-•] .+(?:\n[-•] .+)*)/g, (m, block)=>{
+      const items = block.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•]\s*/,'')+'</li>').join('');
+      return '\n<ul class="list-disc pl-5 space-y-1 my-1">'+items+'</ul>';
+    });
+    html = html.replace(/\n/g, '<br>');
+    return html;
+  }
+
+  function chatAppendUser(text){
+    const log = document.getElementById('chatLog');
+    const wrap = document.createElement('div');
+    wrap.className = 'flex gap-3 max-w-2xl ml-auto justify-end';
+    wrap.innerHTML = `
+      <div>
+        <div class="bg-white text-ink-950 rounded-lg rounded-tr-sm px-4 py-3 text-[13px] font-medium leading-relaxed">${escapeHtml(text)}</div>
+        <div class="text-[10px] text-white/30 mt-1.5 text-right">You · ${chatTime()}</div>
+      </div>
+      <div class="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-[11px] font-semibold shrink-0">S</div>`;
+    log.appendChild(wrap);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function chatAppendAssistantPlaceholder(){
+    const log = document.getElementById('chatLog');
+    const wrap = document.createElement('div');
+    wrap.className = 'flex gap-3 max-w-2xl';
+    wrap.innerHTML = `
+      <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
+      <div class="min-w-0 flex-1">
+        <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3 text-[13px] leading-relaxed">
+          <span class="ai-text"></span><span class="typing inline-flex ml-1 align-middle"><span></span><span></span><span></span></span>
+        </div>
+        <div class="text-[10px] text-white/30 mt-1.5">Coachly · ${chatTime()}</div>
+      </div>`;
+    log.appendChild(wrap);
+    log.scrollTop = log.scrollHeight;
+    return wrap.querySelector('.ai-text');
+  }
+
+  function chatGreetIfEmpty(){
+    if(chatState.history.length > 0) return;
+    const log = document.getElementById('chatLog');
+    if(log.children.length > 0) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'flex gap-3 max-w-2xl';
+    wrap.innerHTML = `
+      <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
+      <div>
+        <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3 text-[13px] leading-relaxed">Hey — I'm Coachly, your AI Business Coach. Tell me what you're working on, where you're stuck, or pick a quick prompt below and we'll dig in.</div>
+        <div class="text-[10px] text-white/30 mt-1.5">Coachly · ${chatTime()}</div>
+      </div>`;
+    log.appendChild(wrap);
+  }
+
+  function chatQuickPrompt(btn){
+    const input = document.getElementById('chatInput');
+    input.value = btn.textContent.trim();
+    input.focus();
+  }
+
+  function chatNew(){
+    chatState.history = [];
+    document.getElementById('chatLog').innerHTML = '';
+    chatGreetIfEmpty();
+  }
+
+  async function chatSend(e){
+    if(e) e.preventDefault();
+    if(chatState.streaming) return false;
+    const input = document.getElementById('chatInput');
+    const text = (input.value || '').trim();
+    if(!text) return false;
+    input.value = '';
+
+    chatAppendUser(text);
+    chatState.history.push({ role:'user', content:text });
+
+    const target = chatAppendAssistantPlaceholder();
+    const bubble = target.parentElement;
+    const log = document.getElementById('chatLog');
+    chatState.streaming = true;
+    document.getElementById('chatSendBtn').disabled = true;
+
+    let acc = '';
+    try{
+      const res = await fetch('/api/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ messages: chatState.history }),
+      });
+      if(!res.ok || !res.body){
+        throw new Error('Request failed ('+res.status+'). Is the server running and ANTHROPIC_API_KEY set?');
+      }
+      const reader = res.body.getReader();
+      const dec = new TextDecoder();
+      let buf = '';
+      while(true){
+        const {value, done} = await reader.read();
+        if(done) break;
+        buf += dec.decode(value, {stream:true});
+        // parse SSE events separated by blank line
+        let idx;
+        while((idx = buf.indexOf('\n\n')) !== -1){
+          const raw = buf.slice(0, idx); buf = buf.slice(idx+2);
+          const lines = raw.split('\n');
+          let event='message', data='';
+          for(const ln of lines){
+            if(ln.startsWith('event:')) event = ln.slice(6).trim();
+            else if(ln.startsWith('data:')) data += ln.slice(5).trim();
+          }
+          if(!data) continue;
+          let payload; try{ payload = JSON.parse(data); }catch{ continue; }
+          if(event === 'delta' && payload.text){
+            acc += payload.text;
+            target.innerHTML = renderMarkdown(acc);
+            // remove typing dots once tokens start arriving
+            const dots = bubble.querySelector('.typing');
+            if(dots) dots.remove();
+            log.scrollTop = log.scrollHeight;
+          } else if(event === 'error'){
+            throw new Error(payload.message || 'stream error');
+          }
+        }
+      }
+      if(acc.trim()){
+        chatState.history.push({ role:'assistant', content:acc });
+      } else {
+        target.innerHTML = '<span class="text-white/50">(no response)</span>';
+      }
+    } catch(err){
+      const dots = bubble.querySelector('.typing');
+      if(dots) dots.remove();
+      target.innerHTML = '<span class="text-accent">'+escapeHtml(err.message)+'</span>';
+    } finally {
+      chatState.streaming = false;
+      document.getElementById('chatSendBtn').disabled = false;
+      input.focus();
+    }
+    return false;
+  }
+
+  // greet when chat screen first becomes active
+  document.addEventListener('DOMContentLoaded', ()=>{
+    chatGreetIfEmpty();
+    // wire "+ New chat" header button
+    const newBtn = document.querySelector('#chat .chip');
+    if(newBtn) newBtn.addEventListener('click', chatNew);
+  });
 
   function generateCoach(){
     const overlay = document.getElementById('loading');
