@@ -2568,11 +2568,12 @@
       const res = await fetch('/api/chat', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
+        credentials:'same-origin',
         body: JSON.stringify({ messages: chatState.history }),
       });
-      if(!res.ok || !res.body){
-        throw new Error('Request failed ('+res.status+'). Is the server running and ANTHROPIC_API_KEY set?');
-      }
+      if(res.status === 401) throw new Error('Please sign in to chat with Coachly.');
+      if(res.status === 405) throw new Error('Backend not running. Open http://localhost:3000 with `npm start`.');
+      if(!res.ok || !res.body) throw new Error('Request failed ('+res.status+'). Is ANTHROPIC_API_KEY set on the server?');
       const reader = res.body.getReader();
       const dec = new TextDecoder();
       let buf = '';
@@ -2628,6 +2629,224 @@
     const newBtn = document.querySelector('#chat .chip');
     if(newBtn) newBtn.addEventListener('click', chatNew);
   });
+
+  // ====================================================================
+  // === AUTH ===========================================================
+  // ====================================================================
+  const authState = { user: null };
+
+  function setError(form, field, msg){
+    const el = form.querySelector(`[data-error="${field}"]`);
+    if(!el) return;
+    if(msg){ el.textContent = msg; el.classList.remove('hidden'); }
+    else { el.textContent = ''; el.classList.add('hidden'); }
+  }
+  function clearErrors(form){
+    form.querySelectorAll('[data-error]').forEach(el=>{ el.textContent=''; el.classList.add('hidden'); });
+    form.querySelectorAll('[data-success]').forEach(el=>{ el.textContent=''; el.classList.add('hidden'); });
+  }
+  function setBusy(form, busy, label){
+    const btn = form.querySelector('button[type="submit"]');
+    if(!btn) return;
+    btn.disabled = !!busy;
+    if(busy){ btn._label = btn._label || btn.textContent; btn.textContent = label || 'Working…'; }
+    else if(btn._label){ btn.textContent = btn._label; btn._label = null; }
+  }
+  function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((e||'').trim()); }
+
+  async function postJSON(url, body){
+    const res = await fetch(url, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      credentials:'same-origin',
+      body: JSON.stringify(body||{}),
+    });
+    let data = null;
+    try { data = await res.json(); } catch {}
+    return { ok: res.ok, status: res.status, data: data || {} };
+  }
+
+  async function authSignup(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    clearErrors(form);
+    const email = form.querySelector('#signupEmail').value.trim();
+    const password = form.querySelector('#signupPassword').value;
+    let bad = false;
+    if(!email){ setError(form,'email','Email is required'); bad = true; }
+    else if(!validEmail(email)){ setError(form,'email','Enter a valid email address'); bad = true; }
+    if(!password){ setError(form,'password','Password is required'); bad = true; }
+    else if(password.length < 8){ setError(form,'password','Password must be at least 8 characters'); bad = true; }
+    else if(!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password)){ setError(form,'password','Use at least one letter and one number'); bad = true; }
+    if(bad) return false;
+
+    setBusy(form, true, 'Creating account…');
+    try{
+      const { ok, status, data } = await postJSON('/api/auth/signup', { email, password });
+      if(!ok){
+        if(status === 405) setError(form,'form','Backend not running. Start the server with `npm start`.');
+        else if(data.errors){
+          if(data.errors.email) setError(form,'email',data.errors.email);
+          if(data.errors.password) setError(form,'password',data.errors.password);
+        } else setError(form,'form', data.error || 'Signup failed');
+        return false;
+      }
+      authState.user = data.user;
+      renderAuthUI();
+      show('onboarding1');
+    } catch(err){
+      setError(form,'form','Network error. Is the server running?');
+    } finally {
+      setBusy(form, false);
+    }
+    return false;
+  }
+
+  async function authSignin(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    clearErrors(form);
+    const email = form.querySelector('#signinEmail').value.trim();
+    const password = form.querySelector('#signinPassword').value;
+
+    setBusy(form, true, 'Signing in…');
+    try{
+      const { ok, status, data } = await postJSON('/api/auth/signin', { email, password });
+      if(!ok){
+        if(status === 405) setError(form,'form','Backend not running. Start the server with `npm start`.');
+        else if(status === 401) setError(form,'form','Invalid email or password');
+        else if(data.errors){
+          if(data.errors.email) setError(form,'email',data.errors.email);
+          if(data.errors.password) setError(form,'password',data.errors.password);
+        } else setError(form,'form', data.error || 'Sign in failed');
+        return false;
+      }
+      authState.user = data.user;
+      renderAuthUI();
+      show('dashboard');
+    } catch(err){
+      setError(form,'form','Network error. Is the server running?');
+    } finally {
+      setBusy(form, false);
+    }
+    return false;
+  }
+
+  async function authForgot(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    clearErrors(form);
+    const email = form.querySelector('#forgotEmail').value.trim();
+    if(!email){ setError(form,'email','Email is required'); return false; }
+    if(!validEmail(email)){ setError(form,'email','Enter a valid email address'); return false; }
+
+    setBusy(form, true, 'Sending…');
+    try{
+      const { ok, status, data } = await postJSON('/api/auth/forgot', { email });
+      if(!ok){
+        if(status === 405) setError(form,'form','Backend not running. Start the server with `npm start`.');
+        else setError(form,'form', data.error || 'Could not send reset link');
+        return false;
+      }
+      const s = form.querySelector('[data-success="form"]');
+      s.textContent = 'If that email exists, a reset link is on its way.';
+      s.classList.remove('hidden');
+      form.querySelector('#forgotEmail').value = '';
+    } catch(err){
+      setError(form,'form','Network error. Is the server running?');
+    } finally {
+      setBusy(form, false);
+    }
+    return false;
+  }
+
+  async function authSignout(){
+    try { await fetch('/api/auth/signout', { method:'POST', credentials:'same-origin' }); } catch {}
+    authState.user = null;
+    renderAuthUI();
+    show('landing');
+  }
+
+  async function bootAuth(){
+    try{
+      const res = await fetch('/api/auth/me', { credentials:'same-origin' });
+      if(res.ok){ const data = await res.json(); authState.user = data.user || null; }
+    } catch {}
+    renderAuthUI();
+  }
+
+  function renderAuthUI(){
+    const u = authState.user;
+    document.querySelectorAll('[data-auth-user-email]').forEach(el=>{ el.textContent = u ? u.email : ''; });
+    document.querySelectorAll('[data-auth-user-initial]').forEach(el=>{ el.textContent = u ? (u.email[0]||'?').toUpperCase() : 'S'; });
+  }
+
+  document.addEventListener('DOMContentLoaded', bootAuth);
+
+  // === Shared public footer ===
+  const PUBLIC_PAGES = ['product','solutions','pricing','customers','changelog','contact','privacy','terms','signup','signin','forgot','demo','onboarding1','onboarding2'];
+  function publicFooterHTML(){
+    return `
+    <footer class="border-t border-line mt-24">
+      <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-5 gap-10">
+        <div class="md:col-span-2">
+          <a onclick="show('landing')" class="flex items-center gap-2.5 cursor-pointer">
+            <div class="w-7 h-7 rounded-md bg-white grid place-items-center">
+              <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="#08090B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+            </div>
+            <span class="font-semibold tracking-tight">Coachly</span>
+          </a>
+          <p class="text-[13px] text-white/45 mt-4 max-w-xs leading-relaxed">The operating system for ambitious founders. Strategy, growth, and execution — all in one place.</p>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-4">Product</div>
+          <ul class="space-y-2.5 text-[13px] text-white/65">
+            <li><a onclick="show('product')" class="hover:text-white cursor-pointer">Features</a></li>
+            <li><a onclick="show('pricing')" class="hover:text-white cursor-pointer">Pricing</a></li>
+            <li><a onclick="show('changelog')" class="hover:text-white cursor-pointer">Changelog</a></li>
+            <li><a onclick="show('demo')" class="hover:text-white cursor-pointer">Book a demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-4">Company</div>
+          <ul class="space-y-2.5 text-[13px] text-white/65">
+            <li><a onclick="show('customers')" class="hover:text-white cursor-pointer">Customers</a></li>
+            <li><a onclick="show('solutions')" class="hover:text-white cursor-pointer">Solutions</a></li>
+            <li><a onclick="show('contact')" class="hover:text-white cursor-pointer">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-4">Legal</div>
+          <ul class="space-y-2.5 text-[13px] text-white/65">
+            <li><a onclick="show('privacy')" class="hover:text-white cursor-pointer">Privacy</a></li>
+            <li><a onclick="show('terms')" class="hover:text-white cursor-pointer">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-line">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center justify-between text-xs text-white/35">
+          <div>© 2026 Coachly Labs. All rights reserved.</div>
+          <div class="flex items-center gap-4">
+            <a class="hover:text-white cursor-pointer">Twitter</a>
+            <a class="hover:text-white cursor-pointer">LinkedIn</a>
+            <a class="hover:text-white cursor-pointer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </footer>`;
+  }
+  function injectPublicFooters(){
+    PUBLIC_PAGES.forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el || el.querySelector(':scope > footer.shared-footer')) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = publicFooterHTML().trim();
+      const footer = wrap.firstElementChild;
+      footer.classList.add('shared-footer');
+      el.appendChild(footer);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', injectPublicFooters);
 
   function generateCoach(){
     const overlay = document.getElementById('loading');
