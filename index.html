@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Coachly — Your AI Business Coach</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          serif: ['"Instrument Serif"', 'ui-serif', 'Georgia'],
+        },
+        colors: {
+          ink: {
+            950: '#08090B',
+            900: '#0B0C0F',
+            850: '#101114',
+            800: '#15171B',
+            700: '#1C1F24',
+            600: '#262A30',
+          },
+          line: 'rgba(255,255,255,0.08)',
+          accent: {
+            DEFAULT: '#D97757',
+            500: '#D97757',
+            400: '#E8916F',
+            600: '#C2654A',
+          },
+        },
+        letterSpacing: { tightest: '-0.04em' },
+      }
+    }
+  }
+</script>
+<style>
+  html{scroll-behavior:smooth}
+  html,body{font-family:'Inter',sans-serif;background:#08090B;color:#E7E8EC;-webkit-font-smoothing:antialiased}
+  ::selection{background:#D97757;color:#08090B}
+  .text-accent{color:#D97757}
+  .bg-accent{background:#D97757}
+  .border-accent{border-color:#D97757}
+  .accent-glow{box-shadow:0 0 0 4px rgba(217,119,87,.14)}
+  .btn-accent{background:#D97757;color:#0B0C0F}
+  .btn-accent:hover{background:#E8916F;box-shadow:0 8px 30px -10px rgba(217,119,87,.45)}
+  /* === scroll reveal === */
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  [data-reveal].in{opacity:1;transform:none}
+  [data-reveal="left"]{transform:translateX(-32px)}
+  [data-reveal="left"].in{transform:none}
+  [data-reveal="right"]{transform:translateX(32px)}
+  [data-reveal="right"].in{transform:none}
+  [data-reveal="scale"]{transform:scale(.96)}
+  [data-reveal="scale"].in{transform:none}
+  [data-stagger] > *{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  [data-stagger].in > *{opacity:1;transform:none}
+  [data-stagger].in > *:nth-child(1){transition-delay:.05s}
+  [data-stagger].in > *:nth-child(2){transition-delay:.12s}
+  [data-stagger].in > *:nth-child(3){transition-delay:.19s}
+  [data-stagger].in > *:nth-child(4){transition-delay:.26s}
+  [data-stagger].in > *:nth-child(5){transition-delay:.33s}
+  [data-stagger].in > *:nth-child(6){transition-delay:.4s}
+  /* parallax + float */
+  .float-y{animation:floaty 7s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .shimmer{position:relative;overflow:hidden}
+  .shimmer::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(217,119,87,.18) 50%,transparent 70%);transform:translateX(-100%);animation:shimmer 4s ease-in-out infinite}
+  @keyframes shimmer{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+  .grow-bar{transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+  .in .grow-bar, .grow-bar.in{transform:scaleX(1)}
+  .marquee-track{display:flex;gap:3rem;animation:scroll-x 28s linear infinite}
+  @keyframes scroll-x{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  /* hero scroll-driven background */
+  .hero-glow{position:absolute;inset:0;background:radial-gradient(600px 320px at 50% 0%,rgba(217,119,87,.18),transparent 70%);pointer-events:none}
+  .underline-accent{background-image:linear-gradient(#D97757,#D97757);background-size:0% 1.5px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .8s cubic-bezier(.2,.7,.2,1)}
+  .in .underline-accent, .underline-accent.in{background-size:100% 1.5px}
+  #publicNav.scrolled{background:rgba(8,9,11,.85);border-bottom-color:rgba(255,255,255,.08)}
+  .serif{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.02em}
+  .hairline{border:1px solid rgba(255,255,255,.08)}
+  .panel{background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.07)}
+  .panel-2{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+  .divide-hair > * + *{border-top:1px solid rgba(255,255,255,.06)}
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 80%);
+  }
+  .accent-dot{box-shadow:0 0 0 4px rgba(124,130,255,.12)}
+  .btn-primary{background:#D97757;color:#0B0C0F;transition:all .25s ease}
+  .btn-primary:hover{background:#E8916F;box-shadow:0 10px 30px -10px rgba(217,119,87,.5);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.12);color:#E7E8EC}
+  .btn-ghost:hover{background:rgba(255,255,255,.04)}
+  .chip{display:inline-flex;align-items:center;gap:.4rem;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);border-radius:9999px;padding:.35rem .7rem;font-size:.72rem;color:#B8BAC3;letter-spacing:.01em}
+  .num{font-feature-settings:"tnum","ss01";font-variant-numeric:tabular-nums}
+  .scrollbar::-webkit-scrollbar{width:8px;height:8px}
+  .scrollbar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:8px}
+  .typing span{display:inline-block;width:5px;height:5px;border-radius:9999px;background:#9DA0AE;margin:0 2px;animation:b 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.15s}
+  .typing span:nth-child(3){animation-delay:.3s}
+  @keyframes b{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-3px);opacity:1}}
+  .spin-slow{animation:spin 8s linear infinite}
+  .screen{display:none}
+  .screen.active{display:block}
+  .navlink{color:#9DA0AE;border:1px solid transparent}
+  .navlink:hover{color:#fff;background:rgba(255,255,255,.03)}
+  .navlink.active{color:#fff;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+  .step-dot{width:24px;height:24px;border-radius:9999px;display:grid;place-items:center;font-size:.7rem;font-weight:600}
+  .kbd{font-family:'Inter';font-size:10px;padding:2px 6px;border:1px solid rgba(255,255,255,.12);border-bottom-width:2px;border-radius:6px;color:#9DA0AE;background:rgba(255,255,255,.02)}
+  .icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .icon-sm{width:14px;height:14px}
+  .marquee{mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  .ring-soft{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+</style>
+</head>
+<body class="min-h-screen bg-ink-950">
+
+<!-- ============ TOP NAV (Public) ============ -->
+<header id="publicNav" class="sticky top-0 z-30 border-b border-transparent transition-all duration-300 backdrop-blur-md bg-ink-950/70">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" onclick="show('landing')" class="flex items-center gap-2.5">
+      <div class="w-7 h-7 rounded-md bg-white grid place-items-center">
+        <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="#08090B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+      </div>
+      <span class="font-semibold tracking-tight">Coachly</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-9 text-[13px] text-white/60">
+      <a class="hover:text-white">Product</a>
+      <a class="hover:text-white">Solutions</a>
+      <a class="hover:text-white">Pricing</a>
+      <a class="hover:text-white">Customers</a>
+      <a class="hover:text-white">Changelog</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button onclick="show('signup')" class="text-[13px] text-white/70 hover:text-white px-3 py-1.5">Sign in</button>
+      <button onclick="show('signup')" class="text-[13px] font-medium px-3.5 py-1.5 rounded-md btn-primary">Get started</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 1. LANDING ============ -->
+<section id="landing" class="screen active">
+  <!-- HERO -->
+  <div class="relative">
+    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <div class="hero-glow"></div>
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-20 relative">
+      <div class="max-w-3xl mx-auto text-center flex flex-col items-center" data-stagger>
+        <div class="chip mb-7"><span class="w-1.5 h-1.5 rounded-full bg-accent accent-glow"></span> Now in private beta</div>
+        <h1 class="text-[64px] md:text-[80px] leading-[0.95] tracking-tightest font-medium">
+          The operating <span class="serif italic text-accent">system</span><br/>
+          for ambitious founders.
+        </h1>
+        <p class="mt-7 text-lg text-white/55 max-w-xl leading-relaxed">
+          Coachly is an AI business advisor that scores your company, generates a 30-day strategy, and tells you what to do next — every Monday morning.
+        </p>
+        <div class="mt-9 flex flex-wrap justify-center gap-2.5">
+          <button onclick="show('signup')" class="px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Start free →</button>
+          <button class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">Book a demo</button>
+        </div>
+        <div class="mt-10 flex items-center justify-center gap-4 text-xs text-white/40">
+          <span>Free for 14 days</span><span class="text-white/20">·</span><span>No credit card</span><span class="text-white/20">·</span><span>Cancel anytime</span>
+        </div>
+      </div>
+
+      <!-- Mock dashboard -->
+      <div class="mt-20 relative" data-reveal="scale">
+        <div class="absolute -inset-8 bg-accent/10 blur-3xl rounded-full pointer-events-none"></div>
+        <div class="panel rounded-xl overflow-hidden ring-soft float-y relative">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-line">
+            <div class="flex items-center gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full bg-white/15"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-white/15"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-white/15"></div>
+            </div>
+            <div class="text-[11px] text-white/40">coachly.ai / overview</div>
+            <div class="w-12"></div>
+          </div>
+          <div class="grid grid-cols-12">
+            <div class="col-span-3 border-r border-line p-4 hidden md:block">
+              <div class="text-[10px] uppercase tracking-wider text-white/30 mb-2">Workspace</div>
+              <div class="space-y-1 text-[12px]">
+                <div class="px-2 py-1.5 rounded bg-white/5 text-white">Overview</div>
+                <div class="px-2 py-1.5 rounded text-white/50">AI Coach</div>
+                <div class="px-2 py-1.5 rounded text-white/50">Strategy</div>
+                <div class="px-2 py-1.5 rounded text-white/50">Reports</div>
+              </div>
+            </div>
+            <div class="col-span-12 md:col-span-9 p-5">
+              <div class="grid grid-cols-3 gap-3">
+                <div class="panel-2 rounded-lg p-4">
+                  <div class="text-[10px] uppercase tracking-wider text-white/40">Business</div>
+                  <div class="text-3xl font-medium num mt-1">86</div>
+                  <div class="text-[11px] text-white/40 mt-1">+12 this week</div>
+                </div>
+                <div class="panel-2 rounded-lg p-4">
+                  <div class="text-[10px] uppercase tracking-wider text-white/40">Growth</div>
+                  <div class="text-3xl font-medium num mt-1">72</div>
+                  <div class="text-[11px] text-white/40 mt-1">+4 this week</div>
+                </div>
+                <div class="panel-2 rounded-lg p-4">
+                  <div class="text-[10px] uppercase tracking-wider text-white/40">Runway</div>
+                  <div class="text-3xl font-medium num mt-1">14<span class="text-base text-white/40 ml-1">mo</span></div>
+                  <div class="text-[11px] text-white/40 mt-1">stable</div>
+                </div>
+              </div>
+              <div class="panel-2 rounded-lg p-4 mt-3 shimmer">
+                <div class="flex items-center justify-between">
+                  <div class="text-[12px] font-medium flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-accent accent-glow"></span> AI recommendation</div>
+                  <span class="chip border-accent/40 text-accent">Priority</span>
+                </div>
+                <p class="text-[13px] text-white/60 mt-2 leading-relaxed">Activation rate hit 38%. Run a 7-day Product Hunt prelaunch sprint — your funnel is ready to convert.</p>
+              </div>
+              <div class="mt-3 grid grid-cols-12 gap-1 h-14 items-end">
+                <div class="bg-white/10 rounded-sm" style="height:30%"></div>
+                <div class="bg-white/15 rounded-sm" style="height:42%"></div>
+                <div class="bg-white/15 rounded-sm" style="height:35%"></div>
+                <div class="bg-white/20 rounded-sm" style="height:55%"></div>
+                <div class="bg-white/20 rounded-sm" style="height:48%"></div>
+                <div class="bg-white/25 rounded-sm" style="height:60%"></div>
+                <div class="bg-white/30 rounded-sm" style="height:70%"></div>
+                <div class="bg-white/35 rounded-sm" style="height:62%"></div>
+                <div class="bg-accent/50 rounded-sm" style="height:80%"></div>
+                <div class="bg-accent/65 rounded-sm" style="height:75%"></div>
+                <div class="bg-accent/85 rounded-sm" style="height:90%"></div>
+                <div class="bg-accent rounded-sm" style="height:100%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust bar -->
+      <div class="mt-24" data-reveal>
+        <div class="text-center text-[11px] uppercase tracking-[0.2em] text-white/30 mb-8">Trusted by founders building at</div>
+        <div class="marquee overflow-hidden">
+          <div class="marquee-track text-white/40 text-sm font-medium tracking-tight whitespace-nowrap">
+            <span>Vertex</span><span>Northwind</span><span>Orbital</span><span>Hexlab</span><span>Starforge</span><span>Lumen</span><span>Cobalt</span><span>Helio</span>
+            <span>Vertex</span><span>Northwind</span><span>Orbital</span><span>Hexlab</span><span>Starforge</span><span>Lumen</span><span>Cobalt</span><span>Helio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="border-t border-line">
+    <div class="max-w-6xl mx-auto px-6 py-28">
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-5" data-reveal="left">
+          <div class="chip mb-5"><span class="text-accent">●</span> The problem</div>
+          <h2 class="text-4xl md:text-5xl tracking-tightest leading-[1.05] font-medium">
+            Running a business<br/>is <span class="serif italic text-accent underline-accent">mostly guessing.</span>
+          </h2>
+          <p class="text-white/50 mt-5 text-[15px] leading-relaxed">Most founders are flying blind — no advisor, no clarity, no system. The good ideas die in the noise.</p>
+        </div>
+        <div class="md:col-span-7 grid sm:grid-cols-2 gap-px bg-white/5 rounded-xl overflow-hidden" data-stagger data-reveal="right">
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/30">01</div>
+            <h3 class="font-medium mt-2">No growth strategy</h3>
+            <p class="text-sm text-white/50 mt-1.5 leading-relaxed">Guessing what to build, market, or fix next.</p>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/30">02</div>
+            <h3 class="font-medium mt-2">No clear roadmap</h3>
+            <p class="text-sm text-white/50 mt-1.5 leading-relaxed">Big goals — zero idea what to ship this week.</p>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/30">03</div>
+            <h3 class="font-medium mt-2">No real insights</h3>
+            <p class="text-sm text-white/50 mt-1.5 leading-relaxed">Numbers exist. Meaning doesn't.</p>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/30">04</div>
+            <h3 class="font-medium mt-2">Decisions feel like gambles</h3>
+            <p class="text-sm text-white/50 mt-1.5 leading-relaxed">Gut over data — until it costs you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="border-t border-line">
+    <div class="max-w-6xl mx-auto px-6 py-28">
+      <div class="max-w-2xl" data-reveal>
+        <div class="chip mb-5"><span class="text-accent">●</span> Product</div>
+        <h2 class="text-4xl md:text-5xl tracking-tightest leading-[1.05] font-medium">
+          One <span class="serif italic text-accent">brain</span> for strategy,<br/>growth, and execution.
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-px bg-white/5 mt-14 rounded-xl overflow-hidden" data-stagger data-reveal>
+        <div class="bg-ink-950 p-7 group hover:bg-ink-900 transition">
+          <div class="w-9 h-9 rounded-md bg-accent/10 grid place-items-center text-accent group-hover:bg-accent/20 transition"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3 class="mt-5 font-medium">AI Business Coach</h3>
+          <p class="text-sm text-white/50 mt-2 leading-relaxed">A 24/7 strategist trained on thousands of startup playbooks.</p>
+        </div>
+        <div class="bg-ink-950 p-7 group hover:bg-ink-900 transition">
+          <div class="w-9 h-9 rounded-md bg-accent/10 grid place-items-center text-accent group-hover:bg-accent/20 transition"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+          <h3 class="mt-5 font-medium">Growth Strategy</h3>
+          <p class="text-sm text-white/50 mt-2 leading-relaxed">Custom 30-day playbook generated from your stage and goals.</p>
+        </div>
+        <div class="bg-ink-950 p-7 group hover:bg-ink-900 transition">
+          <div class="w-9 h-9 rounded-md bg-accent/10 grid place-items-center text-accent group-hover:bg-accent/20 transition"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg></div>
+          <h3 class="mt-5 font-medium">Health Score</h3>
+          <p class="text-sm text-white/50 mt-2 leading-relaxed">A live composite of every metric that matters to your business.</p>
+        </div>
+        <div class="bg-ink-950 p-7 group hover:bg-ink-900 transition">
+          <div class="w-9 h-9 rounded-md bg-accent/10 grid place-items-center text-accent group-hover:bg-accent/20 transition"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></div>
+          <h3 class="mt-5 font-medium">Weekly Recommendations</h3>
+          <p class="text-sm text-white/50 mt-2 leading-relaxed">Wake up Monday knowing exactly what to ship.</p>
+        </div>
+        <div class="bg-ink-950 p-7 group hover:bg-ink-900 transition">
+          <div class="w-9 h-9 rounded-md bg-accent/10 grid place-items-center text-accent group-hover:bg-accent/20 transition"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg></div>
+          <h3 class="mt-5 font-medium">Startup Roadmap</h3>
+          <p class="text-sm text-white/50 mt-2 leading-relaxed">A clear path from idea → MVP → traction → scale.</p>
+        </div>
+        <div class="bg-ink-950 p-7 group hover:bg-ink-900 transition">
+          <div class="w-9 h-9 rounded-md bg-accent/10 grid place-items-center text-accent group-hover:bg-accent/20 transition"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg></div>
+          <h3 class="mt-5 font-medium">Investor Reports</h3>
+          <p class="text-sm text-white/50 mt-2 leading-relaxed">One-click metric snapshots that close rounds faster.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <div class="border-t border-line">
+    <div class="max-w-4xl mx-auto px-6 py-28 text-center" data-reveal>
+      <svg class="w-8 h-8 text-accent mx-auto mb-6" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 7C5.9 7 3 9.9 3 13.4c0 2.5 1.5 4.6 3.7 5.4l1.2-3.2a2.6 2.6 0 1 1 1.7-2.4V11A4 4 0 0 0 5.6 7zm10 0c-3.5 0-6.4 2.9-6.4 6.4 0 2.5 1.5 4.6 3.7 5.4l1.2-3.2a2.6 2.6 0 1 1 1.7-2.4V11A4 4 0 0 0 15.6 7z"/></svg>
+      <p class="serif text-3xl md:text-4xl leading-[1.25] text-white/90">
+        Coachly feels like having a Stripe-level operator on call. It told us to <span class="text-accent">raise prices</span> the day before our board meeting — we did, and ARR jumped 22%.
+      </p>
+      <div class="mt-8 flex items-center justify-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-accent/20 ring-1 ring-accent/40"></div>
+        <div class="text-left">
+          <div class="text-sm font-medium">Mira Chen</div>
+          <div class="text-xs text-white/40">Founder, Vertex</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIG CTA -->
+  <div class="border-t border-line">
+    <div class="max-w-6xl mx-auto px-6 py-28">
+      <div class="panel rounded-2xl p-14 md:p-20 text-center relative overflow-hidden" data-reveal="scale">
+        <div class="absolute inset-0 grid-bg opacity-50"></div>
+        <div class="absolute -inset-20 bg-accent/10 blur-3xl rounded-full pointer-events-none"></div>
+        <div class="relative">
+          <h2 class="text-5xl md:text-6xl tracking-tightest font-medium leading-[1]">Ship smarter. <span class="serif italic text-accent">Today.</span></h2>
+          <p class="text-white/55 mt-5 max-w-md mx-auto">Your first AI strategy in under 60 seconds. Free forever for solo founders.</p>
+          <div class="mt-9 flex justify-center gap-2.5">
+            <button onclick="show('signup')" class="px-5 py-2.5 rounded-md btn-primary text-[13px] font-medium">Start free →</button>
+            <button class="px-5 py-2.5 rounded-md btn-ghost text-[13px] font-medium">Book a demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-line">
+    <div class="max-w-6xl mx-auto px-6 py-10 flex flex-wrap items-center justify-between text-xs text-white/35">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded bg-white/10"></div>
+        © 2026 Coachly Labs
+      </div>
+      <div class="flex gap-7"><a class="hover:text-white">Privacy</a><a class="hover:text-white">Terms</a><a class="hover:text-white">Twitter</a><a class="hover:text-white">Contact</a></div>
+    </div>
+  </footer>
+</section>
+
+<!-- ============ 2. SIGNUP ============ -->
+<section id="signup" class="screen min-h-[80vh]">
+  <div class="max-w-md mx-auto px-6 pt-20 pb-20">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl tracking-tightest font-medium">Welcome to Coachly</h2>
+      <p class="text-white/50 text-sm mt-2">Create your account in under a minute.</p>
+    </div>
+    <div class="panel rounded-xl p-7">
+      <button class="w-full panel-2 rounded-md py-2.5 flex items-center justify-center gap-2.5 text-[13px] font-medium hover:bg-white/[0.05]">
+        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5 17.4 35.5 12 30.1 12 23.5S17.4 11.5 24 11.5c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.9 5.5 29.2 3.5 24 3.5 12.9 3.5 4 12.4 4 23.5S12.9 43.5 24 43.5 44 34.6 44 23.5c0-1-.1-2-.4-3z" opacity=".9"/></svg>
+        Continue with Google
+      </button>
+      <div class="my-5 flex items-center gap-3 text-[11px] text-white/30 uppercase tracking-wider">
+        <div class="flex-1 h-px bg-white/8"></div>or<div class="flex-1 h-px bg-white/8"></div>
+      </div>
+      <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
+      <input type="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5 mt-4">Password</label>
+      <input type="password" placeholder="••••••••" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <button onclick="show('onboarding1')" class="mt-6 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Continue →</button>
+    </div>
+    <p class="text-[11px] text-white/30 mt-5 text-center">By continuing, you agree to our Terms & Privacy.</p>
+  </div>
+</section>
+
+<!-- ============ 3. ONBOARDING 1 ============ -->
+<section id="onboarding1" class="screen">
+  <div class="max-w-xl mx-auto px-6 pt-20 pb-20">
+    <div class="flex items-center gap-2 mb-10 text-[11px] text-white/40">
+      <div class="step-dot bg-white text-ink-950">1</div>
+      <div class="flex-1 h-px bg-white/40"></div>
+      <div class="step-dot bg-white/8 text-white/40">2</div>
+      <div class="flex-1 h-px bg-white/8"></div>
+      <div class="step-dot bg-white/8 text-white/40">3</div>
+      <div class="flex-1 h-px bg-white/8"></div>
+      <div class="step-dot bg-white/8 text-white/40">4</div>
+    </div>
+
+    <h2 class="text-3xl tracking-tightest font-medium">Tell us about your business</h2>
+    <p class="text-white/50 mt-2 text-sm">So your AI coach can tailor every recommendation.</p>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-5">
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Business name</label>
+        <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Acme Inc."/>
+      </div>
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Industry</label>
+        <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+          <option class="bg-ink-900">SaaS</option><option class="bg-ink-900">E-commerce</option><option class="bg-ink-900">Fintech</option><option class="bg-ink-900">Health</option><option class="bg-ink-900">Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Business type</label>
+        <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+          <option class="bg-ink-900">B2B</option><option class="bg-ink-900">B2C</option><option class="bg-ink-900">Marketplace</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Team size</label>
+        <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+          <option class="bg-ink-900">Just me</option><option class="bg-ink-900">2–5</option><option class="bg-ink-900">6–20</option><option class="bg-ink-900">20+</option>
+        </select>
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Website <span class="text-white/25 normal-case">(optional)</span></label>
+        <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="https://"/>
+      </div>
+    </div>
+
+    <div class="flex justify-between mt-10">
+      <button onclick="show('signup')" class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">← Back</button>
+      <button onclick="show('onboarding2')" class="px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Continue →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. ONBOARDING 2 ============ -->
+<section id="onboarding2" class="screen">
+  <div class="max-w-xl mx-auto px-6 pt-20 pb-20">
+    <div class="flex items-center gap-2 mb-10 text-[11px] text-white/40">
+      <div class="step-dot bg-white text-ink-950">✓</div>
+      <div class="flex-1 h-px bg-white"></div>
+      <div class="step-dot bg-white text-ink-950">2</div>
+      <div class="flex-1 h-px bg-white/8"></div>
+      <div class="step-dot bg-white/8 text-white/40">3</div>
+      <div class="flex-1 h-px bg-white/8"></div>
+      <div class="step-dot bg-white/8 text-white/40">4</div>
+    </div>
+
+    <h2 class="text-3xl tracking-tightest font-medium">What stage are you at?</h2>
+    <p class="text-white/50 mt-2 text-sm">We'll match coaching depth to where you are today.</p>
+
+    <div class="grid md:grid-cols-2 gap-3 mt-7">
+      <label class="panel rounded-lg p-5 cursor-pointer hover:border-white/20">
+        <div class="text-[11px] uppercase tracking-wider text-white/30">01</div>
+        <div class="font-medium mt-2">Idea stage</div>
+        <div class="text-xs text-white/45 mt-1">Validating the problem</div>
+      </label>
+      <label class="panel rounded-lg p-5 cursor-pointer ring-1 ring-white/40">
+        <div class="text-[11px] uppercase tracking-wider text-white/30">02</div>
+        <div class="font-medium mt-2">MVP launched</div>
+        <div class="text-xs text-white/45 mt-1">Have a product, finding fit</div>
+      </label>
+      <label class="panel rounded-lg p-5 cursor-pointer hover:border-white/20">
+        <div class="text-[11px] uppercase tracking-wider text-white/30">03</div>
+        <div class="font-medium mt-2">Growing</div>
+        <div class="text-xs text-white/45 mt-1">Revenue is climbing</div>
+      </label>
+      <label class="panel rounded-lg p-5 cursor-pointer hover:border-white/20">
+        <div class="text-[11px] uppercase tracking-wider text-white/30">04</div>
+        <div class="font-medium mt-2">Scaling</div>
+        <div class="text-xs text-white/45 mt-1">Pouring fuel on the fire</div>
+      </label>
+    </div>
+
+    <h3 class="text-lg font-medium tracking-tight mt-10">Goals</h3>
+    <p class="text-white/50 text-sm">Pick all that apply.</p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <span class="chip cursor-pointer hover:bg-white/5">Get first users</span>
+      <span class="chip cursor-pointer bg-white text-ink-950 border-white">Increase revenue</span>
+      <span class="chip cursor-pointer hover:bg-white/5">Validate idea</span>
+      <span class="chip cursor-pointer bg-white text-ink-950 border-white">Improve product</span>
+      <span class="chip cursor-pointer hover:bg-white/5">Marketing strategy</span>
+      <span class="chip cursor-pointer hover:bg-white/5">Raise funding</span>
+    </div>
+
+    <div class="flex justify-between mt-12">
+      <button onclick="show('onboarding1')" class="px-4 py-2.5 rounded-md btn-ghost text-[13px] font-medium">← Back</button>
+      <button onclick="generateCoach()" class="px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Generate my coach →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APP SHELL ============ -->
+<div id="appShell" class="hidden min-h-screen">
+  <div class="flex">
+    <!-- SIDEBAR -->
+    <aside class="hidden md:flex flex-col w-60 min-h-screen p-3 border-r border-line">
+      <a class="flex items-center gap-2.5 px-2 py-2 mb-7">
+        <div class="w-7 h-7 rounded-md bg-white grid place-items-center">
+          <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="#08090B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+        </div>
+        <span class="font-semibold tracking-tight text-[13px]">Coachly</span>
+      </a>
+
+      <div class="text-[10px] uppercase tracking-[0.15em] text-white/30 px-3 mb-2">Workspace</div>
+      <nav class="flex flex-col gap-0.5 text-[13px]">
+        <a onclick="show('dashboard')" class="navlink active flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Overview
+        </a>
+        <a onclick="show('chat')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+          AI Coach
+        </a>
+        <a onclick="show('strategy')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+          Strategy
+        </a>
+        <a onclick="show('report')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+          Reports
+        </a>
+        <a onclick="show('empty')" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Projects
+        </a>
+      </nav>
+
+      <div class="text-[10px] uppercase tracking-[0.15em] text-white/30 px-3 mt-7 mb-2">Account</div>
+      <nav class="flex flex-col gap-0.5 text-[13px]">
+        <a class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5"/></svg>
+          Settings
+        </a>
+        <a class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          Help
+        </a>
+      </nav>
+
+      <div class="mt-auto panel rounded-lg p-3.5">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-[11px] text-white/50">Free trial</div>
+          <div class="text-[11px] text-white/40">12d left</div>
+        </div>
+        <div class="h-1 rounded-full bg-white/8 overflow-hidden">
+          <div class="h-full bg-white" style="width:14%"></div>
+        </div>
+        <button class="mt-3 w-full text-[12px] py-1.5 rounded-md btn-primary font-medium">Upgrade to Pro</button>
+      </div>
+      <div class="mt-3 flex items-center gap-2.5 px-2">
+        <div class="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-[11px] font-semibold">S</div>
+        <div class="min-w-0">
+          <div class="text-[12px] font-medium truncate">Saqlain K.</div>
+          <div class="text-[11px] text-white/40 truncate">Acme Inc.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 min-h-screen">
+      <!-- TOPBAR -->
+      <div class="flex items-center justify-between px-6 md:px-10 py-4 border-b border-line">
+        <div class="flex items-center gap-3 text-[12px] text-white/40">
+          <span>Workspace</span><span class="text-white/20">/</span><span class="text-white">Overview</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="hidden md:flex panel rounded-md px-3 py-1.5 items-center gap-2 w-72">
+            <svg class="icon icon-sm text-white/40" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input class="bg-transparent outline-none text-[13px] flex-1 placeholder:text-white/30" placeholder="Search..."/>
+            <kbd class="kbd">⌘K</kbd>
+          </div>
+          <button class="w-8 h-8 rounded-md panel grid place-items-center">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          </button>
+          <button onclick="show('landing'); document.getElementById('appShell').classList.add('hidden'); document.getElementById('publicNav').classList.remove('hidden');" class="w-8 h-8 rounded-md bg-white text-ink-950 grid place-items-center text-[12px] font-semibold">S</button>
+        </div>
+      </div>
+
+      <!-- 5. DASHBOARD -->
+      <section id="dashboard" class="screen active px-6 md:px-10 py-10">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <div class="text-[12px] text-white/40">Monday, April 8</div>
+            <h1 class="text-3xl tracking-tightest font-medium mt-1">Good morning, Saqlain.</h1>
+          </div>
+          <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New entry</button>
+        </div>
+
+        <!-- Score Cards -->
+        <div class="grid md:grid-cols-3 gap-px bg-white/5 rounded-xl overflow-hidden">
+          <div class="bg-ink-950 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Business score</div>
+              <span class="text-[11px] text-accent">+12</span>
+            </div>
+            <div class="text-5xl font-medium num mt-3 tracking-tightest"><span class="count" data-target="86">0</span><span class="text-xl text-white/30">/100</span></div>
+            <div class="mt-4 h-1 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-accent grow-bar" style="width:86%"></div></div>
+            <div class="mt-3 text-[12px] text-white/45">Excellent — keep shipping.</div>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Growth score</div>
+              <span class="text-[11px] text-accent">+4</span>
+            </div>
+            <div class="text-5xl font-medium num mt-3 tracking-tightest"><span class="count" data-target="72">0</span><span class="text-xl text-white/30">/100</span></div>
+            <div class="mt-4 h-1 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-accent/80 grow-bar" style="width:72%"></div></div>
+            <div class="mt-3 text-[12px] text-white/45">Trending up week-on-week.</div>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Runway</div>
+              <span class="text-[11px] text-white/50">stable</span>
+            </div>
+            <div class="text-5xl font-medium num mt-3 tracking-tightest"><span class="count" data-target="14">0</span><span class="text-xl text-white/30"> mo</span></div>
+            <div class="mt-4 h-1 rounded-full bg-white/8 overflow-hidden"><div class="h-full bg-white/50 grow-bar" style="width:60%"></div></div>
+            <div class="mt-3 text-[12px] text-white/45">Burn rate within target.</div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="grid lg:grid-cols-3 gap-5 mt-5">
+          <div class="lg:col-span-2 panel rounded-xl">
+            <div class="flex items-center justify-between p-5 border-b border-line">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-white/40">This week</div>
+                <div class="font-medium mt-0.5">AI recommendations</div>
+              </div>
+              <button class="chip">View all</button>
+            </div>
+            <div class="divide-hair">
+              <div class="p-5 flex gap-4 items-start">
+                <div class="text-[11px] text-white/30 num mt-1">01</div>
+                <div class="flex-1">
+                  <div class="font-medium text-[14px]">Run a Product Hunt prelaunch</div>
+                  <p class="text-[13px] text-white/50 mt-1 leading-relaxed">Activation rate hit 38% — perfect window for a launch sprint.</p>
+                </div>
+                <button class="text-[12px] px-3 py-1.5 rounded-md btn-ghost">Apply</button>
+              </div>
+              <div class="p-5 flex gap-4 items-start">
+                <div class="text-[11px] text-white/30 num mt-1">02</div>
+                <div class="flex-1">
+                  <div class="font-medium text-[14px]">Test a 20% price increase on Pro</div>
+                  <p class="text-[13px] text-white/50 mt-1 leading-relaxed">Churn is below 2%. You're under-pricing the plan.</p>
+                </div>
+                <button class="text-[12px] px-3 py-1.5 rounded-md btn-ghost">Apply</button>
+              </div>
+              <div class="p-5 flex gap-4 items-start">
+                <div class="text-[11px] text-white/30 num mt-1">03</div>
+                <div class="flex-1">
+                  <div class="font-medium text-[14px]">Publish 3 SEO posts this week</div>
+                  <p class="text-[13px] text-white/50 mt-1 leading-relaxed">Topic clusters show 8k untapped monthly volume.</p>
+                </div>
+                <button class="text-[12px] px-3 py-1.5 rounded-md btn-ghost">Apply</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel rounded-xl flex flex-col">
+            <div class="p-5 border-b border-line">
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Ask AI Coach</div>
+              <div class="font-medium mt-0.5">Need a quick answer?</div>
+            </div>
+            <div class="p-5 space-y-2 flex-1">
+              <button onclick="show('chat')" class="w-full text-left text-[13px] px-3 py-2 rounded-md hover:bg-white/[0.04] text-white/70">→ How do I get my first 100 users?</button>
+              <button onclick="show('chat')" class="w-full text-left text-[13px] px-3 py-2 rounded-md hover:bg-white/[0.04] text-white/70">→ What should I price my SaaS at?</button>
+              <button onclick="show('chat')" class="w-full text-left text-[13px] px-3 py-2 rounded-md hover:bg-white/[0.04] text-white/70">→ Is my burn rate healthy?</button>
+            </div>
+            <div class="p-3 border-t border-line">
+              <div class="panel-2 rounded-md flex items-center gap-2 p-1.5">
+                <input class="flex-1 bg-transparent outline-none text-[13px] px-2 placeholder:text-white/30" placeholder="Ask anything..."/>
+                <button onclick="show('chat')" class="px-2.5 py-1.5 rounded btn-primary text-[12px] font-medium">↵</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. CHAT -->
+      <section id="chat" class="screen px-6 md:px-10 py-10">
+        <div class="panel rounded-xl min-h-[72vh] flex flex-col">
+          <div class="flex items-center justify-between border-b border-line p-5">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-white/8 grid place-items-center">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
+              </div>
+              <div>
+                <div class="font-medium text-[14px]">AI Business Coach</div>
+                <div class="text-[11px] text-white/40 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-white"></span> Online · trained on your data</div>
+              </div>
+            </div>
+            <button class="chip">+ New chat</button>
+          </div>
+
+          <div class="flex-1 overflow-y-auto scrollbar p-6 space-y-6">
+            <div class="flex gap-3 max-w-2xl">
+              <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
+              <div>
+                <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3 text-[13px] leading-relaxed">Hi Saqlain — I've reviewed Acme Inc. Your retention is strong, but your top-of-funnel is leaking. Want me to draft a 7-day fix?</div>
+                <div class="text-[10px] text-white/30 mt-1.5">Coachly · 9:42 AM</div>
+              </div>
+            </div>
+            <div class="flex gap-3 max-w-2xl ml-auto justify-end">
+              <div>
+                <div class="bg-white text-ink-950 rounded-lg rounded-tr-sm px-4 py-3 text-[13px] font-medium leading-relaxed">Yes please. Also — should I raise prices?</div>
+                <div class="text-[10px] text-white/30 mt-1.5 text-right">You · 9:42 AM</div>
+              </div>
+              <div class="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-[11px] font-semibold shrink-0">S</div>
+            </div>
+            <div class="flex gap-3 max-w-2xl">
+              <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
+              <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3"><div class="typing"><span></span><span></span><span></span></div></div>
+            </div>
+          </div>
+
+          <div class="px-5 pb-3 flex flex-wrap gap-2">
+            <button class="chip hover:bg-white/5">How to grow my startup</button>
+            <button class="chip hover:bg-white/5">Get first 100 users</button>
+            <button class="chip hover:bg-white/5">Pricing strategy</button>
+            <button class="chip hover:bg-white/5">Marketing plan</button>
+          </div>
+
+          <div class="p-3 border-t border-line">
+            <div class="panel-2 rounded-md flex items-center gap-2 p-2">
+              <button class="px-2 text-white/40 text-lg leading-none">+</button>
+              <input class="flex-1 bg-transparent outline-none text-[13px] px-1 py-1.5 placeholder:text-white/30" placeholder="Ask your AI Business Coach..."/>
+              <button class="px-3 py-1.5 rounded-md btn-primary text-[12px] font-medium">Send →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. STRATEGY -->
+      <section id="strategy" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Strategy Generator</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Your 30-day growth plan</h2>
+          </div>
+          <div class="flex gap-2">
+            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Export</button>
+            <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">↻ Regenerate</button>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="absolute left-3 top-3 bottom-3 w-px bg-white/8"></div>
+          <div class="space-y-4">
+            <!-- Week 1 -->
+            <div class="relative pl-12">
+              <div class="absolute left-0 top-3 w-7 h-7 rounded-full bg-white text-ink-950 grid place-items-center font-medium text-[12px]">1</div>
+              <div class="panel rounded-xl p-5">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-[11px] uppercase tracking-wider text-white/40">Week 01 — Foundation</div>
+                    <div class="font-medium mt-0.5">Set the baseline</div>
+                  </div>
+                  <span class="chip">Apr 8 – Apr 14</span>
+                </div>
+                <ul class="mt-4 space-y-2.5 text-[13px] text-white/75">
+                  <li class="flex gap-2.5 items-center"><input type="checkbox" checked class="accent-white"> Define ICP & one-line value prop</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox" checked> Set up analytics + funnel events</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Launch landing page A/B test</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative pl-12">
+              <div class="absolute left-0 top-3 w-7 h-7 rounded-full bg-white/10 text-white grid place-items-center font-medium text-[12px]">2</div>
+              <div class="panel rounded-xl p-5">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-[11px] uppercase tracking-wider text-white/40">Week 02 — Audience</div>
+                    <div class="font-medium mt-0.5">Build the pipeline</div>
+                  </div>
+                  <span class="chip">Apr 15 – Apr 21</span>
+                </div>
+                <ul class="mt-4 space-y-2.5 text-[13px] text-white/75">
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Outreach to 50 ICP founders</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Publish 2 SEO articles</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Build waitlist incentive</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative pl-12">
+              <div class="absolute left-0 top-3 w-7 h-7 rounded-full bg-white/10 text-white grid place-items-center font-medium text-[12px]">3</div>
+              <div class="panel rounded-xl p-5">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-[11px] uppercase tracking-wider text-white/40">Week 03 — Launch</div>
+                    <div class="font-medium mt-0.5">Make noise</div>
+                  </div>
+                  <span class="chip">Apr 22 – Apr 28</span>
+                </div>
+                <ul class="mt-4 space-y-2.5 text-[13px] text-white/75">
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Product Hunt launch</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Founder podcast tour (3 shows)</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Email blast to waitlist</li>
+                </ul>
+              </div>
+            </div>
+            <div class="relative pl-12">
+              <div class="absolute left-0 top-3 w-7 h-7 rounded-full bg-white/10 text-white grid place-items-center font-medium text-[12px]">4</div>
+              <div class="panel rounded-xl p-5">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-[11px] uppercase tracking-wider text-white/40">Week 04 — Optimize</div>
+                    <div class="font-medium mt-0.5">Compound the wins</div>
+                  </div>
+                  <span class="chip">Apr 29 – May 5</span>
+                </div>
+                <ul class="mt-4 space-y-2.5 text-[13px] text-white/75">
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Analyze top conversion paths</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Test 20% price increase on Pro</li>
+                  <li class="flex gap-2.5 items-center"><input type="checkbox"> Plan next 30-day cycle</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. WEEKLY REPORT -->
+      <section id="report" class="screen px-6 md:px-10 py-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-white/40">Weekly AI Report</div>
+            <h2 class="text-3xl tracking-tightest font-medium mt-1">Week of Apr 1 – Apr 7</h2>
+          </div>
+          <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Download PDF</button>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-px bg-white/5 rounded-xl overflow-hidden">
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/40 flex items-center gap-2">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M7 17l5-5 5 5"/><path d="M7 12l5-5 5 5"/></svg>
+              What improved
+            </div>
+            <ul class="mt-5 space-y-3 text-[13px] text-white/75">
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Activation rate +18% week-on-week</li>
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Trial signups doubled after Twitter post</li>
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Support ticket time −34%</li>
+            </ul>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/40 flex items-center gap-2">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M7 7l5 5 5-5"/><path d="M7 12l5 5 5-5"/></svg>
+              What dropped
+            </div>
+            <ul class="mt-5 space-y-3 text-[13px] text-white/75">
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Landing bounce +6%</li>
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Pro plan conversion −2.1%</li>
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Email open rate −8%</li>
+            </ul>
+          </div>
+          <div class="bg-ink-950 p-6">
+            <div class="text-[11px] uppercase tracking-wider text-white/40 flex items-center gap-2">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              What to do next
+            </div>
+            <ul class="mt-5 space-y-3 text-[13px] text-white/75">
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Rewrite hero copy + new CTA</li>
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Send re-engagement sequence</li>
+              <li class="flex gap-2"><span class="text-white/30 num">·</span> Test pricing page layout</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel rounded-xl mt-5">
+          <div class="flex items-center justify-between p-5 border-b border-line">
+            <div>
+              <div class="text-[11px] uppercase tracking-wider text-white/40">Trend</div>
+              <div class="font-medium mt-0.5">Signups vs activations</div>
+            </div>
+            <div class="flex gap-1">
+              <span class="chip">7d</span>
+              <span class="chip bg-white text-ink-950 border-white">30d</span>
+              <span class="chip">90d</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="h-48 grid grid-cols-12 gap-2 items-end">
+              <div class="bg-white/15 rounded-sm" style="height:30%"></div>
+              <div class="bg-white/15 rounded-sm" style="height:45%"></div>
+              <div class="bg-white/20 rounded-sm" style="height:55%"></div>
+              <div class="bg-white/20 rounded-sm" style="height:35%"></div>
+              <div class="bg-white/25 rounded-sm" style="height:65%"></div>
+              <div class="bg-white/30 rounded-sm" style="height:75%"></div>
+              <div class="bg-white/30 rounded-sm" style="height:60%"></div>
+              <div class="bg-white/40 rounded-sm" style="height:50%"></div>
+              <div class="bg-white/55 rounded-sm" style="height:90%"></div>
+              <div class="bg-white/65 rounded-sm" style="height:75%"></div>
+              <div class="bg-white/85 rounded-sm" style="height:88%"></div>
+              <div class="bg-white rounded-sm" style="height:100%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. EMPTY STATE -->
+      <section id="empty" class="screen px-6 md:px-10 py-24">
+        <div class="max-w-md mx-auto text-center">
+          <div class="mx-auto w-16 h-16 rounded-2xl panel grid place-items-center">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+          </div>
+          <h2 class="text-2xl tracking-tightest font-medium mt-6">Nothing here yet</h2>
+          <p class="text-white/50 text-sm mt-2 max-w-xs mx-auto">Generate your first strategy and Coachly will surface weekly insights here.</p>
+          <button onclick="show('strategy')" class="mt-7 px-4 py-2.5 rounded-md btn-primary text-[13px] font-medium">Generate strategy →</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ 10. LOADING SCREEN ============ -->
+<div id="loading" class="fixed inset-0 bg-ink-950/95 backdrop-blur-sm z-50 hidden grid place-items-center">
+  <div class="text-center max-w-sm px-6">
+    <div class="relative mx-auto w-20 h-20">
+      <div class="absolute inset-0 rounded-full border border-white/10"></div>
+      <div class="absolute inset-0 rounded-full border-t border-white spin-slow"></div>
+      <div class="absolute inset-0 grid place-items-center">
+        <div class="w-2 h-2 rounded-full bg-white"></div>
+      </div>
+    </div>
+    <h3 class="text-xl tracking-tightest font-medium mt-8">Analyzing your business</h3>
+    <p class="text-white/50 text-[13px] mt-2" id="loadingHint">Reviewing your stage, goals, and market context.</p>
+    <div class="mt-7 h-px rounded-full bg-white/10 overflow-hidden">
+      <div id="loadBar" class="h-full bg-white" style="width:0%;transition:width .3s"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function show(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if(el) el.classList.add('active');
+
+    const inApp = ['dashboard','chat','strategy','report','empty'].includes(id);
+    document.getElementById('appShell').classList.toggle('hidden', !inApp);
+    document.getElementById('publicNav').classList.toggle('hidden', inApp);
+
+    document.querySelectorAll('.navlink').forEach(a=>a.classList.remove('active'));
+    const map = {dashboard:0, chat:1, strategy:2, report:3, empty:4};
+    if(id in map){
+      const links = document.querySelectorAll('aside nav:first-of-type .navlink');
+      if(links[map[id]]) links[map[id]].classList.add('active');
+    }
+    window.scrollTo({top:0,behavior:'instant'});
+    // re-trigger reveals/counters in newly visible screen
+    requestAnimationFrame(()=>{ rescan(); });
+  }
+
+  // === Scroll reveal observer ===
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.classList.contains('count')) animateCount(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.15, rootMargin:'0px 0px -40px 0px'});
+
+  function rescan(){
+    document.querySelectorAll('[data-reveal]:not(.in), [data-stagger]:not(.in), .grow-bar:not(.in), .count:not(.in)').forEach(el=>{
+      // only observe if visible in active screen
+      const screen = el.closest('.screen');
+      if(screen && !screen.classList.contains('active')) return;
+      io.observe(el);
+    });
+  }
+
+  function animateCount(el){
+    const target = parseFloat(el.dataset.target||'0');
+    const dur = 1100;
+    const start = performance.now();
+    const fmt = (v)=> Number.isInteger(target) ? Math.round(v) : v.toFixed(1);
+    function tick(now){
+      const p = Math.min((now-start)/dur, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = fmt(target * eased);
+      if(p<1) requestAnimationFrame(tick);
+      else el.classList.add('in');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // sticky-ish nav shadow on scroll
+  window.addEventListener('scroll', ()=>{
+    const nav = document.getElementById('publicNav');
+    if(!nav) return;
+    if(window.scrollY > 8) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  document.addEventListener('DOMContentLoaded', rescan);
+
+  function generateCoach(){
+    const overlay = document.getElementById('loading');
+    const bar = document.getElementById('loadBar');
+    const hint = document.getElementById('loadingHint');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('grid');
+    const steps = [
+      'Reviewing your stage, goals, and market context.',
+      'Scoring 14 health metrics…',
+      'Drafting your 30-day growth plan…',
+      'Personalizing recommendations…'
+    ];
+    let p = 0, i = 0;
+    bar.style.width = '0%';
+    const t = setInterval(()=>{
+      p += 8;
+      bar.style.width = Math.min(p,100)+'%';
+      if(p % 25 === 0 && i < steps.length){ hint.textContent = steps[i++]; }
+      if(p >= 100){
+        clearInterval(t);
+        setTimeout(()=>{
+          overlay.classList.add('hidden');
+          overlay.classList.remove('grid');
+          show('dashboard');
+        }, 400);
+      }
+    }, 180);
+  }
+</script>
+</body>
+</html>
