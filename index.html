@@ -310,6 +310,13 @@
     #appShell .py-10{padding-top:1.5rem !important;padding-bottom:5rem !important}
   }
 </style>
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  // --- Supabase config ---
+  const SUPABASE_URL = 'https://sbgcnwurcpuqhmmocceo.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiZ2Nud3VyY3B1cWhtbW9jY2VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ2NzksImV4cCI6MjA5MTMwMDY3OX0.HR_QdSiKMbu_BQkFap-3zsBKAJhiZAlJ5ITcXRfsaBI';
+  const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
 </head>
 <body class="min-h-screen bg-ink-950">
 
@@ -1043,19 +1050,15 @@
       <p class="text-white/50 text-sm mt-2">Create your account in under a minute.</p>
     </div>
     <form id="signupForm" class="panel rounded-xl p-7" onsubmit="return authSignup(event)" novalidate>
-      <button type="button" class="w-full panel-2 rounded-md py-2.5 flex items-center justify-center gap-2.5 text-[13px] font-medium hover:bg-white/[0.05]">
-        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5 17.4 35.5 12 30.1 12 23.5S17.4 11.5 24 11.5c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.9 5.5 29.2 3.5 24 3.5 12.9 3.5 4 12.4 4 23.5S12.9 43.5 24 43.5 44 34.6 44 23.5c0-1-.1-2-.4-3z" opacity=".9"/></svg>
-        Continue with Google
-      </button>
-      <div class="my-5 flex items-center gap-3 text-[11px] text-white/30 uppercase tracking-wider">
-        <div class="flex-1 h-px bg-white/8"></div>or<div class="flex-1 h-px bg-white/8"></div>
-      </div>
       <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
       <input id="signupEmail" name="email" type="email" autocomplete="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
       <div data-error="email" class="text-[11px] text-accent mt-1.5 hidden"></div>
       <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5 mt-4">Password</label>
-      <input id="signupPassword" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <input id="signupPassword" name="password" type="password" autocomplete="new-password" placeholder="Choose a password" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
       <div data-error="password" class="text-[11px] text-accent mt-1.5 hidden"></div>
+      <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5 mt-4">Confirm password</label>
+      <input id="signupConfirm" name="confirm" type="password" autocomplete="new-password" placeholder="Re-enter password" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+      <div data-error="confirm" class="text-[11px] text-accent mt-1.5 hidden"></div>
       <div data-error="form" class="text-[12px] text-accent mt-3 hidden"></div>
       <button type="submit" class="mt-6 w-full py-2.5 rounded-md btn-primary text-[13px] font-medium disabled:opacity-60">Create account →</button>
     </form>
@@ -1072,13 +1075,6 @@
       <p class="text-white/50 text-sm mt-2">Sign in to your Coachly workspace.</p>
     </div>
     <form id="signinForm" class="panel rounded-xl p-7" onsubmit="return authSignin(event)" novalidate>
-      <button type="button" class="w-full panel-2 rounded-md py-2.5 flex items-center justify-center gap-2.5 text-[13px] font-medium hover:bg-white/[0.05]">
-        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 35.5 24 35.5 17.4 35.5 12 30.1 12 23.5S17.4 11.5 24 11.5c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.9 5.5 29.2 3.5 24 3.5 12.9 3.5 4 12.4 4 23.5S12.9 43.5 24 43.5 44 34.6 44 23.5c0-1-.1-2-.4-3z" opacity=".9"/></svg>
-        Continue with Google
-      </button>
-      <div class="my-5 flex items-center gap-3 text-[11px] text-white/30 uppercase tracking-wider">
-        <div class="flex-1 h-px bg-white/8"></div>or<div class="flex-1 h-px bg-white/8"></div>
-      </div>
       <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Email</label>
       <input id="signinEmail" name="email" type="email" autocomplete="email" placeholder="founder@startup.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
       <div data-error="email" class="text-[11px] text-accent mt-1.5 hidden"></div>
@@ -1731,9 +1727,12 @@
           </div>
           <div class="flex gap-2">
             <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Marketplace</button>
-            <button class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New agent</button>
+            <button onclick="openAgentDrawer()" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New agent</button>
           </div>
         </div>
+
+        <!-- Custom agents -->
+        <div id="customAgentsList" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4"></div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger data-reveal>
           <!-- agent card template repeated -->
@@ -1858,7 +1857,7 @@
           </div>
 
           <!-- Add new card -->
-          <button class="rounded-xl border border-dashed border-white/12 p-5 grid place-items-center min-h-[200px] hover:border-accent hover:bg-white/[0.02] transition group">
+          <button onclick="openAgentDrawer()" class="rounded-xl border border-dashed border-white/12 p-5 grid place-items-center min-h-[200px] hover:border-accent hover:bg-white/[0.02] transition group">
             <div class="text-center">
               <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center mx-auto group-hover:bg-accent/15 group-hover:text-accent transition text-white/50">+</div>
               <div class="text-[13px] mt-3 font-medium">Create custom agent</div>
@@ -2352,7 +2351,7 @@
 </div>
 
 <!-- ============ COMMAND PALETTE ============ -->
-<div id="cmdk" class="hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-start pt-[12vh]">
+<div id="cmdk" class="hidden fixed inset-0 z-50 bg-ink-950 grid place-items-start pt-[12vh]">
   <div onclick="event.stopPropagation()" class="w-[560px] max-w-[92vw] panel rounded-xl shadow-2xl overflow-hidden">
     <div class="flex items-center gap-3 p-4 border-b border-line">
       <svg class="icon icon-sm text-white/40" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -2375,7 +2374,7 @@
 </div>
 
 <!-- ============ MODAL: CONFIRM DELETE ============ -->
-<div id="confirmDeleteModal" class="modal hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-center p-6">
+<div id="confirmDeleteModal" class="modal hidden fixed inset-0 z-50 bg-ink-950 grid place-items-center p-6">
   <div onclick="event.stopPropagation()" class="w-[440px] max-w-full panel rounded-xl p-6 shadow-2xl">
     <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center">
       <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
@@ -2391,7 +2390,7 @@
 
 <!-- ============ DRAWER: NEW DASHBOARD ENTRY ============ -->
 <div id="newEntryModal" class="modal hidden fixed inset-0 z-50">
-  <div class="absolute inset-0 bg-ink-950/60 backdrop-blur-sm"></div>
+  <div class="absolute inset-0 bg-ink-950"></div>
   <div onclick="event.stopPropagation()" class="entry-drawer absolute top-0 right-0 h-full w-[460px] max-w-full bg-ink-900 border-l border-line shadow-2xl flex flex-col">
     <div class="flex items-start justify-between p-6 border-b border-line">
       <div>
@@ -2449,8 +2448,92 @@
   </div>
 </div>
 
+<!-- ============ DRAWER: CREATE CUSTOM AGENT ============ -->
+<div id="newAgentModal" class="modal hidden fixed inset-0 z-50">
+  <div class="absolute inset-0 bg-ink-950"></div>
+  <div onclick="event.stopPropagation()" class="entry-drawer absolute top-0 right-0 h-full w-[520px] max-w-full bg-ink-900 border-l border-line shadow-2xl flex flex-col">
+    <div class="flex items-start justify-between p-6 border-b border-line">
+      <div>
+        <div class="text-[11px] uppercase tracking-wider text-white/40">New agent</div>
+        <h3 class="text-lg font-medium tracking-tight mt-1">Create a custom agent</h3>
+        <p class="text-[12px] text-white/50 mt-1">Define a specialized AI worker tailored to your business.</p>
+      </div>
+      <button onclick="closeModal('newAgentModal')" aria-label="Close" class="text-white/40 hover:text-white text-2xl leading-none">×</button>
+    </div>
+
+    <form id="newAgentForm" class="flex-1 overflow-y-auto scrollbar p-6 space-y-5" onsubmit="return saveAgent(event)" novalidate>
+      <!-- Step indicator -->
+      <div class="flex items-center gap-2 text-[11px] text-white/40">
+        <div class="step-dot bg-white text-ink-950">1</div>
+        <span>Identity</span>
+        <div class="flex-1 h-px bg-white/8"></div>
+        <div class="step-dot bg-white text-ink-950">2</div>
+        <span>Skills</span>
+        <div class="flex-1 h-px bg-white/8"></div>
+        <div class="step-dot bg-white text-ink-950">3</div>
+        <span>Personality</span>
+      </div>
+
+      <!-- Identity -->
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Agent name</label>
+        <input id="agentName" maxlength="40" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="e.g. Growth Hacker"/>
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Role</label>
+        <input id="agentRole" maxlength="60" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="e.g. Acquisition strategist"/>
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Icon</label>
+        <div id="agentIconGroup" class="grid grid-cols-6 gap-2"></div>
+      </div>
+
+      <!-- Skills -->
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Description</label>
+        <textarea id="agentDesc" rows="2" maxlength="200" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none" placeholder="What this agent does in one sentence."></textarea>
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Skills</label>
+        <div id="agentSkillsGroup" class="flex flex-wrap gap-2"></div>
+        <div class="text-[11px] text-white/30 mt-2">Tap to toggle. Add custom skills below.</div>
+        <div class="mt-2 flex gap-2">
+          <input id="agentSkillInput" placeholder="Add a skill…" class="flex-1 bg-white/[0.02] border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-white/30"/>
+          <button type="button" onclick="addCustomSkill()" class="px-3 rounded-md btn-ghost text-[12px]">Add</button>
+        </div>
+      </div>
+
+      <!-- Personality -->
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Tone</label>
+        <div id="agentToneGroup" class="grid grid-cols-3 gap-2"></div>
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Instructions <span class="text-white/25 normal-case">(optional)</span></label>
+        <textarea id="agentInstr" rows="4" maxlength="600" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none" placeholder="System prompt: how this agent should think, respond, and prioritize."></textarea>
+      </div>
+
+      <div class="flex items-center gap-2.5 pt-1">
+        <input id="agentActive" type="checkbox" checked class="accent-white"/>
+        <label for="agentActive" class="text-[13px] text-white/70">Activate immediately after creation</label>
+      </div>
+
+      <div data-error="form" class="text-[12px] text-accent hidden"></div>
+    </form>
+
+    <div class="p-6 border-t border-line flex justify-end gap-2">
+      <button type="button" onclick="closeModal('newAgentModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
+      <button type="submit" form="newAgentForm" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Create agent →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ MODAL: ADD COMPETITOR ============ -->
-<div id="addCompetitorModal" class="modal hidden fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm grid place-items-center p-6">
+<div id="addCompetitorModal" class="modal hidden fixed inset-0 z-50 bg-ink-950 grid place-items-center p-6">
   <div onclick="event.stopPropagation()" class="w-[480px] max-w-full panel rounded-xl p-6 shadow-2xl">
     <div class="text-[11px] uppercase tracking-wider text-white/40">New entry</div>
     <h3 class="text-lg font-medium tracking-tight mt-1">Add a competitor</h3>
@@ -2480,7 +2563,7 @@
 </div>
 
 <!-- ============ 10. LOADING SCREEN ============ -->
-<div id="loading" class="fixed inset-0 bg-ink-950/95 backdrop-blur-sm z-50 hidden grid place-items-center">
+<div id="loading" class="fixed inset-0 bg-ink-950 z-50 hidden grid place-items-center">
   <div class="text-center max-w-sm px-6">
     <div class="relative mx-auto w-20 h-20">
       <div class="absolute inset-0 rounded-full border border-white/10"></div>
@@ -2738,10 +2821,11 @@
 
     let acc = '';
     try{
+      const _token = await getAccessToken();
+      if(!_token) throw new Error('Please sign in to chat with Coachly.');
       const res = await fetch('/api/chat', {
         method:'POST',
-        headers:{'Content-Type':'application/json'},
-        credentials:'same-origin',
+        headers:{'Content-Type':'application/json', 'Authorization': 'Bearer ' + _token},
         body: JSON.stringify({ messages: chatState.history }),
       });
       if(res.status === 401) throw new Error('Please sign in to chat with Coachly.');
@@ -2827,16 +2911,10 @@
   }
   function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((e||'').trim()); }
 
-  async function postJSON(url, body){
-    const res = await fetch(url, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      credentials:'same-origin',
-      body: JSON.stringify(body||{}),
-    });
-    let data = null;
-    try { data = await res.json(); } catch {}
-    return { ok: res.ok, status: res.status, data: data || {} };
+  // Helper to get current Supabase access token for API calls
+  async function getAccessToken(){
+    const { data } = await _supabase.auth.getSession();
+    return data?.session?.access_token || null;
   }
 
   async function authSignup(e){
@@ -2845,27 +2923,28 @@
     clearErrors(form);
     const email = form.querySelector('#signupEmail').value.trim();
     const password = form.querySelector('#signupPassword').value;
-    let bad = false;
-    if(!email){ setError(form,'email','Email is required'); bad = true; }
-    else if(!validEmail(email)){ setError(form,'email','Enter a valid email address'); bad = true; }
-    if(bad) return false;
+    if(!email){ setError(form,'email','Email is required'); return false; }
+    if(!validEmail(email)){ setError(form,'email','Enter a valid email address'); return false; }
+    if(!password){ setError(form,'password','Password is required'); return false; }
 
     setBusy(form, true, 'Creating account…');
     try{
-      const { ok, status, data } = await postJSON('/api/auth/signup', { email, password });
-      if(!ok){
-        if(status === 405) setError(form,'form','Backend not running. Start the server with `npm start`.');
-        else if(data.errors){
-          if(data.errors.email) setError(form,'email',data.errors.email);
-          if(data.errors.password) setError(form,'password',data.errors.password);
-        } else setError(form,'form', data.error || 'Signup failed');
+      const { data, error } = await _supabase.auth.signUp({ email, password });
+      if(error){
+        setError(form,'form', error.message);
+        return false;
+      }
+      if(data.user && !data.session){
+        // Email confirmation required
+        const s = form.querySelector('[data-success="form"]');
+        if(s){ s.textContent = 'Check your email to confirm your account.'; s.classList.remove('hidden'); }
         return false;
       }
       authState.user = data.user;
       renderAuthUI();
       show('onboarding1');
     } catch(err){
-      setError(form,'form','Network error. Is the server running?');
+      setError(form,'form', err.message || 'Signup failed');
     } finally {
       setBusy(form, false);
     }
@@ -2878,17 +2957,24 @@
     clearErrors(form);
     const email = form.querySelector('#signinEmail').value.trim();
     const password = form.querySelector('#signinPassword').value;
+    if(!email){ setError(form,'email','Email is required'); return false; }
+    if(!password){ setError(form,'password','Password is required'); return false; }
 
     setBusy(form, true, 'Signing in…');
     try{
-      const { ok, data } = await postJSON('/api/auth/signin', { email, password });
-      if(ok && data && data.user){
-        authState.user = data.user;
-        renderAuthUI();
+      const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+      if(error){
+        setError(form,'form', error.message);
+        return false;
       }
-    } catch {}
-    setBusy(form, false);
-    show('dashboard');
+      authState.user = data.user;
+      renderAuthUI();
+      show('dashboard');
+    } catch(err){
+      setError(form,'form', err.message || 'Sign in failed');
+    } finally {
+      setBusy(form, false);
+    }
     return false;
   }
 
@@ -2902,10 +2988,11 @@
 
     setBusy(form, true, 'Sending…');
     try{
-      const { ok, status, data } = await postJSON('/api/auth/forgot', { email });
-      if(!ok){
-        if(status === 405) setError(form,'form','Backend not running. Start the server with `npm start`.');
-        else setError(form,'form', data.error || 'Could not send reset link');
+      const { error } = await _supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin,
+      });
+      if(error){
+        setError(form,'form', error.message);
         return false;
       }
       const s = form.querySelector('[data-success="form"]');
@@ -2913,7 +3000,7 @@
       s.classList.remove('hidden');
       form.querySelector('#forgotEmail').value = '';
     } catch(err){
-      setError(form,'form','Network error. Is the server running?');
+      setError(form,'form', err.message || 'Could not send reset link');
     } finally {
       setBusy(form, false);
     }
@@ -2921,24 +3008,29 @@
   }
 
   async function authSignout(){
-    try { await fetch('/api/auth/signout', { method:'POST', credentials:'same-origin' }); } catch {}
+    await _supabase.auth.signOut();
     authState.user = null;
     renderAuthUI();
     show('landing');
   }
 
   async function bootAuth(){
-    try{
-      const res = await fetch('/api/auth/me', { credentials:'same-origin' });
-      if(res.ok){ const data = await res.json(); authState.user = data.user || null; }
-    } catch {}
+    // Listen for auth state changes (handles token refresh, tab focus, etc.)
+    _supabase.auth.onAuthStateChange((event, session) => {
+      authState.user = session?.user || null;
+      renderAuthUI();
+    });
+    // Check existing session
+    const { data } = await _supabase.auth.getSession();
+    authState.user = data?.session?.user || null;
     renderAuthUI();
   }
 
   function renderAuthUI(){
     const u = authState.user;
-    document.querySelectorAll('[data-auth-user-email]').forEach(el=>{ el.textContent = u ? u.email : ''; });
-    document.querySelectorAll('[data-auth-user-initial]').forEach(el=>{ el.textContent = u ? (u.email[0]||'?').toUpperCase() : 'S'; });
+    const email = u?.email || '';
+    document.querySelectorAll('[data-auth-user-email]').forEach(el=>{ el.textContent = email; });
+    document.querySelectorAll('[data-auth-user-initial]').forEach(el=>{ el.textContent = email ? email[0].toUpperCase() : 'S'; });
   }
 
   document.addEventListener('DOMContentLoaded', bootAuth);
@@ -3164,6 +3256,225 @@
     });
     syncPriorityButtons();
     renderEntries();
+  });
+
+  // ====================================================================
+  // === CUSTOM AGENTS (create / list / delete) =========================
+  // ====================================================================
+  const AGENTS_KEY = 'coachly-agents';
+  const AGENT_ICONS = {
+    rocket:    '<path d="M5 19l-2 2 3-1 2-2"/><path d="M14 4l6 6-8 8H6v-6z"/><circle cx="15" cy="9" r="1.5"/>',
+    spark:     '<path d="M12 2v6M12 16v6M2 12h6M16 12h6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/>',
+    chart:     '<path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/>',
+    chat:      '<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>',
+    target:    '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+    bolt:      '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    brain:     '<path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3v1a3 3 0 0 0 3 3M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3v1a3 3 0 0 1-3 3"/>',
+    shield:    '<path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/>',
+    cube:      '<path d="M21 7L12 2 3 7v10l9 5 9-5z"/><path d="M3 7l9 5 9-5M12 12v10"/>',
+    code:      '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+    coin:      '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h5a1.5 1.5 0 0 1 0 3h-4a1.5 1.5 0 0 0 0 3h6"/>',
+    compass:   '<circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6z"/>',
+  };
+  const SKILL_OPTIONS = ['Strategy','Marketing','Sales','Product','Finance','Hiring','Operations','Analytics','Research','Copywriting','SEO','Fundraising','Customer success','Pricing'];
+  const TONE_OPTIONS = ['Direct','Friendly','Formal','Witty','Coach','Skeptical'];
+
+  let agentDraft = {
+    icon: 'rocket',
+    skills: new Set(['Strategy']),
+    tone: 'Direct',
+  };
+
+  function loadAgents(){
+    try { return JSON.parse(localStorage.getItem(AGENTS_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function saveAgentsStore(list){
+    try { localStorage.setItem(AGENTS_KEY, JSON.stringify(list)); } catch {}
+  }
+
+  function buildAgentDrawer(){
+    // icon picker
+    const iconWrap = document.getElementById('agentIconGroup');
+    if(iconWrap && !iconWrap.dataset.built){
+      iconWrap.innerHTML = Object.keys(AGENT_ICONS).map(k => `
+        <button type="button" data-icon="${k}" class="agent-icon-btn aspect-square rounded-md border border-line bg-white/[0.02] grid place-items-center text-white/60 hover:text-white hover:border-white/25">
+          <svg class="icon icon-sm" viewBox="0 0 24 24">${AGENT_ICONS[k]}</svg>
+        </button>`).join('');
+      iconWrap.querySelectorAll('.agent-icon-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{ agentDraft.icon = btn.dataset.icon; syncAgentUI(); });
+      });
+      iconWrap.dataset.built = '1';
+    }
+    // skills
+    const skillsWrap = document.getElementById('agentSkillsGroup');
+    if(skillsWrap){
+      skillsWrap.innerHTML = '';
+      const all = new Set([...SKILL_OPTIONS, ...agentDraft.skills]);
+      [...all].forEach(skill=>{
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip cursor-pointer';
+        btn.dataset.skill = skill;
+        btn.textContent = skill;
+        btn.addEventListener('click', ()=>{
+          if(agentDraft.skills.has(skill)) agentDraft.skills.delete(skill);
+          else agentDraft.skills.add(skill);
+          syncAgentUI();
+        });
+        skillsWrap.appendChild(btn);
+      });
+    }
+    // tones
+    const toneWrap = document.getElementById('agentToneGroup');
+    if(toneWrap && !toneWrap.dataset.built){
+      toneWrap.innerHTML = TONE_OPTIONS.map(t => `
+        <button type="button" data-tone="${t}" class="agent-tone-btn chip justify-center">${t}</button>`).join('');
+      toneWrap.querySelectorAll('.agent-tone-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{ agentDraft.tone = btn.dataset.tone; syncAgentUI(); });
+      });
+      toneWrap.dataset.built = '1';
+    }
+    syncAgentUI();
+  }
+
+  function syncAgentUI(){
+    document.querySelectorAll('.agent-icon-btn').forEach(btn=>{
+      const active = btn.dataset.icon === agentDraft.icon;
+      btn.classList.toggle('border-accent', active);
+      btn.classList.toggle('text-accent', active);
+      btn.classList.toggle('bg-accent/10', active);
+    });
+    document.querySelectorAll('#agentSkillsGroup .chip').forEach(btn=>{
+      const active = agentDraft.skills.has(btn.dataset.skill);
+      btn.classList.toggle('bg-white/8', active);
+      btn.classList.toggle('text-white', active);
+      btn.classList.toggle('border-white/25', active);
+    });
+    document.querySelectorAll('.agent-tone-btn').forEach(btn=>{
+      const active = btn.dataset.tone === agentDraft.tone;
+      btn.classList.toggle('bg-white/8', active);
+      btn.classList.toggle('text-white', active);
+      btn.classList.toggle('border-white/25', active);
+    });
+  }
+
+  function addCustomSkill(){
+    const input = document.getElementById('agentSkillInput');
+    const v = (input.value || '').trim();
+    if(!v) return;
+    agentDraft.skills.add(v);
+    input.value = '';
+    buildAgentDrawer();
+  }
+
+  function openAgentDrawer(){
+    agentDraft = { icon:'rocket', skills:new Set(['Strategy']), tone:'Direct' };
+    const form = document.getElementById('newAgentForm');
+    if(form){
+      form.reset();
+      form.querySelectorAll('[data-error]').forEach(el=>{el.textContent='';el.classList.add('hidden');});
+      const active = document.getElementById('agentActive');
+      if(active) active.checked = true;
+      // force-rebuild skill chips so custom skills from a previous draft don't carry over
+      const sg = document.getElementById('agentSkillsGroup');
+      if(sg) sg.innerHTML = '';
+    }
+    buildAgentDrawer();
+    openModal('newAgentModal');
+  }
+
+  function setAgentError(msg){
+    const el = document.querySelector('#newAgentForm [data-error="form"]');
+    if(!el) return;
+    if(msg){ el.textContent = msg; el.classList.remove('hidden'); }
+    else { el.textContent = ''; el.classList.add('hidden'); }
+  }
+
+  function saveAgent(e){
+    e.preventDefault();
+    setAgentError('');
+    const name = document.getElementById('agentName').value.trim();
+    const role = document.getElementById('agentRole').value.trim();
+    if(!name){ setAgentError('Agent name is required'); return false; }
+    if(!role){ setAgentError('Agent role is required'); return false; }
+    if(agentDraft.skills.size === 0){ setAgentError('Pick at least one skill'); return false; }
+
+    const agent = {
+      id: 'a_' + Math.random().toString(36).slice(2, 10),
+      name,
+      role,
+      icon: agentDraft.icon,
+      desc: document.getElementById('agentDesc').value.trim(),
+      skills: [...agentDraft.skills],
+      tone: agentDraft.tone,
+      instructions: document.getElementById('agentInstr').value.trim(),
+      active: document.getElementById('agentActive').checked,
+      runs: 0,
+      createdAt: Date.now(),
+    };
+    const list = loadAgents();
+    list.unshift(agent);
+    saveAgentsStore(list);
+    renderCustomAgents();
+    closeModal('newAgentModal');
+    return false;
+  }
+
+  function deleteAgent(id){
+    saveAgentsStore(loadAgents().filter(a => a.id !== id));
+    renderCustomAgents();
+  }
+
+  function renderCustomAgents(){
+    const list = loadAgents();
+    const wrap = document.getElementById('customAgentsList');
+    if(!wrap) return;
+    if(list.length === 0){ wrap.classList.add('hidden'); wrap.innerHTML = ''; return; }
+    wrap.classList.remove('hidden');
+    wrap.innerHTML = list.map(a => {
+      const iconSvg = AGENT_ICONS[a.icon] || AGENT_ICONS.rocket;
+      const status = a.active
+        ? '<span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>'
+        : '<span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span> Idle</span>';
+      const skills = (a.skills||[]).slice(0,3).map(s=>`<span class="chip">${escapeHtml2(s)}</span>`).join('');
+      return `
+        <div class="panel rounded-xl p-5 hover:border-white/20 transition group relative">
+          <div class="absolute top-3 right-3 flex items-center gap-1">
+            <span class="text-[10px] uppercase tracking-wider text-accent">Custom</span>
+            <button onclick="deleteAgent('${a.id}')" aria-label="Delete agent" class="text-white/40 hover:text-accent text-sm px-2 py-1 rounded hover:bg-white/5">×</button>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">${iconSvg}</svg>
+            </div>
+            <div>
+              <div class="font-medium text-[14px]">${escapeHtml2(a.name)}</div>
+              <div class="text-[11px] text-white/40">${escapeHtml2(a.role)}</div>
+            </div>
+          </div>
+          ${a.desc ? `<p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">${escapeHtml2(a.desc)}</p>` : ''}
+          <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40 flex-wrap">
+            ${status}
+            <span class="chip">${a.tone}</span>
+            ${skills}
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
+            <button onclick="openAgentDrawer()" class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    renderCustomAgents();
+    const skillInput = document.getElementById('agentSkillInput');
+    if(skillInput){
+      skillInput.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){ e.preventDefault(); addCustomSkill(); }
+      });
+    }
   });
 
   function generateCoach(){
