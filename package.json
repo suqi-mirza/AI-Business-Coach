@@ -8,8 +8,9 @@
     "dev": "node --watch server.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.40.0",
     "@supabase/supabase-js": "^2.103.0",
-    "express": "^4.19.2"
+    "dotenv": "^17.4.1",
+    "express": "^4.19.2",
+    "nodemailer": "^8.0.5"
   }
 }

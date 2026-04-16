@@ -219,9 +219,35 @@
   .icon-sm{width:14px;height:14px}
   .marquee{mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
   .ring-soft{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-  /* right-side drawer slide */
-  .entry-drawer{transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-  #newEntryModal:not(.hidden) .entry-drawer{transform:translateX(0)}
+  /* ================================================================
+     DRAWER MODALS — all popups slide from right, blurred backdrop
+     ================================================================ */
+  .modal.drawer-modal{display:block !important}
+  .modal.drawer-modal.hidden{display:none !important}
+  .drawer-overlay{
+    position:absolute;inset:0;
+    background:rgba(10,10,12,.55);
+    backdrop-filter:blur(10px) saturate(140%);
+    -webkit-backdrop-filter:blur(10px) saturate(140%);
+    opacity:0;transition:opacity .25s ease;
+  }
+  .modal.drawer-modal:not(.hidden) .drawer-overlay{opacity:1}
+  .drawer-panel{
+    position:absolute;top:0;right:0;bottom:0;
+    width:100%;max-width:640px;
+    background:#16161a;border-left:1px solid rgba(255,255,255,.06);
+    box-shadow:-24px 0 60px -12px rgba(0,0,0,.6);
+    display:flex;flex-direction:column;overflow:hidden;
+    transform:translateX(100%);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .drawer-panel.drawer-wide{max-width:880px}
+  .drawer-panel.drawer-xl{max-width:1100px}
+  .drawer-panel.drawer-sm{max-width:460px}
+  .modal.drawer-modal:not(.hidden) .drawer-panel{transform:translateX(0)}
+  @media (max-width: 640px){
+    .drawer-panel,.drawer-panel.drawer-wide,.drawer-panel.drawer-xl{max-width:100%}
+  }
 
   /* ================================================================
      RESPONSIVE — global mobile/tablet polish
@@ -1130,36 +1156,44 @@
       <div class="panel rounded-xl p-7" data-reveal="right">
         <h3 class="text-lg font-medium tracking-tight">Book your slot</h3>
         <p class="text-[12px] text-white/50 mt-1">We'll confirm by email within an hour.</p>
-        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Booked ✓ — see you then';" class="mt-6 space-y-4">
+        <form id="bookDemoForm" onsubmit="return submitBookDemo(event)" class="mt-6 space-y-4" novalidate>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Name</label>
-              <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Jane"/>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Name <span class="text-accent">*</span></label>
+              <input id="bdName" required maxlength="120" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Jane"/>
             </div>
             <div>
               <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Company</label>
-              <input class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Acme"/>
+              <input id="bdCompany" maxlength="120" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="Acme"/>
             </div>
           </div>
           <div>
-            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Work email</label>
-            <input type="email" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="you@startup.com"/>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Work email <span class="text-accent">*</span></label>
+            <input id="bdEmail" type="email" required class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="you@startup.com"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Team size</label>
+              <select id="bdTeamSize" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+                <option class="bg-ink-900">Just me</option><option class="bg-ink-900">2–5</option><option class="bg-ink-900">6–20</option><option class="bg-ink-900">20+</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Preferred time</label>
+              <select id="bdTime" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
+                <option class="bg-ink-900">Mornings (9–12 PT)</option>
+                <option class="bg-ink-900">Afternoons (12–5 PT)</option>
+                <option class="bg-ink-900">Evenings (5–8 PT)</option>
+              </select>
+            </div>
           </div>
           <div>
-            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Team size</label>
-            <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
-              <option class="bg-ink-900">Just me</option><option class="bg-ink-900">2–5</option><option class="bg-ink-900">6–20</option><option class="bg-ink-900">20+</option>
-            </select>
+            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Anything we should know? <span class="text-white/25 normal-case">(optional)</span></label>
+            <textarea id="bdMessage" rows="2" maxlength="2000" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none" placeholder="Your goal, current stack, biggest blocker…"></textarea>
           </div>
-          <div>
-            <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Preferred time</label>
-            <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
-              <option class="bg-ink-900">Mornings (9–12 PT)</option>
-              <option class="bg-ink-900">Afternoons (12–5 PT)</option>
-              <option class="bg-ink-900">Evenings (5–8 PT)</option>
-            </select>
-          </div>
-          <button type="submit" class="w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Request demo →</button>
+          <div id="bdError" class="text-[12px] text-accent hidden"></div>
+          <div id="bdSuccess" class="text-[12px] text-accent hidden flex items-start gap-2"></div>
+          <button id="bdSubmit" type="submit" class="w-full py-2.5 rounded-md btn-primary text-[13px] font-medium">Request demo →</button>
         </form>
       </div>
     </div>
@@ -1300,7 +1334,7 @@
         <a onclick="show('agents')" data-screen="agents" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
           AI Agents
-          <span class="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-accent/15 text-accent">5</span>
+          <span id="agentsBadge" class="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-accent/15 text-accent">0</span>
         </a>
         <a onclick="show('strategy')" data-screen="strategy" class="navlink flex items-center gap-2.5 px-3 py-2 rounded-md">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
@@ -1503,36 +1537,13 @@
 
       <!-- 6. CHAT -->
       <section id="chat" class="screen px-6 md:px-10 py-10">
-        <div class="panel rounded-xl min-h-[72vh] flex flex-col">
-          <div class="flex items-center justify-between border-b border-line p-5">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-white/8 grid place-items-center">
-                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
-              </div>
-              <div>
-                <div class="font-medium text-[14px]">AI Business Coach</div>
-                <div class="text-[11px] text-white/40 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-white"></span> Online · trained on your data</div>
-              </div>
-            </div>
-            <button class="chip">+ New chat</button>
+        <div class="panel rounded-xl min-h-[72vh] flex flex-col items-center justify-center text-center p-10">
+          <div class="w-14 h-14 rounded-2xl bg-white/5 grid place-items-center mx-auto mb-5">
+            <svg class="icon icon-lg text-white/30" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
           </div>
-
-          <div id="chatLog" class="flex-1 overflow-y-auto scrollbar p-6 space-y-6"></div>
-
-          <div id="chatPrompts" class="px-5 pb-3 flex flex-wrap gap-2">
-            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">How do I grow my startup?</button>
-            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">How do I get my first 100 users?</button>
-            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">Help me set pricing</button>
-            <button type="button" class="chip hover:bg-white/5" onclick="chatQuickPrompt(this)">Draft a 30-day marketing plan</button>
-          </div>
-
-          <form id="chatForm" class="p-3 border-t border-line" onsubmit="return chatSend(event)">
-            <div class="panel-2 rounded-md flex items-center gap-2 p-2">
-              <button type="button" class="px-2 text-white/40 text-lg leading-none">+</button>
-              <input id="chatInput" autocomplete="off" class="flex-1 bg-transparent outline-none text-[13px] px-1 py-1.5 placeholder:text-white/30" placeholder="Ask your AI Business Coach..."/>
-              <button id="chatSendBtn" type="submit" class="px-3 py-1.5 rounded-md btn-primary text-[12px] font-medium">Send →</button>
-            </div>
-          </form>
+          <h3 class="text-xl font-medium">Chat with your agents</h3>
+          <p class="text-[13px] text-white/50 mt-2 max-w-md">Create custom AI agents in the Agents tab, then start conversations with them here.</p>
+          <button onclick="show('agents')" class="mt-6 px-5 py-2.5 rounded-md btn-primary text-[13px] font-medium">Go to Agents →</button>
         </div>
       </section>
 
@@ -1724,146 +1735,33 @@
           <div>
             <div class="text-[11px] uppercase tracking-wider text-white/40">Agents</div>
             <h2 class="text-3xl tracking-tightest font-medium mt-1">Your AI workforce</h2>
+            <p class="text-[13px] text-white/40 mt-1">Create, manage, and deploy custom AI agents for your business.</p>
           </div>
           <div class="flex gap-2">
-            <button class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Marketplace</button>
-            <button onclick="openAgentDrawer()" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ New agent</button>
+            <button onclick="openAgentWizard()" class="px-4 py-2 rounded-md btn-primary text-[13px] font-medium">+ Create agent</button>
           </div>
         </div>
 
-        <!-- Custom agents -->
-        <div id="customAgentsList" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4"></div>
+        <!-- Loading state -->
+        <div id="agentsLoading" class="grid place-items-center py-20">
+          <div class="typing inline-flex gap-1"><span></span><span></span><span></span></div>
+          <div class="text-[12px] text-white/40 mt-3">Loading agents...</div>
+        </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger data-reveal>
-          <!-- agent card template repeated -->
-          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/></svg>
-                </div>
-                <div>
-                  <div class="font-medium text-[14px]">CEO Agent</div>
-                  <div class="text-[11px] text-white/40">Strategic operator</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+        <!-- Empty state -->
+        <div id="agentsEmpty" class="hidden">
+          <div class="panel rounded-xl p-12 text-center">
+            <div class="w-16 h-16 rounded-2xl bg-white/5 grid place-items-center mx-auto mb-5">
+              <svg class="icon icon-lg text-white/20" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
             </div>
-            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">High-level strategy, OKRs, and board-grade decision support.</p>
-            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
-              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
-              <span class="chip">142 runs</span>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
-            </div>
+            <h3 class="text-lg font-medium">No agents yet</h3>
+            <p class="text-[13px] text-white/50 mt-2 max-w-sm mx-auto">Create your first AI agent to automate tasks, generate strategies, and accelerate your business.</p>
+            <button onclick="openAgentWizard()" class="mt-6 px-5 py-2.5 rounded-md btn-primary text-[13px] font-medium">+ Create your first agent</button>
           </div>
+        </div>
 
-          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></svg>
-                </div>
-                <div>
-                  <div class="font-medium text-[14px]">Marketing Agent</div>
-                  <div class="text-[11px] text-white/40">Growth & campaigns</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
-            </div>
-            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Drafts campaigns, copy, SEO clusters and channel strategies.</p>
-            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
-              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
-              <span class="chip">316 runs</span>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
-            </div>
-          </div>
-
-          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                </div>
-                <div>
-                  <div class="font-medium text-[14px]">Product Agent</div>
-                  <div class="text-[11px] text-white/40">Discovery & specs</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
-            </div>
-            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">User research, PRDs, prioritization frameworks, ICE scoring.</p>
-            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
-              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
-              <span class="chip">89 runs</span>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
-            </div>
-          </div>
-
-          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M5 9h11a3 3 0 1 1 0 6H8a3 3 0 1 0 0 6h11"/></svg>
-                </div>
-                <div>
-                  <div class="font-medium text-[14px]">Finance Agent</div>
-                  <div class="text-[11px] text-white/40">Cash & runway</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
-            </div>
-            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Burn analysis, financial models, fundraising-ready forecasts.</p>
-            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
-              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span> Idle</span>
-              <span class="chip">22 runs</span>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
-            </div>
-          </div>
-
-          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
-                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
-                </div>
-                <div>
-                  <div class="font-medium text-[14px]">Sales Agent</div>
-                  <div class="text-[11px] text-white/40">Pipeline & close</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
-            </div>
-            <p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">Outbound playbooks, objection handling, deal-stage coaching.</p>
-            <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40">
-              <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>
-              <span class="chip">204 runs</span>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
-            </div>
-          </div>
-
-          <!-- Add new card -->
-          <button onclick="openAgentDrawer()" class="rounded-xl border border-dashed border-white/12 p-5 grid place-items-center min-h-[200px] hover:border-accent hover:bg-white/[0.02] transition group">
-            <div class="text-center">
-              <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center mx-auto group-hover:bg-accent/15 group-hover:text-accent transition text-white/50">+</div>
-              <div class="text-[13px] mt-3 font-medium">Create custom agent</div>
-              <div class="text-[11px] text-white/40 mt-1">Train one on your data</div>
-            </div>
-          </button>
+        <!-- Agent cards grid -->
+        <div id="agentsList" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         </div>
       </section>
 
@@ -1963,77 +1861,31 @@
           <div>
             <div class="text-[11px] uppercase tracking-wider text-white/40">Competitive intel</div>
             <h2 class="text-3xl tracking-tightest font-medium mt-1">Competitors</h2>
+            <p class="text-[13px] text-white/40 mt-1">Track, analyze, and compare your competitive landscape.</p>
           </div>
-          <button onclick="openModal('addCompetitorModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">+ Add competitor</button>
+          <button onclick="openAddCompetitor()" class="px-4 py-2 rounded-md btn-primary text-[13px] font-medium">+ Add competitor</button>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="panel rounded-xl p-5">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">N</div>
-                <div>
-                  <div class="font-medium text-[14px]">Notion AI</div>
-                  <div class="text-[11px] text-white/40">notion.so</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
-            </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Threat</div><div class="text-accent text-sm font-medium mt-0.5">High</div></div>
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Pricing</div><div class="text-sm font-medium mt-0.5 num">$10</div></div>
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Traffic</div><div class="text-sm font-medium mt-0.5">2.1M</div></div>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">View analysis</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Re-analyze</button>
-            </div>
-          </div>
+        <!-- Loading -->
+        <div id="compLoading" class="grid place-items-center py-20">
+          <div class="typing inline-flex gap-1"><span></span><span></span><span></span></div>
+          <div class="text-[12px] text-white/40 mt-3">Loading competitors...</div>
+        </div>
 
-          <div class="panel rounded-xl p-5">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">L</div>
-                <div>
-                  <div class="font-medium text-[14px]">Linear</div>
-                  <div class="text-[11px] text-white/40">linear.app</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
+        <!-- Empty state -->
+        <div id="compEmpty" class="hidden">
+          <div class="panel rounded-xl p-12 text-center">
+            <div class="w-16 h-16 rounded-2xl bg-white/5 grid place-items-center mx-auto mb-5">
+              <svg class="icon icon-lg text-white/20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
             </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Threat</div><div class="text-white/70 text-sm font-medium mt-0.5">Med</div></div>
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Pricing</div><div class="text-sm font-medium mt-0.5 num">$8</div></div>
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Traffic</div><div class="text-sm font-medium mt-0.5">840k</div></div>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">View analysis</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Re-analyze</button>
-            </div>
-          </div>
-
-          <div class="panel rounded-xl p-5">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">P</div>
-                <div>
-                  <div class="font-medium text-[14px]">Pitch</div>
-                  <div class="text-[11px] text-white/40">pitch.com</div>
-                </div>
-              </div>
-              <button onclick="event.stopPropagation();toggleMenu(this)" class="menu-trigger w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40">⋯</button>
-            </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Threat</div><div class="text-white/70 text-sm font-medium mt-0.5">Low</div></div>
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Pricing</div><div class="text-sm font-medium mt-0.5 num">$25</div></div>
-              <div class="panel-2 rounded-md p-2"><div class="text-[10px] text-white/40">Traffic</div><div class="text-sm font-medium mt-0.5">410k</div></div>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">View analysis</button>
-              <button class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Re-analyze</button>
-            </div>
+            <h3 class="text-lg font-medium">No competitors tracked yet</h3>
+            <p class="text-[13px] text-white/50 mt-2 max-w-sm mx-auto">Add a competitor's URL to auto-analyze their website, pricing, tech stack, and more.</p>
+            <button onclick="openAddCompetitor()" class="mt-6 px-5 py-2.5 rounded-md btn-primary text-[13px] font-medium">+ Add your first competitor</button>
           </div>
         </div>
+
+        <!-- Competitor cards grid -->
+        <div id="compList" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
       <!-- ============ INTEGRATIONS ============ -->
@@ -2374,14 +2226,25 @@
 </div>
 
 <!-- ============ MODAL: CONFIRM DELETE ============ -->
-<div id="confirmDeleteModal" class="modal hidden fixed inset-0 z-50 bg-ink-950 grid place-items-center p-6">
-  <div onclick="event.stopPropagation()" class="w-[440px] max-w-full panel rounded-xl p-6 shadow-2xl">
-    <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center">
-      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+<div id="confirmDeleteModal" class="modal drawer-modal hidden fixed inset-0 z-50">
+  <div class="drawer-overlay" onclick="closeModal('confirmDeleteModal')"></div>
+  <div onclick="event.stopPropagation()" class="drawer-panel drawer-sm">
+    <div class="flex items-start justify-between p-6 border-b border-line">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-accent/15 text-accent grid place-items-center shrink-0">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-white/40">Confirm</div>
+          <h3 class="text-lg font-medium tracking-tight mt-0.5">Delete this item?</h3>
+        </div>
+      </div>
+      <button onclick="closeModal('confirmDeleteModal')" aria-label="Close" class="text-white/40 hover:text-white text-2xl leading-none">×</button>
     </div>
-    <h3 class="text-lg font-medium tracking-tight mt-4">Delete this item?</h3>
-    <p class="text-[13px] text-white/55 mt-1.5 leading-relaxed">This action cannot be undone. The item and any related history will be permanently removed.</p>
-    <div class="flex justify-end gap-2 mt-6">
+    <div class="flex-1 overflow-y-auto p-6">
+      <p class="text-[13px] text-white/55 leading-relaxed">This action cannot be undone. The item and any related history will be permanently removed.</p>
+    </div>
+    <div class="p-6 border-t border-line flex justify-end gap-2">
       <button onclick="closeModal('confirmDeleteModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
       <button onclick="closeModal('confirmDeleteModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Delete</button>
     </div>
@@ -2389,9 +2252,9 @@
 </div>
 
 <!-- ============ DRAWER: NEW DASHBOARD ENTRY ============ -->
-<div id="newEntryModal" class="modal hidden fixed inset-0 z-50">
-  <div class="absolute inset-0 bg-ink-950"></div>
-  <div onclick="event.stopPropagation()" class="entry-drawer absolute top-0 right-0 h-full w-[460px] max-w-full bg-ink-900 border-l border-line shadow-2xl flex flex-col">
+<div id="newEntryModal" class="modal drawer-modal hidden fixed inset-0 z-50">
+  <div class="drawer-overlay" onclick="closeModal('newEntryModal')"></div>
+  <div onclick="event.stopPropagation()" class="drawer-panel drawer-sm">
     <div class="flex items-start justify-between p-6 border-b border-line">
       <div>
         <div class="text-[11px] uppercase tracking-wider text-white/40">New entry</div>
@@ -2448,116 +2311,287 @@
   </div>
 </div>
 
-<!-- ============ DRAWER: CREATE CUSTOM AGENT ============ -->
-<div id="newAgentModal" class="modal hidden fixed inset-0 z-50">
-  <div class="absolute inset-0 bg-ink-950"></div>
-  <div onclick="event.stopPropagation()" class="entry-drawer absolute top-0 right-0 h-full w-[520px] max-w-full bg-ink-900 border-l border-line shadow-2xl flex flex-col">
-    <div class="flex items-start justify-between p-6 border-b border-line">
-      <div>
-        <div class="text-[11px] uppercase tracking-wider text-white/40">New agent</div>
-        <h3 class="text-lg font-medium tracking-tight mt-1">Create a custom agent</h3>
-        <p class="text-[12px] text-white/50 mt-1">Define a specialized AI worker tailored to your business.</p>
+<!-- ============ MODAL: AGENT CHAT ============ -->
+<div id="agentChatModal" class="modal drawer-modal hidden fixed inset-0 z-50">
+  <div class="drawer-overlay" onclick="closeAgentChat()"></div>
+  <div onclick="event.stopPropagation()" class="drawer-panel drawer-wide">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-5 py-3.5 border-b border-line">
+      <div class="flex items-center gap-3 min-w-0">
+        <div id="chatAgentIcon" class="w-9 h-9 rounded-lg bg-accent/15 text-accent grid place-items-center shrink-0"></div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <div id="chatAgentName" class="font-medium text-[14px] truncate">Agent</div>
+            <span class="text-[11px] text-accent flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span> Online</span>
+          </div>
+          <div id="chatAgentRole" class="text-[11px] text-white/40 truncate">Role</div>
+        </div>
       </div>
-      <button onclick="closeModal('newAgentModal')" aria-label="Close" class="text-white/40 hover:text-white text-2xl leading-none">×</button>
+      <div class="flex items-center gap-1">
+        <button onclick="clearAgentChat()" title="Clear conversation" class="px-2.5 py-1.5 rounded-md hover:bg-white/5 text-white/50 hover:text-white text-[12px]">Clear</button>
+        <button onclick="closeAgentChat()" aria-label="Close" class="w-8 h-8 grid place-items-center rounded-md hover:bg-white/5 text-white/50 hover:text-white text-xl leading-none">×</button>
+      </div>
     </div>
 
-    <form id="newAgentForm" class="flex-1 overflow-y-auto scrollbar p-6 space-y-5" onsubmit="return saveAgent(event)" novalidate>
-      <!-- Step indicator -->
-      <div class="flex items-center gap-2 text-[11px] text-white/40">
-        <div class="step-dot bg-white text-ink-950">1</div>
-        <span>Identity</span>
-        <div class="flex-1 h-px bg-white/8"></div>
-        <div class="step-dot bg-white text-ink-950">2</div>
-        <span>Skills</span>
-        <div class="flex-1 h-px bg-white/8"></div>
-        <div class="step-dot bg-white text-ink-950">3</div>
-        <span>Personality</span>
-      </div>
+    <!-- Messages -->
+    <div id="chatMessages" class="flex-1 overflow-y-auto px-5 py-5 space-y-4"></div>
 
-      <!-- Identity -->
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Agent name</label>
-        <input id="agentName" maxlength="40" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="e.g. Growth Hacker"/>
-      </div>
+    <!-- Suggestions (shown when empty) -->
+    <div id="chatSuggestions" class="px-5 pb-2 flex flex-wrap gap-2 hidden"></div>
 
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Role</label>
-        <input id="agentRole" maxlength="60" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30" placeholder="e.g. Acquisition strategist"/>
-      </div>
+    <!-- Input -->
+    <form id="chatForm" onsubmit="sendChatMessage(event)" class="border-t border-line p-3 flex items-end gap-2">
+      <textarea id="chatInput" rows="1" placeholder="Message your agent…"
+        class="flex-1 bg-white/[0.03] border border-line rounded-lg px-3 py-2.5 text-[13.5px] focus:border-accent focus:outline-none resize-none max-h-40"></textarea>
+      <button id="chatSendBtn" type="submit" class="px-4 py-2.5 rounded-lg btn-primary text-[13px] font-medium shrink-0">Send</button>
+    </form>
+    <div class="text-[11px] text-white/30 px-5 pb-2.5">Enter to send · Shift+Enter for newline</div>
+  </div>
+</div>
 
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Icon</label>
-        <div id="agentIconGroup" class="grid grid-cols-6 gap-2"></div>
-      </div>
+<!-- ============ MODAL: CREATE AGENT WIZARD ============ -->
+<div id="agentWizardModal" class="modal drawer-modal hidden fixed inset-0 z-50">
+  <div class="drawer-overlay" onclick="closeModal('agentWizardModal')"></div>
+  <div onclick="event.stopPropagation()" class="drawer-panel drawer-xl">
 
-      <!-- Skills -->
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Description</label>
-        <textarea id="agentDesc" rows="2" maxlength="200" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none" placeholder="What this agent does in one sentence."></textarea>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-line">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-accent/15 grid place-items-center text-accent">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </div>
+        <div>
+          <h3 class="text-[15px] font-medium">Create custom agent</h3>
+          <p class="text-[11px] text-white/40">Step <span id="wizStepNum">1</span> of 4</p>
+        </div>
       </div>
+      <button onclick="closeModal('agentWizardModal')" class="text-white/40 hover:text-white text-xl leading-none w-8 h-8 grid place-items-center rounded-md hover:bg-white/5">×</button>
+    </div>
 
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Skills</label>
-        <div id="agentSkillsGroup" class="flex flex-wrap gap-2"></div>
-        <div class="text-[11px] text-white/30 mt-2">Tap to toggle. Add custom skills below.</div>
-        <div class="mt-2 flex gap-2">
-          <input id="agentSkillInput" placeholder="Add a skill…" class="flex-1 bg-white/[0.02] border border-line rounded-md px-3 py-2 text-sm outline-none focus:border-white/30"/>
-          <button type="button" onclick="addCustomSkill()" class="px-3 rounded-md btn-ghost text-[12px]">Add</button>
+    <!-- Step progress bar -->
+    <div class="px-6 pt-4 pb-2">
+      <div class="flex items-center gap-1">
+        <div id="wizBar1" class="flex-1 h-1 rounded-full bg-accent transition-all"></div>
+        <div id="wizBar2" class="flex-1 h-1 rounded-full bg-white/10 transition-all"></div>
+        <div id="wizBar3" class="flex-1 h-1 rounded-full bg-white/10 transition-all"></div>
+        <div id="wizBar4" class="flex-1 h-1 rounded-full bg-white/10 transition-all"></div>
+      </div>
+    </div>
+
+    <!-- Steps container -->
+    <div class="flex-1 overflow-y-auto scrollbar px-6 py-4">
+
+      <!-- Step 1: Identity -->
+      <div id="wizStep1" class="wiz-step">
+        <div class="max-w-lg mx-auto">
+          <h4 class="text-xl font-medium mb-1">Name & identity</h4>
+          <p class="text-[13px] text-white/50 mb-6">Give your agent a name, role, and avatar.</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Agent name <span class="text-accent">*</span></label>
+              <input id="wizName" maxlength="40" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition" placeholder="e.g. Growth Hacker"/>
+              <div data-error="name" class="text-[11px] text-accent mt-1 hidden"></div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Role <span class="text-accent">*</span></label>
+              <input id="wizRole" maxlength="60" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition" placeholder="e.g. Acquisition strategist"/>
+              <div data-error="role" class="text-[11px] text-accent mt-1 hidden"></div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Description</label>
+              <textarea id="wizDesc" rows="2" maxlength="200" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none transition" placeholder="What this agent does in one sentence."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-3">Choose an icon</label>
+              <div id="wizIconGroup" class="grid grid-cols-6 sm:grid-cols-12 gap-2"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Personality -->
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Tone</label>
-        <div id="agentToneGroup" class="grid grid-cols-3 gap-2"></div>
+      <!-- Step 2: Skills -->
+      <div id="wizStep2" class="wiz-step hidden">
+        <div class="max-w-lg mx-auto">
+          <h4 class="text-xl font-medium mb-1">Skills & capabilities</h4>
+          <p class="text-[13px] text-white/50 mb-6">Select the areas your agent specializes in. Pick at least one.</p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-3">Select skills <span class="text-accent">*</span></label>
+              <div id="wizSkillsGroup" class="flex flex-wrap gap-2"></div>
+              <div data-error="skills" class="text-[11px] text-accent mt-2 hidden"></div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Add custom skill</label>
+              <div class="flex gap-2">
+                <input id="wizSkillInput" placeholder="Type a custom skill..." class="flex-1 bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+                <button type="button" onclick="wizAddCustomSkill()" class="px-4 py-2.5 rounded-md btn-ghost text-[12px] font-medium">+ Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Instructions <span class="text-white/25 normal-case">(optional)</span></label>
-        <textarea id="agentInstr" rows="4" maxlength="600" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none" placeholder="System prompt: how this agent should think, respond, and prioritize."></textarea>
+      <!-- Step 3: Personality -->
+      <div id="wizStep3" class="wiz-step hidden">
+        <div class="max-w-lg mx-auto">
+          <h4 class="text-xl font-medium mb-1">Personality & tone</h4>
+          <p class="text-[13px] text-white/50 mb-6">How should your agent communicate?</p>
+
+          <div class="space-y-5">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-3">Communication style</label>
+              <div id="wizToneGroup" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Custom instructions <span class="text-white/25 normal-case">(optional)</span></label>
+              <textarea id="wizInstr" rows="5" maxlength="600" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none transition" placeholder="System prompt: how this agent should think, respond, and prioritize. Example: 'Always push back on assumptions. Ask for data before giving advice. Use frameworks like MECE and first principles.'"></textarea>
+              <div class="text-[11px] text-white/25 mt-1 text-right"><span id="wizInstrCount">0</span>/600</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="flex items-center gap-2.5 pt-1">
-        <input id="agentActive" type="checkbox" checked class="accent-white"/>
-        <label for="agentActive" class="text-[13px] text-white/70">Activate immediately after creation</label>
+      <!-- Step 4: Review -->
+      <div id="wizStep4" class="wiz-step hidden">
+        <div class="max-w-lg mx-auto">
+          <h4 class="text-xl font-medium mb-1">Review & create</h4>
+          <p class="text-[13px] text-white/50 mb-6">Double-check everything before deploying your agent.</p>
+
+          <div class="panel rounded-xl p-6 space-y-5">
+            <!-- Preview card -->
+            <div class="flex items-center gap-4">
+              <div id="wizPreviewIcon" class="w-14 h-14 rounded-xl bg-accent/15 grid place-items-center text-accent shrink-0"></div>
+              <div>
+                <div id="wizPreviewName" class="text-lg font-medium"></div>
+                <div id="wizPreviewRole" class="text-[13px] text-white/50"></div>
+              </div>
+            </div>
+
+            <div id="wizPreviewDesc" class="text-[13px] text-white/60 leading-relaxed"></div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-white/40 mb-2">Skills</div>
+                <div id="wizPreviewSkills" class="flex flex-wrap gap-1.5"></div>
+              </div>
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-white/40 mb-2">Tone</div>
+                <div id="wizPreviewTone" class="chip inline-flex"></div>
+              </div>
+            </div>
+
+            <div id="wizPreviewInstrWrap" class="hidden">
+              <div class="text-[11px] uppercase tracking-wider text-white/40 mb-2">Instructions</div>
+              <div id="wizPreviewInstr" class="text-[12px] text-white/50 bg-white/[0.02] rounded-md p-3 border border-line max-h-24 overflow-y-auto scrollbar"></div>
+            </div>
+
+            <div class="flex items-center gap-2.5 pt-2 border-t border-line">
+              <input id="wizActive" type="checkbox" checked class="accent-accent"/>
+              <label for="wizActive" class="text-[13px] text-white/70">Activate immediately</label>
+            </div>
+          </div>
+
+          <div data-error="save" class="text-[12px] text-accent mt-3 hidden"></div>
+        </div>
       </div>
+    </div>
 
-      <div data-error="form" class="text-[12px] text-accent hidden"></div>
-    </form>
-
-    <div class="p-6 border-t border-line flex justify-end gap-2">
-      <button type="button" onclick="closeModal('newAgentModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
-      <button type="submit" form="newAgentForm" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Create agent →</button>
+    <!-- Footer navigation -->
+    <div class="px-6 py-4 border-t border-line flex items-center justify-between">
+      <button id="wizBtnBack" type="button" onclick="wizBack()" class="px-4 py-2 rounded-md btn-ghost text-[13px] font-medium hidden">← Back</button>
+      <div class="flex-1"></div>
+      <div class="flex gap-2">
+        <button type="button" onclick="closeModal('agentWizardModal')" class="px-4 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
+        <button id="wizBtnNext" type="button" onclick="wizNext()" class="px-5 py-2 rounded-md btn-primary text-[13px] font-medium">Next →</button>
+        <button id="wizBtnCreate" type="button" onclick="wizCreate()" class="px-5 py-2 rounded-md btn-primary text-[13px] font-medium hidden">Create agent →</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ============ MODAL: ADD COMPETITOR ============ -->
-<div id="addCompetitorModal" class="modal hidden fixed inset-0 z-50 bg-ink-950 grid place-items-center p-6">
-  <div onclick="event.stopPropagation()" class="w-[480px] max-w-full panel rounded-xl p-6 shadow-2xl">
-    <div class="text-[11px] uppercase tracking-wider text-white/40">New entry</div>
-    <h3 class="text-lg font-medium tracking-tight mt-1">Add a competitor</h3>
-    <div class="space-y-4 mt-5">
+<div id="addCompetitorModal" class="modal drawer-modal hidden fixed inset-0 z-50">
+  <div class="drawer-overlay" onclick="closeModal('addCompetitorModal')"></div>
+  <div onclick="event.stopPropagation()" class="drawer-panel drawer-sm">
+    <div class="p-6 border-b border-line">
+      <div class="text-[11px] uppercase tracking-wider text-white/40">Competitive intel</div>
+      <h3 class="text-lg font-medium tracking-tight mt-1">Add a competitor</h3>
+      <p class="text-[12px] text-white/50 mt-1">Enter a URL and we'll fetch real data about the company.</p>
+    </div>
+    <form id="compAddForm" class="p-6 space-y-4" onsubmit="return compAdd(event)" novalidate>
       <div>
-        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Competitor URL</label>
-        <input placeholder="https://" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30"/>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Website URL <span class="text-accent">*</span></label>
+        <input id="compUrl" type="url" placeholder="https://competitor.com" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+        <div data-error="url" class="text-[11px] text-accent mt-1 hidden"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Name</label>
-          <input placeholder="Acme Co" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30"/>
+          <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Company name <span class="text-accent">*</span></label>
+          <input id="compName" maxlength="60" placeholder="Acme Co" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition"/>
+          <div data-error="name" class="text-[11px] text-accent mt-1 hidden"></div>
         </div>
         <div>
           <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Industry</label>
-          <select class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30">
-            <option class="bg-ink-900">SaaS</option><option class="bg-ink-900">E-commerce</option><option class="bg-ink-900">Fintech</option>
+          <select id="compIndustry" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 transition">
+            <option class="bg-ink-900" value="SaaS">SaaS</option>
+            <option class="bg-ink-900" value="E-commerce">E-commerce</option>
+            <option class="bg-ink-900" value="Fintech">Fintech</option>
+            <option class="bg-ink-900" value="AI/ML">AI / ML</option>
+            <option class="bg-ink-900" value="Marketplace">Marketplace</option>
+            <option class="bg-ink-900" value="Agency">Agency</option>
+            <option class="bg-ink-900" value="Other">Other</option>
           </select>
         </div>
       </div>
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Threat level</label>
+        <div id="compThreatGroup" class="grid grid-cols-3 gap-2">
+          <button type="button" data-threat="Low" onclick="compSetThreat('Low')" class="comp-threat-btn chip justify-center py-2 transition">Low</button>
+          <button type="button" data-threat="Medium" onclick="compSetThreat('Medium')" class="comp-threat-btn chip justify-center py-2 bg-white/8 text-white border-white/25 transition">Medium</button>
+          <button type="button" data-threat="High" onclick="compSetThreat('High')" class="comp-threat-btn chip justify-center py-2 transition">High</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-[11px] uppercase tracking-wider text-white/40 mb-1.5">Notes <span class="text-white/25 normal-case">(optional)</span></label>
+        <textarea id="compNotes" rows="2" maxlength="500" class="w-full bg-white/[0.02] border border-line rounded-md px-3 py-2.5 text-sm outline-none focus:border-white/30 resize-none transition" placeholder="What makes them a threat? Key differentiators?"></textarea>
+      </div>
+      <div data-error="form" class="text-[12px] text-accent hidden"></div>
+    </form>
+    <div class="p-6 border-t border-line flex justify-end gap-2">
+      <button type="button" onclick="closeModal('addCompetitorModal')" class="px-4 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
+      <button id="compAddBtn" type="submit" form="compAddForm" class="px-5 py-2 rounded-md btn-primary text-[13px] font-medium">Analyze & save →</button>
     </div>
-    <div class="flex justify-end gap-2 mt-6">
-      <button onclick="closeModal('addCompetitorModal')" class="px-3.5 py-2 rounded-md btn-ghost text-[13px] font-medium">Cancel</button>
-      <button onclick="closeModal('addCompetitorModal')" class="px-3.5 py-2 rounded-md btn-primary text-[13px] font-medium">Analyze →</button>
+  </div>
+</div>
+
+<!-- ============ MODAL: COMPETITOR ANALYSIS ============ -->
+<div id="compAnalysisModal" class="modal drawer-modal hidden fixed inset-0 z-50">
+  <div class="drawer-overlay" onclick="closeModal('compAnalysisModal')"></div>
+  <div onclick="event.stopPropagation()" class="drawer-panel drawer-xl">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-line">
+      <div class="flex items-center gap-3">
+        <div id="compAnalysisAvatar" class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[16px] font-semibold"></div>
+        <div>
+          <h3 id="compAnalysisName" class="text-[15px] font-medium"></h3>
+          <a id="compAnalysisUrl" href="#" target="_blank" class="text-[11px] text-accent hover:underline"></a>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="compAnalysisDeleteBtn" onclick="compDeleteFromAnalysis()" class="px-3 py-1.5 rounded-md btn-ghost text-[12px] text-accent hover:bg-accent/10">Delete</button>
+        <button onclick="closeModal('compAnalysisModal')" class="text-white/40 hover:text-white text-xl leading-none w-8 h-8 grid place-items-center rounded-md hover:bg-white/5">×</button>
+      </div>
+    </div>
+    <!-- Body -->
+    <div class="flex-1 overflow-y-auto scrollbar p-6">
+      <div id="compAnalysisBody" class="max-w-3xl mx-auto space-y-6"></div>
     </div>
   </div>
 </div>
@@ -2718,174 +2752,9 @@
   });
 
   // === AI Coach chat ===
-  const chatState = {
-    history: [],   // [{role:'user'|'assistant', content:string}]
-    streaming: false,
-  };
-
-  function chatTime(){
-    return new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
-  }
   function escapeHtml(s){
     return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
-  function renderMarkdown(s){
-    // tiny markdown: **bold**, *italic*, `code`, line breaks, bullet lists
-    let html = escapeHtml(s);
-    html = html.replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-white/10 text-[12px]">$1</code>');
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/(^|\s)\*([^*\n]+)\*/g, '$1<em>$2</em>');
-    // bullet lines
-    html = html.replace(/(?:^|\n)([-•] .+(?:\n[-•] .+)*)/g, (m, block)=>{
-      const items = block.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•]\s*/,'')+'</li>').join('');
-      return '\n<ul class="list-disc pl-5 space-y-1 my-1">'+items+'</ul>';
-    });
-    html = html.replace(/\n/g, '<br>');
-    return html;
-  }
-
-  function chatAppendUser(text){
-    const log = document.getElementById('chatLog');
-    const wrap = document.createElement('div');
-    wrap.className = 'flex gap-3 max-w-2xl ml-auto justify-end';
-    wrap.innerHTML = `
-      <div>
-        <div class="bg-white text-ink-950 rounded-lg rounded-tr-sm px-4 py-3 text-[13px] font-medium leading-relaxed">${escapeHtml(text)}</div>
-        <div class="text-[10px] text-white/30 mt-1.5 text-right">You · ${chatTime()}</div>
-      </div>
-      <div class="w-7 h-7 rounded-full bg-white/10 grid place-items-center text-[11px] font-semibold shrink-0">S</div>`;
-    log.appendChild(wrap);
-    log.scrollTop = log.scrollHeight;
-  }
-
-  function chatAppendAssistantPlaceholder(){
-    const log = document.getElementById('chatLog');
-    const wrap = document.createElement('div');
-    wrap.className = 'flex gap-3 max-w-2xl';
-    wrap.innerHTML = `
-      <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
-      <div class="min-w-0 flex-1">
-        <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3 text-[13px] leading-relaxed">
-          <span class="ai-text"></span><span class="typing inline-flex ml-1 align-middle"><span></span><span></span><span></span></span>
-        </div>
-        <div class="text-[10px] text-white/30 mt-1.5">Coachly · ${chatTime()}</div>
-      </div>`;
-    log.appendChild(wrap);
-    log.scrollTop = log.scrollHeight;
-    return wrap.querySelector('.ai-text');
-  }
-
-  function chatGreetIfEmpty(){
-    if(chatState.history.length > 0) return;
-    const log = document.getElementById('chatLog');
-    if(log.children.length > 0) return;
-    const wrap = document.createElement('div');
-    wrap.className = 'flex gap-3 max-w-2xl';
-    wrap.innerHTML = `
-      <div class="w-7 h-7 rounded-full bg-white/8 shrink-0"></div>
-      <div>
-        <div class="panel-2 rounded-lg rounded-tl-sm px-4 py-3 text-[13px] leading-relaxed">Hey — I'm Coachly, your AI Business Coach. Tell me what you're working on, where you're stuck, or pick a quick prompt below and we'll dig in.</div>
-        <div class="text-[10px] text-white/30 mt-1.5">Coachly · ${chatTime()}</div>
-      </div>`;
-    log.appendChild(wrap);
-  }
-
-  function chatQuickPrompt(btn){
-    const input = document.getElementById('chatInput');
-    input.value = btn.textContent.trim();
-    input.focus();
-  }
-
-  function chatNew(){
-    chatState.history = [];
-    document.getElementById('chatLog').innerHTML = '';
-    chatGreetIfEmpty();
-  }
-
-  async function chatSend(e){
-    if(e) e.preventDefault();
-    if(chatState.streaming) return false;
-    const input = document.getElementById('chatInput');
-    const text = (input.value || '').trim();
-    if(!text) return false;
-    input.value = '';
-
-    chatAppendUser(text);
-    chatState.history.push({ role:'user', content:text });
-
-    const target = chatAppendAssistantPlaceholder();
-    const bubble = target.parentElement;
-    const log = document.getElementById('chatLog');
-    chatState.streaming = true;
-    document.getElementById('chatSendBtn').disabled = true;
-
-    let acc = '';
-    try{
-      const _token = await getAccessToken();
-      if(!_token) throw new Error('Please sign in to chat with Coachly.');
-      const res = await fetch('/api/chat', {
-        method:'POST',
-        headers:{'Content-Type':'application/json', 'Authorization': 'Bearer ' + _token},
-        body: JSON.stringify({ messages: chatState.history }),
-      });
-      if(res.status === 401) throw new Error('Please sign in to chat with Coachly.');
-      if(res.status === 405) throw new Error('Backend not running. Open http://localhost:3000 with `npm start`.');
-      if(!res.ok || !res.body) throw new Error('Request failed ('+res.status+'). Is ANTHROPIC_API_KEY set on the server?');
-      const reader = res.body.getReader();
-      const dec = new TextDecoder();
-      let buf = '';
-      while(true){
-        const {value, done} = await reader.read();
-        if(done) break;
-        buf += dec.decode(value, {stream:true});
-        // parse SSE events separated by blank line
-        let idx;
-        while((idx = buf.indexOf('\n\n')) !== -1){
-          const raw = buf.slice(0, idx); buf = buf.slice(idx+2);
-          const lines = raw.split('\n');
-          let event='message', data='';
-          for(const ln of lines){
-            if(ln.startsWith('event:')) event = ln.slice(6).trim();
-            else if(ln.startsWith('data:')) data += ln.slice(5).trim();
-          }
-          if(!data) continue;
-          let payload; try{ payload = JSON.parse(data); }catch{ continue; }
-          if(event === 'delta' && payload.text){
-            acc += payload.text;
-            target.innerHTML = renderMarkdown(acc);
-            // remove typing dots once tokens start arriving
-            const dots = bubble.querySelector('.typing');
-            if(dots) dots.remove();
-            log.scrollTop = log.scrollHeight;
-          } else if(event === 'error'){
-            throw new Error(payload.message || 'stream error');
-          }
-        }
-      }
-      if(acc.trim()){
-        chatState.history.push({ role:'assistant', content:acc });
-      } else {
-        target.innerHTML = '<span class="text-white/50">(no response)</span>';
-      }
-    } catch(err){
-      const dots = bubble.querySelector('.typing');
-      if(dots) dots.remove();
-      target.innerHTML = '<span class="text-accent">'+escapeHtml(err.message)+'</span>';
-    } finally {
-      chatState.streaming = false;
-      document.getElementById('chatSendBtn').disabled = false;
-      input.focus();
-    }
-    return false;
-  }
-
-  // greet when chat screen first becomes active
-  document.addEventListener('DOMContentLoaded', ()=>{
-    chatGreetIfEmpty();
-    // wire "+ New chat" header button
-    const newBtn = document.querySelector('#chat .chip');
-    if(newBtn) newBtn.addEventListener('click', chatNew);
-  });
 
   // ====================================================================
   // === AUTH ===========================================================
@@ -3261,221 +3130,876 @@
   // ====================================================================
   // === CUSTOM AGENTS (create / list / delete) =========================
   // ====================================================================
-  const AGENTS_KEY = 'coachly-agents';
-  const AGENT_ICONS = {
-    rocket:    '<path d="M5 19l-2 2 3-1 2-2"/><path d="M14 4l6 6-8 8H6v-6z"/><circle cx="15" cy="9" r="1.5"/>',
-    spark:     '<path d="M12 2v6M12 16v6M2 12h6M16 12h6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/>',
-    chart:     '<path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/>',
-    chat:      '<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>',
-    target:    '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
-    bolt:      '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
-    brain:     '<path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3v1a3 3 0 0 0 3 3M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3v1a3 3 0 0 1-3 3"/>',
-    shield:    '<path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/>',
-    cube:      '<path d="M21 7L12 2 3 7v10l9 5 9-5z"/><path d="M3 7l9 5 9-5M12 12v10"/>',
-    code:      '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
-    coin:      '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h5a1.5 1.5 0 0 1 0 3h-4a1.5 1.5 0 0 0 0 3h6"/>',
-    compass:   '<circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6z"/>',
-  };
-  const SKILL_OPTIONS = ['Strategy','Marketing','Sales','Product','Finance','Hiring','Operations','Analytics','Research','Copywriting','SEO','Fundraising','Customer success','Pricing'];
-  const TONE_OPTIONS = ['Direct','Friendly','Formal','Witty','Coach','Skeptical'];
+  // ====================================================================
+  // COMPETITORS — CRUD + analysis with Supabase + real data scraping
+  // ====================================================================
+  let compThreat = 'Medium';
+  let compAnalysisId = null;
 
-  let agentDraft = {
-    icon: 'rocket',
-    skills: new Set(['Strategy']),
-    tone: 'Direct',
-  };
-
-  function loadAgents(){
-    try { return JSON.parse(localStorage.getItem(AGENTS_KEY) || '[]'); }
-    catch { return []; }
-  }
-  function saveAgentsStore(list){
-    try { localStorage.setItem(AGENTS_KEY, JSON.stringify(list)); } catch {}
-  }
-
-  function buildAgentDrawer(){
-    // icon picker
-    const iconWrap = document.getElementById('agentIconGroup');
-    if(iconWrap && !iconWrap.dataset.built){
-      iconWrap.innerHTML = Object.keys(AGENT_ICONS).map(k => `
-        <button type="button" data-icon="${k}" class="agent-icon-btn aspect-square rounded-md border border-line bg-white/[0.02] grid place-items-center text-white/60 hover:text-white hover:border-white/25">
-          <svg class="icon icon-sm" viewBox="0 0 24 24">${AGENT_ICONS[k]}</svg>
-        </button>`).join('');
-      iconWrap.querySelectorAll('.agent-icon-btn').forEach(btn=>{
-        btn.addEventListener('click', ()=>{ agentDraft.icon = btn.dataset.icon; syncAgentUI(); });
-      });
-      iconWrap.dataset.built = '1';
-    }
-    // skills
-    const skillsWrap = document.getElementById('agentSkillsGroup');
-    if(skillsWrap){
-      skillsWrap.innerHTML = '';
-      const all = new Set([...SKILL_OPTIONS, ...agentDraft.skills]);
-      [...all].forEach(skill=>{
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'chip cursor-pointer';
-        btn.dataset.skill = skill;
-        btn.textContent = skill;
-        btn.addEventListener('click', ()=>{
-          if(agentDraft.skills.has(skill)) agentDraft.skills.delete(skill);
-          else agentDraft.skills.add(skill);
-          syncAgentUI();
-        });
-        skillsWrap.appendChild(btn);
-      });
-    }
-    // tones
-    const toneWrap = document.getElementById('agentToneGroup');
-    if(toneWrap && !toneWrap.dataset.built){
-      toneWrap.innerHTML = TONE_OPTIONS.map(t => `
-        <button type="button" data-tone="${t}" class="agent-tone-btn chip justify-center">${t}</button>`).join('');
-      toneWrap.querySelectorAll('.agent-tone-btn').forEach(btn=>{
-        btn.addEventListener('click', ()=>{ agentDraft.tone = btn.dataset.tone; syncAgentUI(); });
-      });
-      toneWrap.dataset.built = '1';
-    }
-    syncAgentUI();
-  }
-
-  function syncAgentUI(){
-    document.querySelectorAll('.agent-icon-btn').forEach(btn=>{
-      const active = btn.dataset.icon === agentDraft.icon;
-      btn.classList.toggle('border-accent', active);
-      btn.classList.toggle('text-accent', active);
-      btn.classList.toggle('bg-accent/10', active);
-    });
-    document.querySelectorAll('#agentSkillsGroup .chip').forEach(btn=>{
-      const active = agentDraft.skills.has(btn.dataset.skill);
-      btn.classList.toggle('bg-white/8', active);
-      btn.classList.toggle('text-white', active);
-      btn.classList.toggle('border-white/25', active);
-    });
-    document.querySelectorAll('.agent-tone-btn').forEach(btn=>{
-      const active = btn.dataset.tone === agentDraft.tone;
-      btn.classList.toggle('bg-white/8', active);
-      btn.classList.toggle('text-white', active);
-      btn.classList.toggle('border-white/25', active);
+  function compSetThreat(level){
+    compThreat = level;
+    document.querySelectorAll('.comp-threat-btn').forEach(btn=>{
+      const a = btn.dataset.threat === level;
+      btn.classList.toggle('bg-white/8', a);
+      btn.classList.toggle('text-white', a);
+      btn.classList.toggle('border-white/25', a);
     });
   }
 
-  function addCustomSkill(){
-    const input = document.getElementById('agentSkillInput');
-    const v = (input.value || '').trim();
-    if(!v) return;
-    agentDraft.skills.add(v);
-    input.value = '';
-    buildAgentDrawer();
+  function openAddCompetitor(){
+    compThreat = 'Medium';
+    const form = document.getElementById('compAddForm');
+    if(form) form.reset();
+    document.querySelectorAll('#addCompetitorModal [data-error]').forEach(el=>{el.textContent='';el.classList.add('hidden');});
+    compSetThreat('Medium');
+    openModal('addCompetitorModal');
+    document.getElementById('compUrl')?.focus();
   }
 
-  function openAgentDrawer(){
-    agentDraft = { icon:'rocket', skills:new Set(['Strategy']), tone:'Direct' };
-    const form = document.getElementById('newAgentForm');
-    if(form){
-      form.reset();
-      form.querySelectorAll('[data-error]').forEach(el=>{el.textContent='';el.classList.add('hidden');});
-      const active = document.getElementById('agentActive');
-      if(active) active.checked = true;
-      // force-rebuild skill chips so custom skills from a previous draft don't carry over
-      const sg = document.getElementById('agentSkillsGroup');
-      if(sg) sg.innerHTML = '';
-    }
-    buildAgentDrawer();
-    openModal('newAgentModal');
-  }
-
-  function setAgentError(msg){
-    const el = document.querySelector('#newAgentForm [data-error="form"]');
+  function compSetError(field, msg){
+    const el = document.querySelector(`#addCompetitorModal [data-error="${field}"]`);
     if(!el) return;
     if(msg){ el.textContent = msg; el.classList.remove('hidden'); }
     else { el.textContent = ''; el.classList.add('hidden'); }
   }
 
-  function saveAgent(e){
-    e.preventDefault();
-    setAgentError('');
-    const name = document.getElementById('agentName').value.trim();
-    const role = document.getElementById('agentRole').value.trim();
-    if(!name){ setAgentError('Agent name is required'); return false; }
-    if(!role){ setAgentError('Agent role is required'); return false; }
-    if(agentDraft.skills.size === 0){ setAgentError('Pick at least one skill'); return false; }
+  // Fetch real metadata from a URL via server proxy
+  async function compFetchMeta(url){
+    try {
+      const token = await getAccessToken();
+      const res = await fetch('/api/scrape?url=' + encodeURIComponent(url), {
+        headers: { 'Authorization': 'Bearer ' + token },
+      });
+      if(!res.ok) return null;
+      return await res.json();
+    } catch { return null; }
+  }
 
-    const agent = {
-      id: 'a_' + Math.random().toString(36).slice(2, 10),
-      name,
-      role,
-      icon: agentDraft.icon,
-      desc: document.getElementById('agentDesc').value.trim(),
-      skills: [...agentDraft.skills],
-      tone: agentDraft.tone,
-      instructions: document.getElementById('agentInstr').value.trim(),
-      active: document.getElementById('agentActive').checked,
-      runs: 0,
-      createdAt: Date.now(),
-    };
-    const list = loadAgents();
-    list.unshift(agent);
-    saveAgentsStore(list);
-    renderCustomAgents();
-    closeModal('newAgentModal');
+  // Add competitor
+  async function compAdd(e){
+    e.preventDefault();
+    const url = document.getElementById('compUrl').value.trim();
+    const name = document.getElementById('compName').value.trim();
+    document.querySelectorAll('#addCompetitorModal [data-error]').forEach(el=>{el.textContent='';el.classList.add('hidden');});
+
+    let ok = true;
+    if(!url || !url.startsWith('http')){ compSetError('url','Enter a valid URL starting with https://'); ok=false; }
+    if(!name){ compSetError('name','Name is required'); ok=false; }
+    if(!ok) return false;
+
+    const btn = document.getElementById('compAddBtn');
+    btn.disabled = true;
+    btn.textContent = 'Analyzing...';
+
+    try{
+      const { data:{ user } } = await _supabase.auth.getUser();
+      if(!user) throw new Error('Not authenticated.');
+
+      // Fetch real site metadata
+      const meta = await compFetchMeta(url) || {};
+
+      const competitor = {
+        user_id: user.id,
+        name,
+        url,
+        industry: document.getElementById('compIndustry').value,
+        threat_level: compThreat,
+        notes: document.getElementById('compNotes').value.trim() || null,
+        description: meta.description || null,
+        pricing: meta.pricing || null,
+        traffic: meta.traffic || null,
+        tech_stack: meta.tech_stack || [],
+        features: meta.features || [],
+        strengths: meta.strengths || [],
+        weaknesses: meta.weaknesses || [],
+        social_twitter: meta.twitter || null,
+        social_linkedin: meta.linkedin || null,
+        employees: meta.employees || null,
+        founded: meta.founded || null,
+        headquarters: meta.headquarters || null,
+        funding: meta.funding || null,
+        domain_authority: meta.domain_authority || null,
+        last_analyzed_at: new Date().toISOString(),
+      };
+
+      const { error } = await _supabase.from('competitors').insert(competitor);
+      if(error) throw new Error(error.message);
+
+      closeModal('addCompetitorModal');
+      await loadAndRenderCompetitors();
+    } catch(err){
+      compSetError('form', err.message || 'Failed to add competitor');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Analyze & save →';
+    }
     return false;
   }
 
-  function deleteAgent(id){
-    saveAgentsStore(loadAgents().filter(a => a.id !== id));
-    renderCustomAgents();
+  async function compDelete(id){
+    if(!confirm('Delete this competitor?')) return;
+    await _supabase.from('competitors').delete().eq('id', id);
+    await loadAndRenderCompetitors();
   }
 
-  function renderCustomAgents(){
-    const list = loadAgents();
-    const wrap = document.getElementById('customAgentsList');
-    if(!wrap) return;
-    if(list.length === 0){ wrap.classList.add('hidden'); wrap.innerHTML = ''; return; }
-    wrap.classList.remove('hidden');
-    wrap.innerHTML = list.map(a => {
-      const iconSvg = AGENT_ICONS[a.icon] || AGENT_ICONS.rocket;
-      const status = a.active
-        ? '<span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Active</span>'
-        : '<span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span> Idle</span>';
-      const skills = (a.skills||[]).slice(0,3).map(s=>`<span class="chip">${escapeHtml2(s)}</span>`).join('');
-      return `
-        <div class="panel rounded-xl p-5 hover:border-white/20 transition group relative">
-          <div class="absolute top-3 right-3 flex items-center gap-1">
-            <span class="text-[10px] uppercase tracking-wider text-accent">Custom</span>
-            <button onclick="deleteAgent('${a.id}')" aria-label="Delete agent" class="text-white/40 hover:text-accent text-sm px-2 py-1 rounded hover:bg-white/5">×</button>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
-              <svg class="icon icon-sm" viewBox="0 0 24 24">${iconSvg}</svg>
-            </div>
-            <div>
-              <div class="font-medium text-[14px]">${escapeHtml2(a.name)}</div>
-              <div class="text-[11px] text-white/40">${escapeHtml2(a.role)}</div>
-            </div>
-          </div>
-          ${a.desc ? `<p class="text-[12.5px] text-white/55 mt-4 leading-relaxed">${escapeHtml2(a.desc)}</p>` : ''}
-          <div class="mt-4 flex items-center gap-2 text-[11px] text-white/40 flex-wrap">
-            ${status}
-            <span class="chip">${a.tone}</span>
-            ${skills}
-          </div>
-          <div class="mt-4 flex gap-2">
-            <button onclick="show('chat')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">Talk to agent</button>
-            <button onclick="openAgentDrawer()" class="px-3 py-2 rounded-md btn-ghost text-[12px] font-medium">Configure</button>
-          </div>
-        </div>`;
-    }).join('');
+  function compDeleteFromAnalysis(){
+    if(!compAnalysisId) return;
+    compDelete(compAnalysisId).then(()=> closeModal('compAnalysisModal'));
   }
 
-  document.addEventListener('DOMContentLoaded', ()=>{
-    renderCustomAgents();
-    const skillInput = document.getElementById('agentSkillInput');
-    if(skillInput){
-      skillInput.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter'){ e.preventDefault(); addCustomSkill(); }
-      });
+  // Open analysis detail view
+  function compOpenAnalysis(id){
+    compAnalysisId = id;
+    _supabase.from('competitors').select('*').eq('id', id).single().then(({ data: c, error })=>{
+      if(error || !c) return;
+      const initial = (c.name||'?')[0].toUpperCase();
+      document.getElementById('compAnalysisAvatar').textContent = initial;
+      document.getElementById('compAnalysisName').textContent = c.name;
+      const urlEl = document.getElementById('compAnalysisUrl');
+      urlEl.textContent = c.url.replace(/^https?:\/\//, '');
+      urlEl.href = c.url;
+
+      const threatColor = c.threat_level === 'High' ? 'text-accent' : c.threat_level === 'Medium' ? 'text-yellow-400' : 'text-white/60';
+      const techHtml = (c.tech_stack||[]).map(t=>`<span class="chip text-[11px]">${escapeHtml(t)}</span>`).join('') || '<span class="text-white/30 text-[12px]">Not detected</span>';
+      const featHtml = (c.features||[]).map(f=>`<li class="flex gap-2 text-[13px] text-white/70"><span class="text-white/30">•</span>${escapeHtml(f)}</li>`).join('') || '<li class="text-white/30 text-[13px]">None detected</li>';
+      const strHtml = (c.strengths||[]).map(s=>`<li class="flex gap-2 text-[13px] text-white/70"><span class="text-accent">+</span>${escapeHtml(s)}</li>`).join('') || '<li class="text-white/30 text-[13px]">—</li>';
+      const weakHtml = (c.weaknesses||[]).map(w=>`<li class="flex gap-2 text-[13px] text-white/70"><span class="text-accent">−</span>${escapeHtml(w)}</li>`).join('') || '<li class="text-white/30 text-[13px]">—</li>';
+      const analyzed = c.last_analyzed_at ? new Date(c.last_analyzed_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'Never';
+
+      document.getElementById('compAnalysisBody').innerHTML = `
+        <!-- Quick stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="panel rounded-lg p-4 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-white/40">Threat</div>
+            <div class="${threatColor} text-lg font-medium mt-1">${escapeHtml(c.threat_level||'—')}</div>
+          </div>
+          <div class="panel rounded-lg p-4 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-white/40">Pricing</div>
+            <div class="text-lg font-medium mt-1 num">${escapeHtml(c.pricing||'—')}</div>
+          </div>
+          <div class="panel rounded-lg p-4 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-white/40">Traffic</div>
+            <div class="text-lg font-medium mt-1">${escapeHtml(c.traffic||'—')}</div>
+          </div>
+          <div class="panel rounded-lg p-4 text-center">
+            <div class="text-[10px] uppercase tracking-wider text-white/40">DA</div>
+            <div class="text-lg font-medium mt-1">${c.domain_authority || '—'}</div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        ${c.description ? `
+        <div class="panel rounded-lg p-5">
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-2">About</div>
+          <p class="text-[13px] text-white/70 leading-relaxed">${escapeHtml(c.description)}</p>
+        </div>` : ''}
+
+        <!-- Company info -->
+        <div class="panel rounded-lg p-5">
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-3">Company info</div>
+          <div class="grid grid-cols-2 gap-y-3 gap-x-6 text-[13px]">
+            <div><span class="text-white/40">Industry:</span> <span class="text-white/80">${escapeHtml(c.industry||'—')}</span></div>
+            <div><span class="text-white/40">Founded:</span> <span class="text-white/80">${escapeHtml(c.founded||'—')}</span></div>
+            <div><span class="text-white/40">Employees:</span> <span class="text-white/80">${escapeHtml(c.employees||'—')}</span></div>
+            <div><span class="text-white/40">HQ:</span> <span class="text-white/80">${escapeHtml(c.headquarters||'—')}</span></div>
+            <div><span class="text-white/40">Funding:</span> <span class="text-white/80">${escapeHtml(c.funding||'—')}</span></div>
+            <div><span class="text-white/40">Analyzed:</span> <span class="text-white/80">${analyzed}</span></div>
+            ${c.social_twitter ? `<div><span class="text-white/40">Twitter:</span> <span class="text-accent">${escapeHtml(c.social_twitter)}</span></div>` : ''}
+            ${c.social_linkedin ? `<div><span class="text-white/40">LinkedIn:</span> <span class="text-accent">${escapeHtml(c.social_linkedin)}</span></div>` : ''}
+          </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="panel rounded-lg p-5">
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-3">Tech stack</div>
+          <div class="flex flex-wrap gap-2">${techHtml}</div>
+        </div>
+
+        <!-- Features -->
+        <div class="panel rounded-lg p-5">
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-3">Key features</div>
+          <ul class="space-y-1.5">${featHtml}</ul>
+        </div>
+
+        <!-- Strengths & Weaknesses -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="panel rounded-lg p-5">
+            <div class="text-[11px] uppercase tracking-wider text-accent/70 mb-3">Strengths</div>
+            <ul class="space-y-1.5">${strHtml}</ul>
+          </div>
+          <div class="panel rounded-lg p-5">
+            <div class="text-[11px] uppercase tracking-wider text-white/40 mb-3">Weaknesses</div>
+            <ul class="space-y-1.5">${weakHtml}</ul>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        ${c.notes ? `
+        <div class="panel rounded-lg p-5">
+          <div class="text-[11px] uppercase tracking-wider text-white/40 mb-2">Your notes</div>
+          <p class="text-[13px] text-white/60 leading-relaxed">${escapeHtml(c.notes)}</p>
+        </div>` : ''}
+      `;
+      openModal('compAnalysisModal');
+    });
+  }
+
+  // Render competitor cards
+  async function loadAndRenderCompetitors(){
+    const loading = document.getElementById('compLoading');
+    const empty = document.getElementById('compEmpty');
+    const grid = document.getElementById('compList');
+    loading.classList.remove('hidden');
+    empty.classList.add('hidden');
+    grid.classList.add('hidden');
+
+    try{
+      const { data: comps, error } = await _supabase
+        .from('competitors')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if(error) throw error;
+      loading.classList.add('hidden');
+
+      if(!comps || comps.length === 0){
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      grid.classList.remove('hidden');
+      grid.innerHTML = comps.map(c => {
+        const initial = (c.name||'?')[0].toUpperCase();
+        const domain = c.url.replace(/^https?:\/\//, '').replace(/\/.*/, '');
+        const threatColor = c.threat_level === 'High' ? 'text-accent' : c.threat_level === 'Medium' ? 'text-yellow-400' : 'text-white/60';
+        const techChips = (c.tech_stack||[]).slice(0,2).map(t=>`<span class="chip text-[10px]">${escapeHtml(t)}</span>`).join('');
+        return `
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition cursor-pointer" onclick="compOpenAnalysis('${c.id}')">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center text-[15px] font-semibold">${initial}</div>
+                <div>
+                  <div class="font-medium text-[14px]">${escapeHtml(c.name)}</div>
+                  <div class="text-[11px] text-white/40">${escapeHtml(domain)}</div>
+                </div>
+              </div>
+              <button onclick="event.stopPropagation();compDelete('${c.id}')" title="Delete" class="w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40 hover:text-accent text-sm">×</button>
+            </div>
+            ${c.description ? `<p class="text-[12px] text-white/45 mt-3 leading-relaxed line-clamp-2">${escapeHtml(c.description)}</p>` : ''}
+            <div class="mt-3 grid grid-cols-3 gap-2 text-center">
+              <div class="panel-2 rounded-md p-2">
+                <div class="text-[10px] text-white/40">Threat</div>
+                <div class="${threatColor} text-sm font-medium mt-0.5">${escapeHtml(c.threat_level||'—')}</div>
+              </div>
+              <div class="panel-2 rounded-md p-2">
+                <div class="text-[10px] text-white/40">Pricing</div>
+                <div class="text-sm font-medium mt-0.5 num">${escapeHtml(c.pricing||'—')}</div>
+              </div>
+              <div class="panel-2 rounded-md p-2">
+                <div class="text-[10px] text-white/40">Traffic</div>
+                <div class="text-sm font-medium mt-0.5">${escapeHtml(c.traffic||'—')}</div>
+              </div>
+            </div>
+            <div class="mt-3 flex items-center gap-2 flex-wrap">
+              <span class="chip text-[10px]">${escapeHtml(c.industry||'—')}</span>
+              ${techChips}
+            </div>
+          </div>`;
+      }).join('');
+    } catch(err){
+      loading.classList.add('hidden');
+      empty.classList.remove('hidden');
+      console.error('[competitors]', err);
     }
+  }
+
+  // Init competitors on auth
+  document.addEventListener('DOMContentLoaded', ()=>{
+    _supabase.auth.onAuthStateChange((event, session)=>{
+      if(session) loadAndRenderCompetitors();
+    });
   });
+
+  // ====================================================================
+  // AGENT WIZARD — multi-step create flow with Supabase persistence
+  // ====================================================================
+  const AGENT_ICONS = {
+    rocket:  '<path d="M5 19l-2 2 3-1 2-2"/><path d="M14 4l6 6-8 8H6v-6z"/><circle cx="15" cy="9" r="1.5"/>',
+    spark:   '<path d="M12 2v6M12 16v6M2 12h6M16 12h6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/>',
+    chart:   '<path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/>',
+    chat:    '<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V6a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>',
+    target:  '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+    bolt:    '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    brain:   '<path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3v1a3 3 0 0 0 3 3M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3v1a3 3 0 0 1-3 3"/>',
+    shield:  '<path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6z"/>',
+    cube:    '<path d="M21 7L12 2 3 7v10l9 5 9-5z"/><path d="M3 7l9 5 9-5M12 12v10"/>',
+    code:    '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+    coin:    '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h5a1.5 1.5 0 0 1 0 3h-4a1.5 1.5 0 0 0 0 3h6"/>',
+    compass: '<circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6z"/>',
+  };
+  const SKILL_OPTIONS = ['Strategy','Marketing','Sales','Product','Finance','Hiring','Operations','Analytics','Research','Copywriting','SEO','Fundraising','Customer success','Pricing'];
+  const TONE_OPTIONS = [
+    { id:'Direct',   label:'Direct',   desc:'Straight to the point' },
+    { id:'Friendly', label:'Friendly', desc:'Warm and approachable' },
+    { id:'Formal',   label:'Formal',   desc:'Professional and polished' },
+    { id:'Witty',    label:'Witty',    desc:'Clever with personality' },
+    { id:'Coach',    label:'Coach',    desc:'Supportive and guiding' },
+    { id:'Skeptical',label:'Skeptical',desc:'Challenges assumptions' },
+  ];
+
+  let wizStep = 1;
+  let wizDraft = { icon:'rocket', skills:new Set(), tone:'Direct' };
+
+  // --- Wizard navigation ---
+  function wizGoTo(step){
+    wizStep = step;
+    for(let i=1;i<=4;i++){
+      const el = document.getElementById('wizStep'+i);
+      if(el) el.classList.toggle('hidden', i !== step);
+      const bar = document.getElementById('wizBar'+i);
+      if(bar){
+        bar.classList.toggle('bg-accent', i <= step);
+        bar.classList.toggle('bg-white/10', i > step);
+      }
+    }
+    document.getElementById('wizStepNum').textContent = step;
+    document.getElementById('wizBtnBack').classList.toggle('hidden', step === 1);
+    document.getElementById('wizBtnNext').classList.toggle('hidden', step === 4);
+    document.getElementById('wizBtnCreate').classList.toggle('hidden', step !== 4);
+    // populate review on step 4
+    if(step === 4) wizPopulateReview();
+  }
+
+  function wizNext(){
+    // validate current step
+    if(wizStep === 1){
+      const name = document.getElementById('wizName').value.trim();
+      const role = document.getElementById('wizRole').value.trim();
+      let ok = true;
+      const errN = document.querySelector('#wizStep1 [data-error="name"]');
+      const errR = document.querySelector('#wizStep1 [data-error="role"]');
+      if(errN){ errN.classList.add('hidden'); errN.textContent=''; }
+      if(errR){ errR.classList.add('hidden'); errR.textContent=''; }
+      if(!name){ errN.textContent='Agent name is required'; errN.classList.remove('hidden'); ok=false; }
+      if(!role){ errR.textContent='Role is required'; errR.classList.remove('hidden'); ok=false; }
+      if(!ok) return;
+    }
+    if(wizStep === 2){
+      const errS = document.querySelector('#wizStep2 [data-error="skills"]');
+      if(errS){ errS.classList.add('hidden'); errS.textContent=''; }
+      if(wizDraft.skills.size === 0){
+        errS.textContent='Pick at least one skill';
+        errS.classList.remove('hidden');
+        return;
+      }
+    }
+    wizGoTo(Math.min(wizStep + 1, 4));
+  }
+
+  function wizBack(){
+    wizGoTo(Math.max(wizStep - 1, 1));
+  }
+
+  // --- Build pickers (run once on open) ---
+  function wizBuildUI(){
+    // Icons
+    const ig = document.getElementById('wizIconGroup');
+    ig.innerHTML = Object.keys(AGENT_ICONS).map(k => `
+      <button type="button" data-icon="${k}" class="wiz-icon-btn aspect-square rounded-lg border border-line bg-white/[0.02] grid place-items-center text-white/50 hover:text-white hover:border-white/25 transition">
+        <svg class="icon icon-sm" viewBox="0 0 24 24">${AGENT_ICONS[k]}</svg>
+      </button>`).join('');
+    ig.querySelectorAll('.wiz-icon-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ wizDraft.icon = btn.dataset.icon; wizSyncUI(); });
+    });
+
+    // Skills
+    const sg = document.getElementById('wizSkillsGroup');
+    sg.innerHTML = '';
+    const allSkills = new Set([...SKILL_OPTIONS, ...wizDraft.skills]);
+    [...allSkills].forEach(skill=>{
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip cursor-pointer text-[12px] px-3 py-1.5 transition';
+      btn.dataset.skill = skill;
+      btn.textContent = skill;
+      btn.addEventListener('click', ()=>{
+        if(wizDraft.skills.has(skill)) wizDraft.skills.delete(skill);
+        else wizDraft.skills.add(skill);
+        wizSyncUI();
+      });
+      sg.appendChild(btn);
+    });
+
+    // Tones
+    const tg = document.getElementById('wizToneGroup');
+    tg.innerHTML = TONE_OPTIONS.map(t => `
+      <button type="button" data-tone="${t.id}" class="wiz-tone-btn panel rounded-lg p-3 text-left hover:border-white/20 transition cursor-pointer">
+        <div class="font-medium text-[13px]">${t.label}</div>
+        <div class="text-[11px] text-white/40 mt-0.5">${t.desc}</div>
+      </button>`).join('');
+    tg.querySelectorAll('.wiz-tone-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ wizDraft.tone = btn.dataset.tone; wizSyncUI(); });
+    });
+
+    wizSyncUI();
+  }
+
+  function wizSyncUI(){
+    document.querySelectorAll('.wiz-icon-btn').forEach(btn=>{
+      const a = btn.dataset.icon === wizDraft.icon;
+      btn.classList.toggle('border-accent', a);
+      btn.classList.toggle('text-accent', a);
+      btn.classList.toggle('bg-accent/10', a);
+    });
+    document.querySelectorAll('#wizSkillsGroup .chip').forEach(btn=>{
+      const a = wizDraft.skills.has(btn.dataset.skill);
+      btn.classList.toggle('bg-accent/15', a);
+      btn.classList.toggle('text-accent', a);
+      btn.classList.toggle('border-accent/30', a);
+    });
+    document.querySelectorAll('.wiz-tone-btn').forEach(btn=>{
+      const a = btn.dataset.tone === wizDraft.tone;
+      btn.classList.toggle('border-accent', a);
+      btn.classList.toggle('bg-accent/5', a);
+    });
+  }
+
+  function wizAddCustomSkill(){
+    const input = document.getElementById('wizSkillInput');
+    const v = (input.value||'').trim();
+    if(!v) return;
+    wizDraft.skills.add(v);
+    input.value = '';
+    wizBuildUI();
+  }
+
+  function wizPopulateReview(){
+    const iconSvg = AGENT_ICONS[wizDraft.icon] || AGENT_ICONS.rocket;
+    document.getElementById('wizPreviewIcon').innerHTML = `<svg class="icon" viewBox="0 0 24 24">${iconSvg}</svg>`;
+    document.getElementById('wizPreviewName').textContent = document.getElementById('wizName').value.trim();
+    document.getElementById('wizPreviewRole').textContent = document.getElementById('wizRole').value.trim();
+    const desc = document.getElementById('wizDesc').value.trim();
+    const descEl = document.getElementById('wizPreviewDesc');
+    descEl.textContent = desc || 'No description provided.';
+    descEl.classList.toggle('text-white/30', !desc);
+
+    document.getElementById('wizPreviewSkills').innerHTML = [...wizDraft.skills].map(s=>`<span class="chip text-[11px]">${escapeHtml(s)}</span>`).join('');
+    document.getElementById('wizPreviewTone').textContent = wizDraft.tone;
+
+    const instr = document.getElementById('wizInstr').value.trim();
+    const instrWrap = document.getElementById('wizPreviewInstrWrap');
+    instrWrap.classList.toggle('hidden', !instr);
+    document.getElementById('wizPreviewInstr').textContent = instr;
+  }
+
+  function openAgentWizard(){
+    wizStep = 1;
+    wizDraft = { icon:'rocket', skills:new Set(), tone:'Direct' };
+    // reset form fields
+    ['wizName','wizRole','wizDesc','wizInstr','wizSkillInput'].forEach(id=>{
+      const el = document.getElementById(id); if(el) el.value = '';
+    });
+    const ac = document.getElementById('wizActive'); if(ac) ac.checked = true;
+    // clear errors
+    document.querySelectorAll('#agentWizardModal [data-error]').forEach(el=>{el.textContent='';el.classList.add('hidden');});
+    wizBuildUI();
+    wizGoTo(1);
+    openModal('agentWizardModal');
+  }
+
+  // --- Save to Supabase ---
+  async function wizCreate(){
+    const btn = document.getElementById('wizBtnCreate');
+    const errEl = document.querySelector('#wizStep4 [data-error="save"]');
+    errEl.classList.add('hidden');
+    btn.disabled = true;
+    btn.textContent = 'Creating...';
+
+    try{
+      const token = await getAccessToken();
+      if(!token) throw new Error('Please sign in first.');
+
+      const { data:{ user } } = await _supabase.auth.getUser();
+      if(!user) throw new Error('Not authenticated.');
+
+      const agent = {
+        user_id: user.id,
+        name: document.getElementById('wizName').value.trim(),
+        role: document.getElementById('wizRole').value.trim(),
+        icon: wizDraft.icon,
+        description: document.getElementById('wizDesc').value.trim() || null,
+        skills: [...wizDraft.skills],
+        tone: wizDraft.tone,
+        instructions: document.getElementById('wizInstr').value.trim() || null,
+        active: document.getElementById('wizActive').checked,
+      };
+
+      const { error } = await _supabase.from('agents').insert(agent);
+      if(error) throw new Error(error.message);
+
+      closeModal('agentWizardModal');
+      await loadAndRenderAgents();
+    } catch(err){
+      errEl.textContent = err.message || 'Failed to create agent';
+      errEl.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Create agent →';
+    }
+  }
+
+  // --- Delete from Supabase ---
+  async function deleteAgent(id){
+    if(!confirm('Delete this agent?')) return;
+    await _supabase.from('agents').delete().eq('id', id);
+    await loadAndRenderAgents();
+  }
+
+  // --- Toggle active/idle ---
+  async function toggleAgentActive(id, currentActive){
+    await _supabase.from('agents').update({ active: !currentActive }).eq('id', id);
+    await loadAndRenderAgents();
+  }
+
+  // --- Load & render agents from Supabase ---
+  async function loadAndRenderAgents(){
+    const loading = document.getElementById('agentsLoading');
+    const empty = document.getElementById('agentsEmpty');
+    const grid = document.getElementById('agentsList');
+
+    loading.classList.remove('hidden');
+    empty.classList.add('hidden');
+    grid.classList.add('hidden');
+
+    try{
+      const { data: agents, error } = await _supabase
+        .from('agents')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if(error) throw error;
+
+      // cache for chat lookup
+      window._agentsCache = agents || [];
+
+      loading.classList.add('hidden');
+
+      if(!agents || agents.length === 0){
+        empty.classList.remove('hidden');
+        // update sidebar badge
+        const badge = document.getElementById('agentsBadge');
+        if(badge) badge.textContent = '0';
+        return;
+      }
+
+      grid.classList.remove('hidden');
+      grid.innerHTML = agents.map(a => {
+        const iconSvg = AGENT_ICONS[a.icon] || AGENT_ICONS.rocket;
+        const statusDot = a.active ? 'bg-accent' : 'bg-white/30';
+        const statusLabel = a.active ? 'Active' : 'Idle';
+        const skills = (a.skills||[]).slice(0,3).map(s=>`<span class="chip text-[11px]">${escapeHtml(s)}</span>`).join('');
+        const extra = (a.skills||[]).length > 3 ? `<span class="chip text-[11px]">+${a.skills.length-3}</span>` : '';
+        return `
+          <div class="panel rounded-xl p-5 hover:border-white/20 transition group">
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent/15 grid place-items-center text-accent">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">${iconSvg}</svg>
+                </div>
+                <div>
+                  <div class="font-medium text-[14px]">${escapeHtml(a.name)}</div>
+                  <div class="text-[11px] text-white/40">${escapeHtml(a.role)}</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button onclick="toggleAgentActive('${a.id}', ${a.active})" title="${a.active ? 'Deactivate' : 'Activate'}" class="w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40 hover:text-white text-xs">${a.active ? '⏸' : '▶'}</button>
+                <button onclick="deleteAgent('${a.id}')" title="Delete" class="w-7 h-7 rounded-md hover:bg-white/5 grid place-items-center text-white/40 hover:text-accent text-sm">×</button>
+              </div>
+            </div>
+            ${a.description ? `<p class="text-[12.5px] text-white/55 mt-3 leading-relaxed">${escapeHtml(a.description)}</p>` : ''}
+            <div class="mt-3 flex items-center gap-2 text-[11px] text-white/40 flex-wrap">
+              <span class="chip"><span class="w-1.5 h-1.5 rounded-full ${statusDot}"></span> ${statusLabel}</span>
+              <span class="chip">${escapeHtml(a.tone)}</span>
+              ${skills}${extra}
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button onclick="openAgentChat('${a.id}')" class="flex-1 px-3 py-2 rounded-md btn-primary text-[12px] font-medium">💬 Chat</button>
+            </div>
+          </div>`;
+      }).join('') + `
+        <button onclick="openAgentWizard()" class="rounded-xl border border-dashed border-white/12 p-5 grid place-items-center min-h-[200px] hover:border-accent hover:bg-white/[0.02] transition group">
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-lg bg-white/5 grid place-items-center mx-auto group-hover:bg-accent/15 group-hover:text-accent transition text-white/50">+</div>
+            <div class="text-[13px] mt-3 font-medium">Create another agent</div>
+            <div class="text-[11px] text-white/40 mt-1">Build your AI workforce</div>
+          </div>
+        </button>`;
+
+      // update sidebar badge
+      const badge = document.getElementById('agentsBadge');
+      if(badge) badge.textContent = agents.length;
+
+    } catch(err){
+      loading.classList.add('hidden');
+      empty.classList.remove('hidden');
+      console.error('[agents]', err);
+    }
+  }
+
+  // Init on page load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    // load agents once auth is ready
+    _supabase.auth.onAuthStateChange((event, session) => {
+      if(session) loadAndRenderAgents();
+    });
+    // wire skill input enter key
+    const si = document.getElementById('wizSkillInput');
+    if(si) si.addEventListener('keydown', e=>{ if(e.key==='Enter'){e.preventDefault();wizAddCustomSkill();} });
+    // wire instruction char count
+    const instrEl = document.getElementById('wizInstr');
+    if(instrEl) instrEl.addEventListener('input', ()=>{
+      document.getElementById('wizInstrCount').textContent = instrEl.value.length;
+    });
+  });
+
+  // ================= AGENT CHAT =================
+  let _chatAgent = null;
+  let _chatMessages = [];
+  let _chatSending = false;
+
+  function chatStorageKey(id){ return `coachly_chat_${id}`; }
+
+  function loadChatHistory(id){
+    try {
+      const raw = localStorage.getItem(chatStorageKey(id));
+      return raw ? JSON.parse(raw) : [];
+    } catch { return []; }
+  }
+  function saveChatHistory(id, msgs){
+    try { localStorage.setItem(chatStorageKey(id), JSON.stringify(msgs.slice(-50))); } catch {}
+  }
+
+  function openAgentChat(agentId){
+    const agent = (window._agentsCache || []).find(a => a.id === agentId);
+    if(!agent){ alert('Agent not found.'); return; }
+    _chatAgent = agent;
+    _chatMessages = loadChatHistory(agent.id);
+
+    // Header
+    const iconSvg = AGENT_ICONS[agent.icon] || AGENT_ICONS.rocket;
+    document.getElementById('chatAgentIcon').innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24">${iconSvg}</svg>`;
+    document.getElementById('chatAgentName').textContent = agent.name || 'Agent';
+    document.getElementById('chatAgentRole').textContent = agent.role || '';
+
+    renderChatMessages();
+    openModal('agentChatModal');
+    setTimeout(() => document.getElementById('chatInput')?.focus(), 50);
+  }
+
+  function closeAgentChat(){
+    closeModal('agentChatModal');
+    _chatAgent = null;
+  }
+
+  function clearAgentChat(){
+    if(!_chatAgent) return;
+    if(!confirm('Clear this conversation?')) return;
+    _chatMessages = [];
+    saveChatHistory(_chatAgent.id, _chatMessages);
+    renderChatMessages();
+  }
+
+  function renderChatMessages(){
+    const box = document.getElementById('chatMessages');
+    const sugg = document.getElementById('chatSuggestions');
+    if(!box) return;
+
+    if(_chatMessages.length === 0){
+      // Empty state with suggestions
+      const a = _chatAgent || {};
+      const starters = buildStarters(a);
+      box.innerHTML = `
+        <div class="text-center py-8">
+          <div class="w-14 h-14 rounded-2xl bg-accent/15 text-accent grid place-items-center mx-auto mb-4">
+            <svg class="icon icon-lg" viewBox="0 0 24 24">${AGENT_ICONS[a.icon] || AGENT_ICONS.rocket}</svg>
+          </div>
+          <div class="font-medium text-[15px]">Chat with ${escapeHtml(a.name || 'your agent')}</div>
+          <div class="text-[12.5px] text-white/50 mt-1.5 max-w-md mx-auto">${escapeHtml(a.description || `${a.role || 'Your AI coach'} — tone: ${a.tone || 'Direct'}. Ask anything below.`)}</div>
+        </div>`;
+      sugg.classList.remove('hidden');
+      sugg.innerHTML = starters.map(s =>
+        `<button onclick="useStarter(this)" data-prompt="${escapeHtml(s)}" class="chip text-[12px] hover:border-accent hover:text-accent">${escapeHtml(s)}</button>`
+      ).join('');
+      return;
+    }
+
+    sugg.classList.add('hidden');
+    box.innerHTML = _chatMessages.map(m => renderBubble(m)).join('')
+      + (_chatSending ? renderTyping() : '');
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function renderBubble(m){
+    if(m.role === 'user'){
+      return `
+        <div class="flex justify-end">
+          <div class="max-w-[78%] bg-accent text-white rounded-2xl rounded-br-sm px-4 py-2.5 text-[13.5px] leading-relaxed whitespace-pre-wrap">${escapeHtml(m.content)}</div>
+        </div>`;
+    }
+    return `
+      <div class="flex gap-3">
+        <div class="w-8 h-8 rounded-lg bg-accent/15 text-accent grid place-items-center shrink-0 mt-0.5">
+          <svg class="icon icon-sm" viewBox="0 0 24 24">${AGENT_ICONS[_chatAgent?.icon] || AGENT_ICONS.rocket}</svg>
+        </div>
+        <div class="max-w-[78%] bg-white/5 border border-line rounded-2xl rounded-tl-sm px-4 py-2.5 text-[13.5px] leading-relaxed whitespace-pre-wrap">${formatAssistant(m.content)}</div>
+      </div>`;
+  }
+
+  function renderTyping(){
+    return `
+      <div class="flex gap-3">
+        <div class="w-8 h-8 rounded-lg bg-accent/15 text-accent grid place-items-center shrink-0 mt-0.5">
+          <svg class="icon icon-sm" viewBox="0 0 24 24">${AGENT_ICONS[_chatAgent?.icon] || AGENT_ICONS.rocket}</svg>
+        </div>
+        <div class="bg-white/5 border border-line rounded-2xl rounded-tl-sm px-4 py-3">
+          <div class="typing inline-flex gap-1"><span></span><span></span><span></span></div>
+        </div>
+      </div>`;
+  }
+
+  // Very light markdown-ish formatting for assistant replies
+  function formatAssistant(text){
+    let s = escapeHtml(text);
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/`([^`]+)`/g, '<code class="bg-white/10 px-1 rounded text-[12.5px]">$1</code>');
+    return s;
+  }
+
+  function buildStarters(a){
+    const skills = (a.skills || []);
+    const base = [];
+    if(skills.includes('Pricing Strategy') || skills.some(s=>/pric/i.test(s))) base.push('How should I price my product?');
+    if(skills.some(s=>/growth|market/i.test(s))) base.push('What growth channel should I focus on?');
+    if(skills.some(s=>/sales|funnel/i.test(s))) base.push('How do I improve my sales funnel?');
+    if(skills.some(s=>/hire|team|ops/i.test(s))) base.push('Who should I hire first?');
+    if(skills.some(s=>/product/i.test(s))) base.push('What feature should I build next?');
+    while(base.length < 3){
+      ['Give me a 30-day plan.', 'What\'s my biggest blind spot?', 'Where should I focus this week?']
+        .forEach(x=>{ if(!base.includes(x) && base.length < 3) base.push(x); });
+    }
+    return base.slice(0, 4);
+  }
+
+  function useStarter(btn){
+    const p = btn.getAttribute('data-prompt') || '';
+    const input = document.getElementById('chatInput');
+    input.value = p;
+    input.focus();
+  }
+
+  async function sendChatMessage(e){
+    if(e) e.preventDefault();
+    if(_chatSending || !_chatAgent) return;
+    const input = document.getElementById('chatInput');
+    const text = (input.value || '').trim();
+    if(!text) return;
+
+    _chatMessages.push({ role: 'user', content: text });
+    input.value = '';
+    input.style.height = 'auto';
+    _chatSending = true;
+    renderChatMessages();
+
+    try {
+      const token = await getAccessToken();
+      if(!token) throw new Error('Please sign in first.');
+
+      const r = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({
+          agent: {
+            name: _chatAgent.name, role: _chatAgent.role, tone: _chatAgent.tone,
+            skills: _chatAgent.skills, instructions: _chatAgent.instructions, description: _chatAgent.description,
+          },
+          messages: _chatMessages.slice(-20),
+        }),
+      });
+      const data = await r.json();
+      if(!r.ok) throw new Error(data.error || 'Chat request failed');
+
+      _chatMessages.push({ role: 'assistant', content: data.reply || '…' });
+      saveChatHistory(_chatAgent.id, _chatMessages);
+    } catch(err){
+      _chatMessages.push({ role: 'assistant', content: `⚠️ ${err.message || 'Something went wrong.'}` });
+    } finally {
+      _chatSending = false;
+      renderChatMessages();
+    }
+  }
+
+  // Wire chat input: Enter to send, Shift+Enter newline, auto-resize
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('chatInput');
+    if(!input) return;
+    input.addEventListener('keydown', e => {
+      if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendChatMessage(); }
+    });
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+    });
+  });
+
+  // ================= BOOK A DEMO =================
+  async function submitBookDemo(e){
+    e.preventDefault();
+    const btn = document.getElementById('bdSubmit');
+    const errEl = document.getElementById('bdError');
+    const okEl = document.getElementById('bdSuccess');
+
+    errEl.classList.add('hidden');
+    okEl.classList.add('hidden');
+
+    const name = document.getElementById('bdName').value.trim();
+    const company = document.getElementById('bdCompany').value.trim();
+    const email = document.getElementById('bdEmail').value.trim();
+    const teamSize = document.getElementById('bdTeamSize').value;
+    const preferredTime = document.getElementById('bdTime').value;
+    const message = document.getElementById('bdMessage').value.trim();
+
+    if(!name){ showBdError('Please enter your name.'); return false; }
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showBdError('Please enter a valid email.'); return false; }
+
+    btn.disabled = true;
+    const originalLabel = btn.textContent;
+    btn.textContent = 'Sending…';
+
+    try {
+      const r = await fetch('/api/book-demo', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ name, company, email, teamSize, preferredTime, message }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if(!r.ok) throw new Error(data.error || 'Booking failed. Please try again.');
+
+      okEl.innerHTML = '<span class="text-accent">✓</span> <span>Booked — we\'ll email you within an hour.</span>';
+      okEl.classList.remove('hidden');
+      btn.textContent = 'Booked ✓';
+      document.getElementById('bookDemoForm').reset();
+    } catch(err) {
+      showBdError(err.message || 'Something went wrong.');
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+    return false;
+
+    function showBdError(msg){
+      errEl.textContent = msg;
+      errEl.classList.remove('hidden');
+    }
+  }
 
   function generateCoach(){
     const overlay = document.getElementById('loading');
